@@ -106,21 +106,17 @@ public class AlbumServiceTests {
     }
 
     @Test
-    @DisplayName("Throws an ItemNotFoundException for an invalid Id")
+    @DisplayName("Throws an ItemNotFoundException for an invalid ID")
     void testGetAlbumByIdForInvalidId(){
         // Arrange
         Long invalidID = 1L;
-        ItemNotFoundException itemNotFoundException = new ItemNotFoundException(
-                String.format("Album with the id '%s' cannot be found", invalidID)
-        );
 
         when(albumRepository.findById(1L)).thenReturn(Optional.empty());
 
-        // Act
-        Album actualResult = albumServiceImpl.getAlbumById(1L);
-
-        // Assert
-        assertThat(actualResult).isEqualTo(itemNotFoundException);
+        // Act & Assert
+        assertThatExceptionOfType(ItemNotFoundException.class)
+                .isThrownBy(() ->{
+                   Album actualResult = albumServiceImpl.getAlbumById(invalidID);
+                }).withMessageMatching("Album with the id '\\d+' cannot be found");
     }
-
 }
