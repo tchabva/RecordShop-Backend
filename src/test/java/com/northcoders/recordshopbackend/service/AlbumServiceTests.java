@@ -76,4 +76,30 @@ public class AlbumServiceTests {
         assertThat(actualResult).isEqualTo(albums);
     }
 
+    @Test
+    @DisplayName("Returns album ")
+    void testGetAlbumById(){
+        // Arrange
+        Album timeless = Album.builder()
+                .title("Timeless")
+                .artist(Artist.builder()
+                        .artistName("Davido")
+                        .build())
+                .genre(Genre.AFROBEATS)
+                .releaseDate(Date.valueOf("2023-01-12"))
+                .stock(Stock.builder()
+                        .quantityInStock(4)
+                        .build())
+                .build();
+
+        when(albumRepository.findById(2L).isPresent());
+        when(albumRepository.findById(2L).get()).thenReturn(timeless);
+
+        // Act
+       Album actualResult = albumServiceImpl.getAlbumById(2L);
+
+        // Assert
+        assertThat(actualResult).isEqualTo(timeless);
+    }
+
 }
