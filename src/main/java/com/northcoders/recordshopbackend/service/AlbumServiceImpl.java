@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AlbumServiceImpl implements AlbumService{
@@ -25,9 +26,18 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
-    public List<AlbumDTO> getAllInStockAlbums(List<Album> albums) {
+    public List<AlbumDTO> createListOfAlbumDTOs(List<Album> albums) {
+        return albums
+                .stream()
+                .map(this::createAlbumDTO)
+                .toList();
+    }
+
+    @Override
+    public List<AlbumDTO> getAllInStockAlbumDTOs(List<AlbumDTO> albumDTOs) {
         return List.of();
     }
+
 
     @Override
     public Album getAlbumById(Long albumId) {
