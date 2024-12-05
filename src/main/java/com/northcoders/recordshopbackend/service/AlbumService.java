@@ -12,7 +12,7 @@ public interface AlbumService {
     List<AlbumDTO> getAllInStockAlbumDTOs(List<AlbumDTO> albumDTOs);
     Album getAlbumById(Long albumId);
     AlbumDTO createAlbumDTO (Album album);
-    Album addNewAlbum(Album album);
+    Album addNewAlbum(AlbumDTO albumDTO);
     Album updateAlbumStockById(Long albumId);
     String deleteAlbumById(Long albumId);
 }
