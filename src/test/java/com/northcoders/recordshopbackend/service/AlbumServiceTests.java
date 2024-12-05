@@ -99,7 +99,10 @@ public class AlbumServiceTests {
        Album actualResult = albumServiceImpl.getAlbumById(2L);
 
         // Assert
-        assertThat(actualResult).isEqualTo(timeless);
+        assertThat(actualResult.getTitle()).isEqualTo(timeless.getTitle());
+        assertThat(actualResult.getArtist()).isEqualTo(timeless.getArtist());
+        assertThat(actualResult.getReleaseDate()).isEqualTo(timeless.getReleaseDate());
+
     }
 
 }
