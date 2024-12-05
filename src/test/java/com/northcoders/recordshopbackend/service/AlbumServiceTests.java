@@ -1,11 +1,12 @@
 package com.northcoders.recordshopbackend.service;
 
+import com.northcoders.recordshopbackend.dto.AlbumDTO;
 import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.model.Stock;
 import com.northcoders.recordshopbackend.model.enums.Genre;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
-import com.northcoders.recordshopbackend.service.exception.ItemNotFoundException;
+import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -119,4 +120,40 @@ public class AlbumServiceTests {
                    Album actualResult = albumServiceImpl.getAlbumById(invalidID);
                 }).withMessageMatching("Album with the id '\\d+' cannot be found");
     }
+
+    @Test
+    @DisplayName("Returns album when a valid AlbumDTO is supplied")
+    void testCreatesAnAlbumFromAnAlbumDTO(){
+
+        // Arrange
+        AlbumDTO goodTimeDTO = AlbumDTO.builder()
+                .title("A Good Time")
+                .artist("Marie Dahlstrom")
+                .genre(Genre.RNB)
+                .releaseDate(Date.valueOf("2023-06-07"))
+                .stock(4)
+                .build();
+
+        Album aGoodTime = Album.builder()
+                .title("A Good Time")
+                .artist(Artist.builder()
+                        .artistName("Marie Dahlstrom")
+                        .build())
+                .genre(Genre.RNB)
+                .releaseDate(Date.valueOf("2023-06-07"))
+                .stock(Stock.builder()
+                        .quantityInStock(4)
+                        .build())
+                .build();
+
+        // Act
+        AlbumDTO actualResult = albumServiceImpl.createAlbumDTO(aGoodTime);
+
+        // Assert
+        assertThat(actualResult).isInstanceOf(AlbumDTO.class);
+        assertThat(actualResult.getArtist()).isEqualTo("Marie Dahlstrom");
+        assertThat(actualResult.getReleaseDate()).isEqualTo("2023-06-07");
+    }
+
+
 }
