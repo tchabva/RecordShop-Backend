@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface AlbumService {
     List<Album> getAllAlbums();
-    List<AlbumDTO> getAllInStockAlbums(List<Album> albums);
+    List<AlbumDTO> createListOfAlbumDTOs(List<Album> albums);
+    List<AlbumDTO> getAllInStockAlbumDTOs(List<AlbumDTO> albumDTOs);
     Album getAlbumById(Long albumId);
     AlbumDTO createAlbumDTO (Album album);
     Album addNewAlbum(Album album);
