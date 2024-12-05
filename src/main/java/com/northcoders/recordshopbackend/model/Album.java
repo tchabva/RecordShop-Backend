@@ -1,5 +1,6 @@
 package com.northcoders.recordshopbackend.model;
 
+import com.northcoders.recordshopbackend.model.enums.Genre;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
