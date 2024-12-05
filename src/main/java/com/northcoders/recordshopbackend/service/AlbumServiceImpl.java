@@ -1,10 +1,9 @@
 package com.northcoders.recordshopbackend.service;
 
+import com.northcoders.recordshopbackend.dto.AlbumDTO;
 import com.northcoders.recordshopbackend.model.Album;
-import com.northcoders.recordshopbackend.model.dto.GetAlbumDTO;
-import com.northcoders.recordshopbackend.model.dto.PostAlbumDTO;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
-import com.northcoders.recordshopbackend.service.exception.ItemNotFoundException;
+import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +25,11 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
+    public List<AlbumDTO> getAllInStockAlbums(List<Album> albums) {
+        return List.of();
+    }
+
+    @Override
     public Album getAlbumById(Long albumId) {
 
         if (albumRepository.findById(albumId).isPresent()){
@@ -36,14 +40,18 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
+    // Album to DTO mapper
     @Override
-    public GetAlbumDTO createAlbumDTO(Album album) {
-        return null;
-    }
+    public AlbumDTO createAlbumDTO(Album album) {
 
-    @Override
-    public Album createAlbum(PostAlbumDTO postAlbumDTO) {
-        return null;
+        return AlbumDTO.builder()
+                .id(album.getId())
+                .title(album.getTitle())
+                .artist(album.getArtist().getArtistName())
+                .genre(album.getGenre())
+                .releaseDate(album.getReleaseDate())
+                .stock(album.getStock().getQuantityInStock())
+                .build();
     }
 
     @Override
