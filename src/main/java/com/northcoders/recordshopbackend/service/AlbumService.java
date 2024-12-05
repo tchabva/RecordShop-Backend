@@ -9,9 +9,10 @@ import java.util.List;
 
 public interface AlbumService {
     List<Album> getAllAlbums();
+    List<GetAlbumDTO> getAllInStockAlbums(List<Album> albums);
     Album getAlbumById(Long albumId);
     GetAlbumDTO createAlbumDTO (Album album);
-    Album createAlbum(PostAlbumDTO postAlbumDTO);
+    Album convertDTOtoAlbum(PostAlbumDTO postAlbumDTO);
     Album addNewAlbum(Album album);
     Album updateAlbumStockById(Long albumId);
     String deleteAlbumById(Long albumId);
