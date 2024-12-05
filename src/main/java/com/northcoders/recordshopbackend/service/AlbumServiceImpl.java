@@ -2,6 +2,7 @@ package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
+import com.northcoders.recordshopbackend.service.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public class AlbumServiceImpl implements AlbumService{
 
     @Autowired
-    AlbumRepository albumRepository;
+    private AlbumRepository albumRepository;
 
     @Override
     public List<Album> getAllAlbums() {
@@ -27,9 +28,10 @@ public class AlbumServiceImpl implements AlbumService{
 
         if (albumRepository.findById(albumId).isPresent()){
             return albumRepository.findById(albumId).get();
+        } else{
+            throw new ItemNotFoundException(String.format("Album with the id '%s' cannot be found", albumId)
+            );
         }
-
-        return null;
     }
 
     @Override
