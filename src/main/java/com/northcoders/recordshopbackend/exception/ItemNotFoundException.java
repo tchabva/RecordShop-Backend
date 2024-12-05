@@ -1,4 +1,4 @@
-package com.northcoders.recordshopbackend.service.exception;
+package com.northcoders.recordshopbackend.exception;
 
 public class ItemNotFoundException extends RuntimeException {
     public ItemNotFoundException(String message) {
