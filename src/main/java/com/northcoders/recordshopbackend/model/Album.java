@@ -18,12 +18,16 @@ public class Album {
     @Column(nullable = false)
     private String title;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "artist_id")
     private Artist artist;
 
+    @Column
     private Genre genre;
 
     @Column(name = "release_date")
     private Date releaseDate;
 
+    @OneToOne
     private Stock stock;
 }
