@@ -1,6 +1,8 @@
 package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.model.Album;
+import com.northcoders.recordshopbackend.model.dto.GetAlbumDTO;
+import com.northcoders.recordshopbackend.model.dto.PostAlbumDTO;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
 import com.northcoders.recordshopbackend.service.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,16 @@ public class AlbumServiceImpl implements AlbumService{
             throw new ItemNotFoundException(String.format("Album with the id '%s' cannot be found", albumId)
             );
         }
+    }
+
+    @Override
+    public GetAlbumDTO createAlbumDTO(Album album) {
+        return null;
+    }
+
+    @Override
+    public Album createAlbum(PostAlbumDTO postAlbumDTO) {
+        return null;
     }
 
     @Override
