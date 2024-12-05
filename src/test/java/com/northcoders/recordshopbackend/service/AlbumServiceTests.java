@@ -155,5 +155,55 @@ public class AlbumServiceTests {
         assertThat(actualResult.getReleaseDate()).isEqualTo("2023-06-07");
     }
 
+    @Test
+    @DisplayName("Returns a list of AlbumDTO from a list of Albums")
+    void testGetListOfAlbumDTOs(){
+
+        // Arrange
+        List<Album> albums = List.of(
+                Album.builder()
+                        .title("Timeless")
+                        .artist(Artist.builder()
+                                .artistName("Davido")
+                                .build())
+                        .genre(Genre.AFROBEATS)
+                        .releaseDate(Date.valueOf("2023-01-12"))
+                        .stock(Stock.builder()
+                                .quantityInStock(4)
+                                .build())
+                        .build(),
+                Album.builder()
+                        .title("A Good Time")
+                        .artist(Artist.builder()
+                                .artistName("Marie Dahlstrom")
+                                .build())
+                        .genre(Genre.RNB)
+                        .releaseDate(Date.valueOf("2023-06-07"))
+                        .stock(Stock.builder()
+                                .quantityInStock(4)
+                                .build())
+                        .build(),
+                Album.builder()
+                        .title("GNX")
+                        .artist(Artist.builder()
+                                .artistName("Kendrick Lamar")
+                                .build())
+                        .genre(Genre.RNB)
+                        .releaseDate(Date.valueOf("2024-11-22"))
+                        .stock(Stock.builder()
+                                .quantityInStock(4)
+                                .build())
+                        .build()
+        );
+
+        // Act
+        List<AlbumDTO> actualResult = albumServiceImpl.createListOfAlbumDTOs(albums);
+
+        // Assert
+        assertThat(actualResult).hasSize(3);
+        assertThat(actualResult.getFirst()).isInstanceOf(AlbumDTO.class);
+        assertThat(actualResult.get(1)).isInstanceOf(AlbumDTO.class);
+        assertThat(actualResult.getLast()).isInstanceOf(AlbumDTO.class);
+    }
 
 }
