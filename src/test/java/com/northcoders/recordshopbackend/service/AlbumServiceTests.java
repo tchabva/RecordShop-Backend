@@ -5,6 +5,7 @@ import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.model.Stock;
 import com.northcoders.recordshopbackend.model.enums.Genre;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
+import com.northcoders.recordshopbackend.service.exception.ItemNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,7 +16,7 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @DataJpaTest
@@ -78,7 +79,7 @@ public class AlbumServiceTests {
     }
 
     @Test
-    @DisplayName("Returns album ")
+    @DisplayName("Returns album when a valid Id is supplied")
     void testGetAlbumById(){
         // Arrange
         Album timeless = Album.builder()
@@ -96,13 +97,30 @@ public class AlbumServiceTests {
         when(albumRepository.findById(2L)).thenReturn(Optional.of(timeless));
 
         // Act
-       Album actualResult = albumServiceImpl.getAlbumById(2L);
+        Album actualResult = albumServiceImpl.getAlbumById(2L);
 
         // Assert
         assertThat(actualResult.getTitle()).isEqualTo(timeless.getTitle());
         assertThat(actualResult.getArtist()).isEqualTo(timeless.getArtist());
         assertThat(actualResult.getReleaseDate()).isEqualTo(timeless.getReleaseDate());
+    }
 
+    @Test
+    @DisplayName("Throws an ItemNotFoundException for an invalid Id")
+    void testGetAlbumByIdForInvalidId(){
+        // Arrange
+        Long invalidID = 1L;
+        ItemNotFoundException itemNotFoundException = new ItemNotFoundException(
+                String.format("Album with the id '%s' cannot be found", invalidID)
+        );
+
+        when(albumRepository.findById(1L)).thenReturn(Optional.empty());
+
+        // Act
+        Album actualResult = albumServiceImpl.getAlbumById(1L);
+
+        // Assert
+        assertThat(actualResult).isEqualTo(itemNotFoundException);
     }
 
 }
