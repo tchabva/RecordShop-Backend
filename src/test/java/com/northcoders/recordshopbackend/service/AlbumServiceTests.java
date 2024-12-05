@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -92,8 +93,7 @@ public class AlbumServiceTests {
                         .build())
                 .build();
 
-        when(albumRepository.findById(2L).isPresent());
-        when(albumRepository.findById(2L).get()).thenReturn(timeless);
+        when(albumRepository.findById(2L)).thenReturn(Optional.of(timeless));
 
         // Act
        Album actualResult = albumServiceImpl.getAlbumById(2L);
