@@ -1,4 +1,6 @@
 package com.northcoders.recordshopbackend.dto;
 
-public record StockDTO(int quantityToAdd) {
+
+public class StockDTO {
+    int quantityToAdd;
 }
