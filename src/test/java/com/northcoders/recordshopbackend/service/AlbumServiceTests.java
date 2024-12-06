@@ -120,9 +120,10 @@ public class AlbumServiceTests {
 
         // Act & Assert
         assertThatExceptionOfType(ItemNotFoundException.class)
-                .isThrownBy(() ->{
-                   Album actualResult = albumServiceImpl.getAlbumById(invalidID);
-                }).withMessageMatching("Album with the id '\\d+' cannot be found");
+                .isThrownBy(() ->
+                        albumServiceImpl.getAlbumById(invalidID))
+                .withMessageMatching("Album with the id '\\d+' cannot be found"
+                );
     }
 
     @Test
@@ -155,8 +156,8 @@ public class AlbumServiceTests {
 
         // Assert
         assertThat(actualResult).isInstanceOf(AlbumDTO.class);
-        assertThat(actualResult.getArtist()).isEqualTo("Marie Dahlstrom");
-        assertThat(actualResult.getReleaseDate()).isEqualTo("2023-06-07");
+        assertThat(actualResult.getArtist()).isEqualTo(goodTimeDTO.getArtist());
+        assertThat(actualResult.getReleaseDate()).isEqualTo(goodTimeDTO.getReleaseDate());
     }
 
     @Test
@@ -304,4 +305,6 @@ public class AlbumServiceTests {
         assertThat(actualResult.getStock()).isEqualTo(timelessAlbum.getStock());
         assertThat(actualResult.getGenre()).isEqualTo(timelessAlbum.getGenre());
     }
+
+
 }
