@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -23,7 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.sql.Date;
 import java.util.List;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -89,5 +90,29 @@ public class AlbumControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].artist").value("Marie Dahlstrom"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[2].id").value(3))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[2].artist").value("Kendrick Lamar"));
+    }
+
+    @Test
+    @DisplayName("POST add a new album")
+    void postNewAlbum() throws Exception {
+        // Arrange
+        AlbumDTO timelessDTO = AlbumDTO.builder()
+                .title("Timeless")
+                .artist("Davido")
+                .genre(Genre.AFROBEATS)
+                .releaseDate(Date.valueOf("2023-01-12"))
+                .stock(4)
+                .build();
+
+        when(mockAlbumService.postNewAlbum(timelessDTO)).thenReturn(timelessDTO);
+
+        // Act & Assert
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.post("/api/v1/albums/add")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(timelessDTO)))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        verify(mockAlbumService, times(1)).postNewAlbum(timelessDTO);
     }
 }
