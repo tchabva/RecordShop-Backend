@@ -1,9 +1,8 @@
 package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
+import com.northcoders.recordshopbackend.dto.StockDTO;
 import com.northcoders.recordshopbackend.model.Album;
-import com.northcoders.recordshopbackend.model.Artist;
-import com.northcoders.recordshopbackend.model.Stock;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
 import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +85,7 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
-    public Album updateAlbumStockById(Long albumId) {
+    public Album updateAlbumStockById(Long albumId, StockDTO stockDTO) {
         return null;
     }
 
