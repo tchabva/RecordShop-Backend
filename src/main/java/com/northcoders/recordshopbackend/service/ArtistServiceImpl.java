@@ -23,7 +23,11 @@ public class ArtistServiceImpl implements ArtistService{
 
     @Override
     public Artist addNewArtist(String artistName) {
-        return null;
+        return artistRepository.save(
+                Artist.builder()
+                        .artistName(artistName)
+                        .build()
+        );
     }
 
     @Override
