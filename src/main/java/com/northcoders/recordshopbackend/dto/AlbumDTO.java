@@ -7,8 +7,6 @@ import lombok.Data;
 
 import java.sql.Date;
 
-// TODO ADD VALIDATION ON THE CONTROLLER
-
 @Data
 @AllArgsConstructor
 @Builder
