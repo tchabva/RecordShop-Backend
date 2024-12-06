@@ -99,6 +99,25 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public String deleteAlbumById(Long albumId) {
-        return "";
+        Album album = getAlbumById(albumId);// If ID is not present this method should throw an error
+        Stock stock = album.getStock();
+
+        if (stock.getQuantityInStock() > 0){
+            stock.setQuantityInStock(stock.getQuantityInStock() - 1);
+            album.setStock(stockService.savedUpdatedStock(stock));
+            albumRepository.save(album);
+            return String.format(
+                    "Album Title: %s\nArist: %s\nQuantity in stock: %d",
+                    album.getTitle(),
+                    album.getArtist().getArtistName(),
+                    album.getStock().getQuantityInStock()
+                    );
+        }else {
+            return String.format(
+                    "Sorry, '%s' by '%s' is out of stock!",
+                    album.getTitle(),
+                    album.getArtist()
+            );
+        }
     }
 }
