@@ -256,4 +256,41 @@ public class AlbumServiceTests {
         assertThat(inStockAlbumDTOs.getFirst().getStock()).isEqualTo(4);
         assertThat(inStockAlbumDTOs.getFirst().getTitle()).isEqualTo("Timeless");
     }
+
+    @Test
+    @DisplayName("Returns album when an AlbumDTO is supplied and saved to the DB")
+    void testAddAlbum(){
+        // Arrange
+        AlbumDTO timelessDTO = AlbumDTO.builder()
+                .title("Timeless")
+                .artist("Davido")
+                .genre(Genre.AFROBEATS)
+                .releaseDate(Date.valueOf("2023-01-12"))
+                .stock(4)
+                .build();
+
+        Album timelessAlbum = Album.builder()
+                .title(timelessDTO.getTitle())
+                .artist(Artist.builder()
+                        .artistName(timelessDTO.getArtist())
+                        .build())
+                .genre(Genre.AFROBEATS)
+                .releaseDate(timelessDTO.getReleaseDate())
+                .stock(Stock.builder()
+                        .quantityInStock(timelessDTO.getStock())
+                        .build())
+                .build();
+
+        when(albumRepository.save(timelessAlbum)).thenReturn(timelessAlbum);
+
+        // Act
+        Album actualResult = albumServiceImpl.addNewAlbum(timelessDTO);
+
+        // Assert
+        assertThat(actualResult.getTitle()).isEqualTo(timelessAlbum.getTitle());
+        assertThat(actualResult.getArtist()).isEqualTo(timelessAlbum.getArtist());
+        assertThat(actualResult.getReleaseDate()).isEqualTo(timelessAlbum.getReleaseDate());
+        assertThat(actualResult.getStock()).isEqualTo(timelessAlbum.getStock());
+        assertThat(actualResult.getGenre()).isEqualTo(timelessAlbum.getGenre());
+    }
 }
