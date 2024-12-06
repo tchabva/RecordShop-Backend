@@ -5,6 +5,7 @@ import com.northcoders.recordshopbackend.model.Artist;
 import java.util.List;
 
 public interface ArtistService {
-    List<Artist> getAllArtist();
+    List<Artist> getAllArtists();
     Artist addNewArtist(String artistName);
+    Artist getOrAddNewArist(String artistName);
 }
