@@ -329,11 +329,11 @@ public class AlbumServiceTests {
                         .build())
                 .build();
 
-        Stock expectedUpdatedStock = timelessAlbum.getStock();
+        Stock updatedStock = timelessAlbum.getStock();
 
         when(albumRepository.findById(inputId)).thenReturn(Optional.of(timelessAlbum));
 
-        when(stockService.savedUpdatedStock(expectedUpdatedStock)).thenReturn(expectedUpdatedStock);
+        when(stockService.savedUpdatedStock(updatedStock)).thenReturn(updatedStock);
 
         when(albumRepository.save(timelessAlbum)).thenReturn(timelessAlbum);
 
