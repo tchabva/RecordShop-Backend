@@ -16,7 +16,7 @@
 - [ ] Album Service
   - [x] Add New Album
   - [x] Update album stock by id
-  - [ ] Delete album by ID
+  - [x] Delete album by ID
 - [ ] Artist Service
   - [x] Add Artist method
   - [x] Get All Artists
@@ -36,3 +36,4 @@
 - [ ] DeleteMapping
     - [ ] decrease album stock by one?
     - [ ] remove album from the DB?
+- [ ] Health Endpoint
