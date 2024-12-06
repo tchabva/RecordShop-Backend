@@ -253,9 +253,10 @@ public class AlbumServiceTests {
                         .build()
         );
 
+        when(albumRepository.findAll()).thenReturn(albums);
+
         // Act
-        List<AlbumDTO> albumDTOS = albumServiceImpl.createListOfAlbumDTOs(albums);
-        List<AlbumDTO> inStockAlbumDTOs = albumServiceImpl.getAllInStockAlbumDTOs(albumDTOS);
+        List<AlbumDTO> inStockAlbumDTOs = albumServiceImpl.getAllInStockAlbumDTOs();
 
         // Assert
         assertThat(inStockAlbumDTOs).hasSize(1);
