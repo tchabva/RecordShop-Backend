@@ -2,6 +2,8 @@ package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
 import com.northcoders.recordshopbackend.model.Album;
+import com.northcoders.recordshopbackend.model.Artist;
+import com.northcoders.recordshopbackend.model.Stock;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
 import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,12 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Autowired
     private AlbumRepository albumRepository;
+
+    @Autowired
+    private ArtistService artistService;
+
+    @Autowired
+    private StockService stockService;
 
     @Override
     public List<Album> getAllAlbums() {
@@ -68,7 +76,13 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public Album addNewAlbum(AlbumDTO albumDTO) {
-        return null;
+        return albumRepository.save(Album.builder()
+                .title(albumDTO.getTitle())
+                .artist(artistService.getOrCreateAlbumArtist(albumDTO.getArtist()))
+                .genre(albumDTO.getGenre())
+                .releaseDate(albumDTO.getReleaseDate())
+                .stock(stockService.addNewStock(albumDTO.getStock()))
+                .build());
     }
 
     @Override
