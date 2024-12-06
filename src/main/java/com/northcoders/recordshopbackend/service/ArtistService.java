@@ -7,5 +7,4 @@ import java.util.List;
 public interface ArtistService {
     List<Artist> getAllArtists();
     Artist addNewArtist(String artistName);
-    Artist getOrAddNewArist(String artistName);
 }

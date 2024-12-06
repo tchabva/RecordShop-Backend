@@ -29,9 +29,4 @@ public class ArtistServiceImpl implements ArtistService{
                         .build()
         );
     }
-
-    @Override
-    public Artist getOrAddNewArist(String artistName) {
-        return null;
-    }
 }
