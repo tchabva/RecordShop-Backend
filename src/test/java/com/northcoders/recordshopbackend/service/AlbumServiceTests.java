@@ -25,6 +25,10 @@ public class AlbumServiceTests {
 
     @Mock
     private AlbumRepository albumRepository;
+    @Mock
+    private ArtistService artistService;
+    @Mock
+    private StockService stockService;
 
     @InjectMocks
     private AlbumServiceImpl albumServiceImpl;
@@ -257,6 +261,7 @@ public class AlbumServiceTests {
         assertThat(inStockAlbumDTOs.getFirst().getTitle()).isEqualTo("Timeless");
     }
 
+    // Integration test that should in own class
     @Test
     @DisplayName("Returns album when an AlbumDTO is supplied and saved to the DB")
     void testAddAlbum(){
@@ -282,6 +287,12 @@ public class AlbumServiceTests {
                 .build();
 
         when(albumRepository.save(timelessAlbum)).thenReturn(timelessAlbum);
+
+        when(artistService.getOrCreateAlbumArtist(timelessDTO.getArtist()))
+                .thenReturn(Artist.builder().artistName(timelessDTO.getArtist()).build());
+
+        when(stockService.addNewStock(timelessDTO.getStock()))
+                .thenReturn(Stock.builder().quantityInStock(timelessDTO.getStock()).build());
 
         // Act
         Album actualResult = albumServiceImpl.addNewAlbum(timelessDTO);
