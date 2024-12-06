@@ -60,6 +60,10 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
+    public AlbumDTO postNewAlbum(AlbumDTO albumDTO) {
+        return createAlbumDTO(addNewAlbum(albumDTO));
+    }
+
     // Album to DTO mapper
     @Override
     public AlbumDTO createAlbumDTO(Album album) {

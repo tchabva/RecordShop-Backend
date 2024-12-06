@@ -16,4 +16,5 @@ public interface AlbumService {
     Album addNewAlbum(AlbumDTO albumDTO);
     Album updateAlbumStockById(Long albumId, StockDTO stockDTO);
     String deleteAlbumById(Long albumId);
+    AlbumDTO postNewAlbum(AlbumDTO albumDTO);
 }
