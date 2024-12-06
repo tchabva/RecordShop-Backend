@@ -32,6 +32,6 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public Stock savedUpdatedStock(Stock updatedStock) {
-        return null;
+        return stockRepository.save(updatedStock);
     }
 }
