@@ -349,9 +349,9 @@ public class AlbumServiceTests {
     @DisplayName("Returns Decreases the album stock by 1 when a valid Id is supplied")
     void testDeleteAlbumStockById(){
         // Arrange
-        Long id = 4L;
+        Long id = 2L;
 
-        String expectedOutput = "Album Title: Timeless\nQuantity in stock: 3";
+        String expectedOutput = "Album Title: Timeless\nArist: Davido\nQuantity in stock: 3";
 
         Album timeless = Album.builder()
                 .title("Timeless")
@@ -374,7 +374,7 @@ public class AlbumServiceTests {
         when(albumRepository.save(timeless)).thenReturn(timeless);
 
         // Act
-        String actualResult = albumServiceImpl.deleteAlbumById(2L);
+        String actualResult = albumServiceImpl.deleteAlbumById(id);
 
         // Assert
         assertThat(actualResult).isEqualTo(expectedOutput);
