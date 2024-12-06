@@ -14,12 +14,13 @@
 - [ ] ArtistDTO
 ### Service Layer
 - [ ] Album Service
-  - [ ] Add New Album
+  - [x] Add New Album
   - [ ] Update album stock by id
   - [ ] Delete album by ID
 - [ ] Artist Service
   - [x] Add Artist method
   - [x] Get All Artists
+  - [x] Get or create AlbumArtist
 - [ ] Stock Service
   - [x] Add stock method
   - [x] Get stock by ID
