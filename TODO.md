@@ -37,3 +37,5 @@
     - [ ] decrease album stock by one?
     - [ ] remove album from the DB?
 - [ ] Health Endpoint
+## Misc
+- Look into JPARepository and possible flexibility for queries
