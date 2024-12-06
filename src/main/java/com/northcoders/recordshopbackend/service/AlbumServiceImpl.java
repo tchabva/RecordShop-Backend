@@ -41,8 +41,8 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
-    public List<AlbumDTO> getAllInStockAlbumDTOs(List<AlbumDTO> albumDTOs) {
-        return albumDTOs
+    public List<AlbumDTO> getAllInStockAlbumDTOs() {
+        return createListOfAlbumDTOs(getAllAlbums())
                 .stream()
                 .filter(albumDTO -> albumDTO.getStock() > 0)
                 .toList();
