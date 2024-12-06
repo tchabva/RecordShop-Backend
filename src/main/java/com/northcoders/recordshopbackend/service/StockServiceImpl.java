@@ -29,4 +29,9 @@ public class StockServiceImpl implements StockService {
          throw new ItemNotFoundException(String.format("Stock with the id '%s' cannot be found", stockId));
         }
     }
+
+    @Override
+    public Stock savedUpdatedStock(Stock updatedStock) {
+        return null;
+    }
 }
