@@ -344,4 +344,39 @@ public class AlbumServiceTests {
         assertThat(actualResult.getStock().getId()).isEqualTo(2L);
         assertThat(actualResult.getStock().getQuantityInStock()).isEqualTo(6);
     }
+
+    @Test
+    @DisplayName("Returns Decreases the album stock by 1 when a valid Id is supplied")
+    void testDeleteAlbumStockById(){
+        // Arrange
+        Long id = 4L;
+
+        String expectedOutput = "Album Title: Timeless\nQuantity in stock: 3";
+
+        Album timeless = Album.builder()
+                .title("Timeless")
+                .artist(Artist.builder()
+                        .artistName("Davido")
+                        .build())
+                .genre(Genre.AFROBEATS)
+                .releaseDate(Date.valueOf("2023-01-12"))
+                .stock(Stock.builder()
+                        .quantityInStock(4)
+                        .build())
+                .build();
+
+        Stock updatedStock = timeless.getStock();
+
+        when(albumRepository.findById(id)).thenReturn(Optional.of(timeless));
+
+        when(stockService.savedUpdatedStock(updatedStock)).thenReturn(updatedStock);
+
+        when(albumRepository.save(timeless)).thenReturn(timeless);
+
+        // Act
+        String actualResult = albumServiceImpl.deleteAlbumById(2L);
+
+        // Assert
+        assertThat(actualResult).isEqualTo(expectedOutput);
+    }
 }
