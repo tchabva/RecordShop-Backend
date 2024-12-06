@@ -11,13 +11,13 @@
 - [ ] Add songs a class to the model layer
   - [ ] Relationships between songs and albums
   - [ ] Relationships between songs and artists
-- [ ] Artist Service
-- [ ] Stock Service
-    - [ ] Add stock method
-    - [ ] Delete stock method
+- [ ] ArtistDTO
 ### Service Layer
 - [ ] Album Service
 - [ ] Artist Service
+  - [ ] Add Artist method
+  - [ ] Get All Artists
+  - [ ] Get Artist or Add New Artist
 - [ ] Stock Service
   - [ ] Add stock method
   - [ ] Delete stock method 
