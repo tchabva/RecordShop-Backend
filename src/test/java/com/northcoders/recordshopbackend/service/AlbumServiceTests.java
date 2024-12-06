@@ -330,18 +330,18 @@ public class AlbumServiceTests {
                 .build();
 
         Stock expectedUpdatedStock = timelessAlbum.getStock();
-        expectedUpdatedStock.setQuantityInStock(6);
 
         when(albumRepository.findById(inputId)).thenReturn(Optional.of(timelessAlbum));
 
         when(stockService.savedUpdatedStock(expectedUpdatedStock)).thenReturn(expectedUpdatedStock);
 
+        when(albumRepository.save(timelessAlbum)).thenReturn(timelessAlbum);
 
         // Act
         Album actualResult = albumServiceImpl.updateAlbumStockById(inputId, stockDTO);
 
         // Assert
-        assertThat(actualResult.getStock().getId()).isEqualTo(3L);
+        assertThat(actualResult.getStock().getId()).isEqualTo(2L);
         assertThat(actualResult.getStock().getQuantityInStock()).isEqualTo(6);
     }
 }
