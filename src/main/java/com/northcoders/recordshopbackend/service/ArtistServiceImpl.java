@@ -32,6 +32,12 @@ public class ArtistServiceImpl implements ArtistService{
 
     @Override
     public Artist getOrCreateAlbumArtist(String artistName) {
-        return null;
+        List<Artist> artists = getAllArtists();
+        for (Artist artist : artists){
+            if (artist.getArtistName().equals(artistName)){
+                return artist;
+            }
+        }
+        return addNewArtist(artistName);
     }
 }
