@@ -1,8 +1,8 @@
 # TODO List
 ## MVP
-- [ ] List all albums in stock
+- [x] List all albums in stock
 - [ ] Get album by ID
-- [ ] Add new albums into the database
+- [x] Add new albums into the database
 - [ ] Update album details
 - [ ] Delete albums from the database 
   - [ ] Decrease the album stock until 0 then out stock
