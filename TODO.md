@@ -15,7 +15,7 @@
 ### Service Layer
 - [ ] Album Service
   - [x] Add New Album
-  - [ ] Update album stock by id
+  - [x] Update album stock by id
   - [ ] Delete album by ID
 - [ ] Artist Service
   - [x] Add Artist method
