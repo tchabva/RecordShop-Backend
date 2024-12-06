@@ -1,6 +1,7 @@
 package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
+import com.northcoders.recordshopbackend.dto.StockDTO;
 import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.model.Stock;
@@ -262,7 +263,6 @@ public class AlbumServiceTests {
         assertThat(inStockAlbumDTOs.getFirst().getTitle()).isEqualTo("Timeless");
     }
 
-    // Integration test that should in own class
     @Test
     @DisplayName("Returns album when an AlbumDTO is supplied and saved to the DB")
     void testAddAlbum(){
@@ -307,4 +307,41 @@ public class AlbumServiceTests {
     }
 
 
+    @Test
+    @DisplayName("Returns can edit album ")
+    void testEditAlbumStockById(){
+        // Arrange
+        Long inputId = 3L;
+
+        StockDTO stockDTO = new StockDTO(2);
+
+        Album timelessAlbum = Album.builder()
+                .id(3L)
+                .title("Timeless")
+                .artist(Artist.builder()
+                        .artistName("Davido")
+                        .build())
+                .genre(Genre.AFROBEATS)
+                .releaseDate(Date.valueOf("2023-01-12"))
+                .stock(Stock.builder()
+                        .id(2L)
+                        .quantityInStock(4)
+                        .build())
+                .build();
+
+        Stock expectedUpdatedStock = timelessAlbum.getStock();
+        expectedUpdatedStock.setQuantityInStock(6);
+
+        when(albumRepository.findById(inputId)).thenReturn(Optional.of(timelessAlbum));
+
+        when(stockService.savedUpdatedStock(expectedUpdatedStock)).thenReturn(expectedUpdatedStock);
+
+
+        // Act
+        Album actualResult = albumServiceImpl.updateAlbumStockById(inputId, stockDTO);
+
+        // Assert
+        assertThat(actualResult.getStock().getId()).isEqualTo(3L);
+        assertThat(actualResult.getStock().getQuantityInStock()).isEqualTo(6);
+    }
 }
