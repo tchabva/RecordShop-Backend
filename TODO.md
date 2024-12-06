@@ -19,8 +19,8 @@
   - [ ] Get All Artists
   - [ ] Get Artist or Add New Artist
 - [ ] Stock Service
-  - [ ] Add stock method
-  - [ ] Delete stock method 
+  - [x] Add stock method
+  - [x] Get stock by ID
 ### Controller Layer
 - [ ] GetMapping
   - [ ] List all albums in stock
