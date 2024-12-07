@@ -109,6 +109,18 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public String deleteAlbumById(Long albumId) {
+        if (albumRepository.existsById(albumId)){
+            albumRepository.deleteById(albumId);
+            return String.format("Album of Id '%d' has been deleted",
+                    albumId
+            );
+        } else {
+            throw new ItemNotFoundException(String.format("Album with the id '%s' cannot be found", albumId));
+        }
+    }
+
+    @Override
+    public String decreaseStockByAlbumId(Long albumId) {
         Album album = getAlbumById(albumId);// If ID is not present this method should throw an error
         Stock stock = album.getStock();
 
