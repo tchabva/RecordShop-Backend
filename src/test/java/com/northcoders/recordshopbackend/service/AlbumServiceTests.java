@@ -386,7 +386,7 @@ public class AlbumServiceTests {
     void testDeleteAlbumById(){
         // Arrange
         Long id = 1L;
-        String expectedString = "\\w+ by \\w+ has been deleted";
+        String expectedString = "Album of Id '\\d+' has been deleted";
         when(mockAlbumRepository.existsById(id)).thenReturn(true);
 
         // Act
