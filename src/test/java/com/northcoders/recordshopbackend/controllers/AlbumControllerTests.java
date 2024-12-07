@@ -115,4 +115,31 @@ public class AlbumControllerTests {
 
         verify(mockAlbumService, times(1)).postNewAlbum(timelessDTO);
     }
+
+    @Test
+    @DisplayName("GET album by Id")
+    void getAlbumById() throws Exception {
+        // Arrange
+        Long id = 2L;
+
+        AlbumDTO timelessDTO = AlbumDTO.builder()
+                .id(id)
+                .title("Timeless")
+                .artist("Davido")
+                .genre(Genre.AFROBEATS)
+                .releaseDate(Date.valueOf("2023-01-12"))
+                .stock(4)
+                .build();
+
+        when(mockAlbumService.returnAlbumDTOById(id)).thenReturn(timelessDTO);
+
+        // Act & Assert
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/api/v1/albums/2"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.artist").value("Davido"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genre").value("AFROBEATS"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(4));
+    }
 }
