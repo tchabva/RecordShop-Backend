@@ -48,7 +48,6 @@ public class AlbumServiceImpl implements AlbumService{
                 .toList();
     }
 
-
     @Override
     public Album getAlbumById(Long albumId) {
 
