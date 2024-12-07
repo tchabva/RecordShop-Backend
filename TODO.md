@@ -34,10 +34,10 @@
 - [x] PostMapping
   - [x] Add a new album to the database
 - [ ] PatchMapping
-  - [ ] Update album stock
+  - [ ] Update album stock change method implementation for this
 - [ ] DeleteMapping
     - [ ] decrease album stock by one?
     - [ ] remove album from the DB?
 - [ ] Health Endpoint
 ## Misc
-- Look into JPARepository and possible flexibility for queries
+- [x] Migrate to JpaRepository
