@@ -1,9 +1,11 @@
 # TODO List
 ## MVP
 - [x] List all albums in stock
-- [ ] Get album by ID
+- [x] Get album by ID
 - [x] Add new albums into the database
 - [ ] Update album details
+  - [ ] Increase the stock by a stock ItemDTO
+  - [ ] Should update album details be removed from the database?
 - [ ] Delete albums from the database 
   - [ ] Decrease the album stock until 0 then out stock
   - [ ] Should albums be removed from the database?
@@ -26,11 +28,11 @@
   - [x] Get stock by ID
 ### Controller Layer
 - [ ] GetMapping
-  - [ ] List all albums in stock
+  - [x] List all albums in stock
   - [ ] List all albums in the DB
-  - [ ] Get album by ID using path variables
-- [ ] PostMapping
-  - [ ] Add a new album to the database
+  - [x] Get album by ID using path variables
+- [x] PostMapping
+  - [x] Add a new album to the database
 - [ ] PatchMapping
   - [ ] Update album stock
 - [ ] DeleteMapping
