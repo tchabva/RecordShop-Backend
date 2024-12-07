@@ -25,4 +25,9 @@ public class AlbumController {
     public ResponseEntity<AlbumDTO> postAddNewAlbum(@RequestBody AlbumDTO albumDTO){
         return new ResponseEntity<>(albumService.postNewAlbum(albumDTO), HttpStatus.CREATED);
     }
+
+    @GetMapping(path = "/{albumId}", produces = "application/json")
+    public ResponseEntity<AlbumDTO> getByAlbumId(@PathVariable("albumId") Long albumId){
+        return new ResponseEntity<>(albumService.returnAlbumDTOById(albumId), HttpStatus.OK);
+    }
 }
