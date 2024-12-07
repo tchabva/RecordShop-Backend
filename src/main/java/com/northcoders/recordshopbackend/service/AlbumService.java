@@ -12,6 +12,7 @@ public interface AlbumService {
     List<AlbumDTO> createListOfAlbumDTOs(List<Album> albums);
     List<AlbumDTO> getAllInStockAlbumDTOs();
     Album getAlbumById(Long albumId);
+    AlbumDTO returnAlbumDTOById(Long albumId);
     AlbumDTO createAlbumDTO (Album album);
     Album addNewAlbum(AlbumDTO albumDTO);
     Album updateAlbumStockById(Long albumId, StockDTO stockDTO);

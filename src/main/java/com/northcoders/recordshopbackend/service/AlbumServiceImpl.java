@@ -60,6 +60,12 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
+    @Override
+    public AlbumDTO returnAlbumDTOById(Long albumId) {
+        return createAlbumDTO(getAlbumById(albumId));
+    }
+
+    @Override
     public AlbumDTO postNewAlbum(AlbumDTO albumDTO) {
         return createAlbumDTO(addNewAlbum(albumDTO));
     }
