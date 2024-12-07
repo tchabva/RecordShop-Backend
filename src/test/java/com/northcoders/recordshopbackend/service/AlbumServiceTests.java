@@ -395,4 +395,20 @@ public class AlbumServiceTests {
         // Assert
         assertThat(actualString).matches(expectedString);
     }
+
+    @Test
+    @DisplayName("Throws an ItemNotFoundException for an invalid ID for DeleteMapping")
+    void testDeleteAlbumByIdForInvalidId(){
+        // Arrange
+        Long invalidID = 1L;
+
+        when(mockAlbumRepository.existsById(invalidID)).thenReturn(false);
+
+        // Act & Assert
+        assertThatExceptionOfType(ItemNotFoundException.class)
+                .isThrownBy(() ->
+                        albumServiceImpl.deleteAlbumById(invalidID))
+                .withMessageMatching("Album with the id '\\d+' cannot be found"
+                );
+    }
 }
