@@ -158,4 +158,20 @@ public class AlbumControllerTests {
 
         verify(mockAlbumService, times(1)).deleteAlbumById(id);
     }
+
+    @Test
+    @DisplayName("DELETE /{albumId} when Album does not exist")
+    void testDeleteByJokeIdForMissingAlbum() throws Exception {
+        // Arrange
+        Long id = 2L;
+
+        when(mockAlbumService.deleteAlbumById(id)).thenReturn("Album with the id '2' cannot be found");
+
+        // Act & Assert
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.delete("/api/v1/albums/2"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
+        verify(mockAlbumService, times(1)).deleteAlbumById(id);
+    }
 }
