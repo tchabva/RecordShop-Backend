@@ -142,4 +142,20 @@ public class AlbumControllerTests {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.genre").value("AFROBEATS"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(4));
     }
+
+    @Test
+    @DisplayName("DELETE /{albumId}")
+    void testDeleteByJokeId() throws Exception {
+        // Arrange
+        Long id = 1L;
+
+        when(mockAlbumService.deleteAlbumById(id)).thenReturn("Album of Id '1' has been deleted");
+
+        // Act & Assert
+        this.mockMvcController.perform(
+                MockMvcRequestBuilders.delete("/api/v1/albums/1"))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
+        verify(mockAlbumService, times(1)).deleteAlbumById(id);
+    }
 }
