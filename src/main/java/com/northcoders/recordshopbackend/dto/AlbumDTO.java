@@ -18,5 +18,5 @@ public class AlbumDTO{
         private String artist;
         private Genre genre;
         private Date releaseDate;
-        private int stock;
+        private Integer stock;
 }

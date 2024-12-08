@@ -33,6 +33,6 @@ public class Album {
     @Column(name = "release_date")
     private Date releaseDate;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Stock stock;
 }

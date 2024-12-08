@@ -1,12 +1,11 @@
 # TODO List
 ## MVP
-- [ ] List all albums in stock
-- [ ] Get album by ID
-- [ ] Add new albums into the database
-- [ ] Update album details
-- [ ] Delete albums from the database 
-  - [ ] Decrease the album stock until 0 then out stock
-  - [ ] Should albums be removed from the database?
+- [x] README
+- [x] List all albums in stock
+- [x] Get album by ID
+- [x] Add new albums into the database
+- [x] Update album details
+- [x] Delete albums from the database
 ### Model Layer
 - [ ] Add songs a class to the model layer
   - [ ] Relationships between songs and albums
@@ -16,7 +15,7 @@
 - [ ] Album Service
   - [x] Add New Album
   - [x] Update album stock by id
-  - [ ] Delete album by ID
+  - [x] Delete album by ID
 - [ ] Artist Service
   - [x] Add Artist method
   - [x] Get All Artists
@@ -26,13 +25,21 @@
   - [x] Get stock by ID
 ### Controller Layer
 - [ ] GetMapping
-  - [ ] List all albums in stock
+  - [x] List all albums in stock
   - [ ] List all albums in the DB
-  - [ ] Get album by ID using path variables
-- [ ] PostMapping
-  - [ ] Add a new album to the database
+  - [x] Get album by ID using path variables
+- [x] PostMapping
+  - [x] Add a new album to the database
 - [ ] PatchMapping
-  - [ ] Update album stock
+  - [ ] Update album stock change method implementation for this
+- [x] PutMapping
+  - [x] Update Album Details
 - [ ] DeleteMapping
     - [ ] decrease album stock by one?
-    - [ ] remove album from the DB?
+    - [x] remove album from the DB?
+- [ ] Health Endpoint
+## Misc
+- [x] Migrate to JpaRepository
+- [ ] Data validation
+- [ ] Cascading
+- [ ] Sprint extra tasks

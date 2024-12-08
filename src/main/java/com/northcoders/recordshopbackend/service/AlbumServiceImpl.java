@@ -41,13 +41,12 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
-    public List<AlbumDTO> getAllInStockAlbumDTOs(List<AlbumDTO> albumDTOs) {
-        return albumDTOs
+    public List<AlbumDTO> getAllInStockAlbumDTOs() {
+        return createListOfAlbumDTOs(getAllAlbums())
                 .stream()
                 .filter(albumDTO -> albumDTO.getStock() > 0)
                 .toList();
     }
-
 
     @Override
     public Album getAlbumById(Long albumId) {
@@ -58,6 +57,43 @@ public class AlbumServiceImpl implements AlbumService{
             throw new ItemNotFoundException(String.format("Album with the id '%s' cannot be found", albumId)
             );
         }
+    }
+
+    @Override
+    public AlbumDTO updateAlbumById(Long albumId, AlbumDTO updatedAlbumDTO) {
+        Album selectedAlbum = getAlbumById(albumId);
+
+        if (updatedAlbumDTO.getTitle() != null){
+            selectedAlbum.setTitle(updatedAlbumDTO.getTitle());
+        }
+
+        if (updatedAlbumDTO.getArtist() != null){
+            selectedAlbum.setArtist(artistService.getOrCreateAlbumArtist(updatedAlbumDTO.getArtist()));
+        }
+
+        if (updatedAlbumDTO.getGenre() != null){
+            selectedAlbum.setGenre(updatedAlbumDTO.getGenre());
+        }
+
+        if (updatedAlbumDTO.getReleaseDate() != null){
+            selectedAlbum.setReleaseDate(updatedAlbumDTO.getReleaseDate());
+        }
+
+        if (updatedAlbumDTO.getStock() != null){
+            selectedAlbum.getStock().setQuantityInStock(updatedAlbumDTO.getStock());
+        }
+
+        return createAlbumDTO(albumRepository.save(selectedAlbum));
+    }
+
+    @Override
+    public AlbumDTO returnAlbumDTOById(Long albumId) {
+        return createAlbumDTO(getAlbumById(albumId));
+    }
+
+    @Override
+    public AlbumDTO postNewAlbum(AlbumDTO albumDTO) {
+        return createAlbumDTO(addNewAlbum(albumDTO));
     }
 
     // Album to DTO mapper
@@ -99,6 +135,18 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public String deleteAlbumById(Long albumId) {
+        if (albumRepository.existsById(albumId)){
+            albumRepository.deleteById(albumId);
+            return String.format("Album of ID '%d' has been deleted",
+                    albumId
+            );
+        } else {
+            throw new ItemNotFoundException(String.format("Album with the ID '%s' cannot be found", albumId));
+        }
+    }
+
+    @Override
+    public String decreaseStockByAlbumId(Long albumId) {
         Album album = getAlbumById(albumId);// If ID is not present this method should throw an error
         Stock stock = album.getStock();
 

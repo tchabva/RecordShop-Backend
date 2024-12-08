@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class AlbumServiceTests {
 
     @Mock
-    private AlbumRepository albumRepository;
+    private AlbumRepository mockAlbumRepository;
     @Mock
     private ArtistService artistService;
     @Mock
@@ -74,7 +74,7 @@ public class AlbumServiceTests {
                         .build()
         );
 
-        when(albumRepository.findAll()).thenReturn(albums);
+        when(mockAlbumRepository.findAll()).thenReturn(albums);
 
         // Act
         List<Album> actualResult = albumServiceImpl.getAllAlbums();
@@ -100,7 +100,7 @@ public class AlbumServiceTests {
                         .build())
                 .build();
 
-        when(albumRepository.findById(2L)).thenReturn(Optional.of(timeless));
+        when(mockAlbumRepository.findById(2L)).thenReturn(Optional.of(timeless));
 
         // Act
         Album actualResult = albumServiceImpl.getAlbumById(2L);
@@ -117,7 +117,7 @@ public class AlbumServiceTests {
         // Arrange
         Long invalidID = 1L;
 
-        when(albumRepository.findById(1L)).thenReturn(Optional.empty());
+        when(mockAlbumRepository.findById(1L)).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThatExceptionOfType(ItemNotFoundException.class)
@@ -253,9 +253,10 @@ public class AlbumServiceTests {
                         .build()
         );
 
+        when(mockAlbumRepository.findAll()).thenReturn(albums);
+
         // Act
-        List<AlbumDTO> albumDTOS = albumServiceImpl.createListOfAlbumDTOs(albums);
-        List<AlbumDTO> inStockAlbumDTOs = albumServiceImpl.getAllInStockAlbumDTOs(albumDTOS);
+        List<AlbumDTO> inStockAlbumDTOs = albumServiceImpl.getAllInStockAlbumDTOs();
 
         // Assert
         assertThat(inStockAlbumDTOs).hasSize(1);
@@ -287,7 +288,7 @@ public class AlbumServiceTests {
                         .build())
                 .build();
 
-        when(albumRepository.save(timelessAlbum)).thenReturn(timelessAlbum);
+        when(mockAlbumRepository.save(timelessAlbum)).thenReturn(timelessAlbum);
 
         when(artistService.getOrCreateAlbumArtist(timelessDTO.getArtist()))
                 .thenReturn(Artist.builder().artistName(timelessDTO.getArtist()).build());
@@ -331,11 +332,11 @@ public class AlbumServiceTests {
 
         Stock updatedStock = timelessAlbum.getStock();
 
-        when(albumRepository.findById(inputId)).thenReturn(Optional.of(timelessAlbum));
+        when(mockAlbumRepository.findById(inputId)).thenReturn(Optional.of(timelessAlbum));
 
         when(stockService.savedUpdatedStock(updatedStock)).thenReturn(updatedStock);
 
-        when(albumRepository.save(timelessAlbum)).thenReturn(timelessAlbum);
+        when(mockAlbumRepository.save(timelessAlbum)).thenReturn(timelessAlbum);
 
         // Act
         Album actualResult = albumServiceImpl.updateAlbumStockById(inputId, stockDTO);
@@ -367,16 +368,47 @@ public class AlbumServiceTests {
 
         Stock updatedStock = timeless.getStock();
 
-        when(albumRepository.findById(id)).thenReturn(Optional.of(timeless));
+        when(mockAlbumRepository.findById(id)).thenReturn(Optional.of(timeless));
 
         when(stockService.savedUpdatedStock(updatedStock)).thenReturn(updatedStock);
 
-        when(albumRepository.save(timeless)).thenReturn(timeless);
+        when(mockAlbumRepository.save(timeless)).thenReturn(timeless);
 
         // Act
-        String actualResult = albumServiceImpl.deleteAlbumById(id);
+        String actualResult = albumServiceImpl.decreaseStockByAlbumId(id);
 
         // Assert
         assertThat(actualResult).isEqualTo(expectedOutput);
+    }
+
+    @Test
+    @DisplayName("deleteAlbumById returns String confirmation of the deleted album")
+    void testDeleteAlbumById(){
+        // Arrange
+        Long id = 1L;
+        String expectedString = "Album of ID '\\d+' has been deleted";
+        when(mockAlbumRepository.existsById(id)).thenReturn(true);
+
+        // Act
+        String actualString = albumServiceImpl.deleteAlbumById(id);
+
+        // Assert
+        assertThat(actualString).matches(expectedString);
+    }
+
+    @Test
+    @DisplayName("Throws an ItemNotFoundException for an invalid ID for DeleteMapping")
+    void testDeleteAlbumByIdForInvalidId(){
+        // Arrange
+        Long invalidID = 1L;
+
+        when(mockAlbumRepository.existsById(invalidID)).thenReturn(false);
+
+        // Act & Assert
+        assertThatExceptionOfType(ItemNotFoundException.class)
+                .isThrownBy(() ->
+                        albumServiceImpl.deleteAlbumById(invalidID))
+                .withMessageMatching("Album with the ID '\\d+' cannot be found"
+                );
     }
 }

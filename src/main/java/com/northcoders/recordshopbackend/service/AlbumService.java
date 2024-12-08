@@ -10,10 +10,14 @@ import java.util.List;
 public interface AlbumService {
     List<Album> getAllAlbums();
     List<AlbumDTO> createListOfAlbumDTOs(List<Album> albums);
-    List<AlbumDTO> getAllInStockAlbumDTOs(List<AlbumDTO> albumDTOs);
+    List<AlbumDTO> getAllInStockAlbumDTOs();
     Album getAlbumById(Long albumId);
+    AlbumDTO updateAlbumById(Long albumId, AlbumDTO updatedAlbumDTO);
+    AlbumDTO returnAlbumDTOById(Long albumId);
     AlbumDTO createAlbumDTO (Album album);
     Album addNewAlbum(AlbumDTO albumDTO);
     Album updateAlbumStockById(Long albumId, StockDTO stockDTO);
     String deleteAlbumById(Long albumId);
+    String decreaseStockByAlbumId(Long albumId);
+    AlbumDTO postNewAlbum(AlbumDTO albumDTO);
 }
