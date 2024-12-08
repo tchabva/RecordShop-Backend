@@ -33,6 +33,6 @@ public class AlbumController {
 
     @DeleteMapping(path = "/{albumId}")
     public ResponseEntity<String> deleteAlbumById(@PathVariable("albumId") Long albumId){
-        return new ResponseEntity<>(albumService.deleteAlbumById(albumId), HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(albumService.deleteAlbumById(albumId), HttpStatus.OK);
     }
 }
