@@ -35,9 +35,11 @@
   - [x] Add a new album to the database
 - [ ] PatchMapping
   - [ ] Update album stock change method implementation for this
+- [ ] PutMapping
+  - [ ] Update Album Details
 - [ ] DeleteMapping
     - [ ] decrease album stock by one?
-    - [ ] remove album from the DB?
+    - [x] remove album from the DB?
 - [ ] Health Endpoint
 ## Misc
 - [x] Migrate to JpaRepository
