@@ -110,11 +110,11 @@ public class AlbumServiceImpl implements AlbumService{
     public String deleteAlbumById(Long albumId) {
         if (albumRepository.existsById(albumId)){
             albumRepository.deleteById(albumId);
-            return String.format("Album of Id '%d' has been deleted",
+            return String.format("Album of ID '%d' has been deleted",
                     albumId
             );
         } else {
-            throw new ItemNotFoundException(String.format("Album with the id '%s' cannot be found", albumId));
+            throw new ItemNotFoundException(String.format("Album with the ID '%s' cannot be found", albumId));
         }
     }
 
