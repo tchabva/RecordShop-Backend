@@ -60,6 +60,33 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
+    public AlbumDTO updateAlbumById(Long albumId, AlbumDTO updatedAlbumDTO) {
+        Album selectedAlbum = getAlbumById(albumId);
+
+        if (updatedAlbumDTO.getTitle() != null){
+            selectedAlbum.setTitle(updatedAlbumDTO.getTitle());
+        }
+
+        if (updatedAlbumDTO.getArtist() != null){
+            selectedAlbum.setArtist(artistService.getOrCreateAlbumArtist(updatedAlbumDTO.getArtist()));
+        }
+
+        if (updatedAlbumDTO.getGenre() != null){
+            selectedAlbum.setGenre(updatedAlbumDTO.getGenre());
+        }
+
+        if (updatedAlbumDTO.getReleaseDate() != null){
+            selectedAlbum.setReleaseDate(updatedAlbumDTO.getReleaseDate());
+        }
+
+        if (updatedAlbumDTO.getStock() != null){
+            selectedAlbum.getStock().setQuantityInStock(updatedAlbumDTO.getStock());
+        }
+
+        return createAlbumDTO(albumRepository.save(selectedAlbum));
+    }
+
+    @Override
     public AlbumDTO returnAlbumDTOById(Long albumId) {
         return createAlbumDTO(getAlbumById(albumId));
     }
