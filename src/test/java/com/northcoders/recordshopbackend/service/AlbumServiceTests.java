@@ -386,7 +386,7 @@ public class AlbumServiceTests {
     void testDeleteAlbumById(){
         // Arrange
         Long id = 1L;
-        String expectedString = "Album of Id '\\d+' has been deleted";
+        String expectedString = "Album of ID '\\d+' has been deleted";
         when(mockAlbumRepository.existsById(id)).thenReturn(true);
 
         // Act
@@ -408,7 +408,7 @@ public class AlbumServiceTests {
         assertThatExceptionOfType(ItemNotFoundException.class)
                 .isThrownBy(() ->
                         albumServiceImpl.deleteAlbumById(invalidID))
-                .withMessageMatching("Album with the id '\\d+' cannot be found"
+                .withMessageMatching("Album with the ID '\\d+' cannot be found"
                 );
     }
 }
