@@ -154,7 +154,7 @@ public class AlbumControllerTests {
         // Act & Assert
         this.mockMvcController.perform(
                 MockMvcRequestBuilders.delete("/api/v1/albums/1"))
-                .andExpect(MockMvcResultMatchers.status().isNoContent());
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
         verify(mockAlbumService, times(1)).deleteAlbumById(id);
     }
