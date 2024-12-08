@@ -1,14 +1,11 @@
 # TODO List
 ## MVP
+- [x] README
 - [x] List all albums in stock
 - [x] Get album by ID
 - [x] Add new albums into the database
-- [ ] Update album details
-  - [ ] Increase the stock by a stock ItemDTO
-  - [ ] Should update album details be removed from the database?
-- [ ] Delete albums from the database 
-  - [ ] Decrease the album stock until 0 then out stock
-  - [ ] Should albums be removed from the database?
+- [x] Update album details
+- [x] Delete albums from the database
 ### Model Layer
 - [ ] Add songs a class to the model layer
   - [ ] Relationships between songs and albums
@@ -35,11 +32,14 @@
   - [x] Add a new album to the database
 - [ ] PatchMapping
   - [ ] Update album stock change method implementation for this
-- [ ] PutMapping
-  - [ ] Update Album Details
+- [x] PutMapping
+  - [x] Update Album Details
 - [ ] DeleteMapping
     - [ ] decrease album stock by one?
     - [x] remove album from the DB?
 - [ ] Health Endpoint
 ## Misc
 - [x] Migrate to JpaRepository
+- [ ] Data validation
+- [ ] Cascading
+- [ ] Sprint extra tasks
