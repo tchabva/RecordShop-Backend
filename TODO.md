@@ -1,6 +1,6 @@
 # TODO List
 ## MVP
-- [x] README
+- [ ] UPDATE README
 - [x] List all albums in stock
 - [x] Get album by ID
 - [x] Add new albums into the database
