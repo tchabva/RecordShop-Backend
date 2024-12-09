@@ -9,6 +9,7 @@ import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,10 +27,7 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public List<Album> getAllAlbums() {
-        List<Album> albums = new ArrayList<>();
-        albumRepository.findAll().forEach(albums::add);
-
-        return albums;
+        return new ArrayList<>(albumRepository.findAll());
     }
 
     @Override
@@ -61,29 +59,35 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public AlbumDTO updateAlbumById(Long albumId, AlbumDTO updatedAlbumDTO) {
-        Album selectedAlbum = getAlbumById(albumId);
+        if (albumRepository.findById(albumId).isPresent()){
+            Album selectedAlbum = albumRepository.findById(albumId).get();
 
-        if (updatedAlbumDTO.getTitle() != null){
-            selectedAlbum.setTitle(updatedAlbumDTO.getTitle());
+            if (updatedAlbumDTO.getTitle() != null){
+                selectedAlbum.setTitle(updatedAlbumDTO.getTitle());
+            }
+
+            if (updatedAlbumDTO.getArtist() != null){
+                selectedAlbum.setArtist(artistService.getOrCreateAlbumArtist(updatedAlbumDTO.getArtist()));
+            }
+
+            if (updatedAlbumDTO.getGenre() != null){
+                selectedAlbum.setGenre(updatedAlbumDTO.getGenre());
+            }
+
+            if (updatedAlbumDTO.getReleaseDate() != null){
+                selectedAlbum.setReleaseDate(updatedAlbumDTO.getReleaseDate());
+            }
+
+            if (updatedAlbumDTO.getStock() != null){
+                selectedAlbum.getStock().setQuantityInStock(updatedAlbumDTO.getStock());
+            }
+
+            selectedAlbum.setDateModified(Instant.now());
+            return createAlbumDTO(albumRepository.save(selectedAlbum));
+        }else{
+            throw new ItemNotFoundException(String.format("Album with the id '%s' cannot be found", albumId)
+            );
         }
-
-        if (updatedAlbumDTO.getArtist() != null){
-            selectedAlbum.setArtist(artistService.getOrCreateAlbumArtist(updatedAlbumDTO.getArtist()));
-        }
-
-        if (updatedAlbumDTO.getGenre() != null){
-            selectedAlbum.setGenre(updatedAlbumDTO.getGenre());
-        }
-
-        if (updatedAlbumDTO.getReleaseDate() != null){
-            selectedAlbum.setReleaseDate(updatedAlbumDTO.getReleaseDate());
-        }
-
-        if (updatedAlbumDTO.getStock() != null){
-            selectedAlbum.getStock().setQuantityInStock(updatedAlbumDTO.getStock());
-        }
-
-        return createAlbumDTO(albumRepository.save(selectedAlbum));
     }
 
     @Override
@@ -107,6 +111,9 @@ public class AlbumServiceImpl implements AlbumService{
                 .genre(album.getGenre())
                 .releaseDate(album.getReleaseDate())
                 .stock(album.getStock().getQuantityInStock())
+                .price(album.getPrice())
+                .dateCreated(album.getDateCreated().toString())
+                .dateModified(album.getDateModified().toString())
                 .build();
     }
 
@@ -118,6 +125,9 @@ public class AlbumServiceImpl implements AlbumService{
                 .genre(albumDTO.getGenre())
                 .releaseDate(albumDTO.getReleaseDate())
                 .stock(stockService.addNewStock(albumDTO.getStock()))
+                .price(albumDTO.getPrice())
+                .dateCreated(Instant.now())
+                .dateModified((Instant.now()))
                 .build());
     }
 
@@ -127,6 +137,7 @@ public class AlbumServiceImpl implements AlbumService{
         Album album = getAlbumById(albumId);// If ID is not present this method should throw an error
         Stock stock = album.getStock();
         stock.setQuantityInStock(stock.getQuantityInStock() + stockDTO.getQuantityToAdd());
+        album.setDateModified(Instant.now());
 
         album.setStock(stockService.savedUpdatedStock(stock));
 
@@ -147,25 +158,31 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public String decreaseStockByAlbumId(Long albumId) {
-        Album album = getAlbumById(albumId);// If ID is not present this method should throw an error
-        Stock stock = album.getStock();
+        if(albumRepository.findById(albumId).isPresent()){
+            Album album = albumRepository.findById(albumId).get();// If ID is not present this method should throw an error
+            Stock stock = album.getStock();
 
-        if (stock.getQuantityInStock() > 0){
-            stock.setQuantityInStock(stock.getQuantityInStock() - 1);
-            album.setStock(stockService.savedUpdatedStock(stock));
-            albumRepository.save(album);
-            return String.format(
-                    "Album Title: %s\nArist: %s\nQuantity in stock: %d",
-                    album.getTitle(),
-                    album.getArtist().getArtistName(),
-                    album.getStock().getQuantityInStock()
-                    );
+            if (stock.getQuantityInStock() > 0){
+                stock.setQuantityInStock(stock.getQuantityInStock() - 1);
+                album.setStock(stockService.savedUpdatedStock(stock));
+                album.setDateModified(Instant.now());
+                albumRepository.save(album);
+                return String.format(
+                        "Album Title: %s\nArist: %s\nQuantity in stock: %d",
+                        album.getTitle(),
+                        album.getArtist().getArtistName(),
+                        album.getStock().getQuantityInStock()
+                );
+            }else {
+                return String.format(
+                        "Sorry, '%s' by '%s' is out of stock!",
+                        album.getTitle(),
+                        album.getArtist()
+                );
+            }
+
         }else {
-            return String.format(
-                    "Sorry, '%s' by '%s' is out of stock!",
-                    album.getTitle(),
-                    album.getArtist()
-            );
+            throw new ItemNotFoundException(String.format("Album with the ID '%s' cannot be found", albumId));
         }
     }
 }
