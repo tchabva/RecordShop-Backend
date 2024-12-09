@@ -9,6 +9,7 @@ import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,6 +81,8 @@ public class AlbumServiceImpl implements AlbumService{
             if (updatedAlbumDTO.getStock() != null){
                 selectedAlbum.getStock().setQuantityInStock(updatedAlbumDTO.getStock());
             }
+
+            selectedAlbum.setDateModified(Instant.now());
             return createAlbumDTO(albumRepository.save(selectedAlbum));
         }else{
             throw new ItemNotFoundException(String.format("Album with the id '%s' cannot be found", albumId)
@@ -108,6 +111,9 @@ public class AlbumServiceImpl implements AlbumService{
                 .genre(album.getGenre())
                 .releaseDate(album.getReleaseDate())
                 .stock(album.getStock().getQuantityInStock())
+                .price(album.getPrice())
+                .dateCreated(album.getDateCreated().toString())
+                .dateModified(album.getDateModified().toString())
                 .build();
     }
 
@@ -119,6 +125,9 @@ public class AlbumServiceImpl implements AlbumService{
                 .genre(albumDTO.getGenre())
                 .releaseDate(albumDTO.getReleaseDate())
                 .stock(stockService.addNewStock(albumDTO.getStock()))
+                .price(albumDTO.getPrice())
+                .dateCreated(Instant.now())
+                .dateModified((Instant.now()))
                 .build());
     }
 
@@ -128,6 +137,7 @@ public class AlbumServiceImpl implements AlbumService{
         Album album = getAlbumById(albumId);// If ID is not present this method should throw an error
         Stock stock = album.getStock();
         stock.setQuantityInStock(stock.getQuantityInStock() + stockDTO.getQuantityToAdd());
+        album.setDateModified(Instant.now());
 
         album.setStock(stockService.savedUpdatedStock(stock));
 
@@ -155,6 +165,7 @@ public class AlbumServiceImpl implements AlbumService{
             if (stock.getQuantityInStock() > 0){
                 stock.setQuantityInStock(stock.getQuantityInStock() - 1);
                 album.setStock(stockService.savedUpdatedStock(stock));
+                album.setDateModified(Instant.now());
                 albumRepository.save(album);
                 return String.format(
                         "Album Title: %s\nArist: %s\nQuantity in stock: %d",
@@ -169,7 +180,6 @@ public class AlbumServiceImpl implements AlbumService{
                         album.getArtist()
                 );
             }
-
 
         }else {
             throw new ItemNotFoundException(String.format("Album with the ID '%s' cannot be found", albumId));
