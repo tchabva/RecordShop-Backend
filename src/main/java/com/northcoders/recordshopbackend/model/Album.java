@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.sql.Date;
+import java.time.Instant;
 
 @Entity
 @Data
@@ -40,8 +41,8 @@ public class Album {
     private Stock stock;
 
     @Column(name = "date_created")
-    private Date dateCreated;
+    private Instant dateCreated;
 
     @Column(name = "date_modified")
-    private Date dateModified;
+    private Instant dateModified;
 }
