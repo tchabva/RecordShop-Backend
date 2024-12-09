@@ -33,6 +33,15 @@ public class Album {
     @Column(name = "release_date")
     private Date releaseDate;
 
+    @Column
+    private Double price;
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Stock stock;
+
+    @Column(name = "date_created")
+    private Date dateCreated;
+
+    @Column(name = "date_modified")
+    private Date dateModified;
 }
