@@ -9,7 +9,7 @@ import java.util.HashMap;
 @Service
 @Data
 public class AlbumCache {
-    private final HashMap<Long, Album> albumDTOCache = new HashMap<>();
+    private final HashMap<Long, Album> albumCache = new HashMap<>();
     private boolean isValid;
 
 }
