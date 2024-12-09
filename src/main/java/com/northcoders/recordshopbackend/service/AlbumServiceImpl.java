@@ -25,6 +25,9 @@ public class AlbumServiceImpl implements AlbumService{
     @Autowired
     private StockService stockService;
 
+    @Autowired
+    private AlbumCache albumCache;
+
     @Override
     public List<Album> getAllAlbums() {
         return new ArrayList<>(albumRepository.findAll());
@@ -49,8 +52,14 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public Album getAlbumById(Long albumId) {
 
+        if (albumCache.containsKey(albumId) && albumCache.isValid()){
+            return albumCache.get(albumId);
+        }
         if (albumRepository.findById(albumId).isPresent()){
-            return albumRepository.findById(albumId).get();
+            Album album = albumRepository.findById(albumId).get();
+            albumCache.put(albumId, album);
+            albumCache.setValid(true);
+            return album;
         } else{
             throw new ItemNotFoundException(String.format("Album with the id '%s' cannot be found", albumId)
             );
@@ -60,6 +69,7 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public AlbumDTO updateAlbumById(Long albumId, AlbumDTO updatedAlbumDTO) {
         if (albumRepository.findById(albumId).isPresent()){
+            albumCache.setValid(false);
             Album selectedAlbum = albumRepository.findById(albumId).get();
 
             if (updatedAlbumDTO.getTitle() != null){
@@ -147,8 +157,10 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public String deleteAlbumById(Long albumId) {
         if (albumRepository.existsById(albumId)){
+            albumCache.setValid(false);
             albumRepository.deleteById(albumId);
-            return String.format("Album of ID '%d' has been deleted",
+            return String.format(
+                    "Album of ID '%d' has been deleted",
                     albumId
             );
         } else {
