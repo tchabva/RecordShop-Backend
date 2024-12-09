@@ -92,6 +92,10 @@ public class AlbumServiceImpl implements AlbumService{
                 selectedAlbum.getStock().setQuantityInStock(updatedAlbumDTO.getStock());
             }
 
+            if(updatedAlbumDTO.getPrice() != null){
+                selectedAlbum.setPrice(updatedAlbumDTO.getPrice());
+            }
+
             selectedAlbum.setDateModified(Instant.now());
             return createAlbumDTO(albumRepository.save(selectedAlbum));
         }else{
