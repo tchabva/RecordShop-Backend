@@ -26,10 +26,7 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public List<Album> getAllAlbums() {
-        List<Album> albums = new ArrayList<>();
-        albumRepository.findAll().forEach(albums::add);
-
-        return albums;
+        return new ArrayList<>(albumRepository.findAll());
     }
 
     @Override
