@@ -5,7 +5,11 @@ public enum Genre {
     AMAPIANO,
     COUNTRY,
     DANCE,
+    GRIME,
     HIPHOP,
     KPOP,
+    LATIN,
+    POP,
     RNB,
+    ROCK
 }

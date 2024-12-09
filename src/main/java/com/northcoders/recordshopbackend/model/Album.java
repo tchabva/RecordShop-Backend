@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.sql.Date;
+import java.time.Instant;
 
 @Entity
 @Data
@@ -33,6 +34,15 @@ public class Album {
     @Column(name = "release_date")
     private Date releaseDate;
 
+    @Column
+    private Double price;
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Stock stock;
+
+    @Column(name = "date_created")
+    private Instant dateCreated;
+
+    @Column(name = "date_modified")
+    private Instant dateModified;
 }
