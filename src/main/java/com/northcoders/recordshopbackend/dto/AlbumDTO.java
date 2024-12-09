@@ -19,4 +19,7 @@ public class AlbumDTO{
         private Genre genre;
         private Date releaseDate;
         private Integer stock;
+        private Double price;
+        private Date dateCreated;
+        private Date dateModified;
 }
