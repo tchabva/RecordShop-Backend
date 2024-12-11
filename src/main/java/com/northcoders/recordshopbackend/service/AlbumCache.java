@@ -9,11 +9,24 @@ import java.util.HashMap;
 @Service
 @Data
 public class AlbumCache {
-    private final HashMap<Long, Album> albumCache = new HashMap<>();
+    private final HashMap<Long, AlbumCacheObject> albumCache = new HashMap<>();
+    private final long TIME_TO_LIVE = 20000;
     private boolean isValid;
 
+    @Data
+    protected static class AlbumCacheObject{
+        private long lastAccessed = System.currentTimeMillis();
+        private Album cachedAlbum;
+
+        public AlbumCacheObject(Album cachedAlbum) {
+            this.cachedAlbum = cachedAlbum;
+        }
+    }
+
+    // Creates an AlbumCacheObject and then puts this into the HashMap with it's associated albumId
     public void put(Long albumId, Album album){
-        this.albumCache.put(albumId, album);
+        AlbumCacheObject albumCacheObject = new AlbumCacheObject(album);
+        this.albumCache.put(albumId, albumCacheObject);
     }
 
     public boolean containsKey(Long albumId){
@@ -21,11 +34,20 @@ public class AlbumCache {
     }
 
     public Album get(Long albumId){
-        return this.albumCache.get(albumId);
+        System.out.println("using cache");
+        return this.albumCache.get(albumId).getCachedAlbum();
     }
 
     public void remove(Long albumId){
         this.albumCache.remove(albumId);
     }
 
+    public void removeExpiredCacheObjects(){
+        long currentTime = System.currentTimeMillis();
+        System.out.println("Purging expired cache data... ");
+        albumCache.values().removeIf(cacheObject ->
+                currentTime - cacheObject.getLastAccessed() > getTIME_TO_LIVE()
+        );
+        System.out.println("Purge executed");
+    }
 }
