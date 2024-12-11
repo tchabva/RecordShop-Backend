@@ -42,6 +42,7 @@
 - [x] Migrate to JpaRepository
 - [ ] Data validation
 - [ ] Cascading
-- [ ] Generic caching
+- [x] Generic caching
+  - [ ] Implement generic caching across the other service layers
 - [ ] Table rows
 - [ ] Sprint extra tasks
