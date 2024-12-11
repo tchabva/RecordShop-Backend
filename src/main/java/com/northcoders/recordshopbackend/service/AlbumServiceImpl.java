@@ -27,7 +27,7 @@ public class AlbumServiceImpl implements AlbumService{
     private StockService stockService;
 
     @Autowired
-    private AlbumCache albumCache;
+    private CacheService<Album> albumCacheService;
 
     @Override
     public List<Album> getAllAlbums() {
@@ -53,13 +53,13 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public Album getAlbumById(Long albumId) {
 
-        if (albumCache.containsKey(albumId) && albumCache.isValid()){
-            return albumCache.get(albumId);
+        if (albumCacheService.containsKey(albumId) && albumCacheService.isValid()){
+            return albumCacheService.get(albumId);
         }
         if (albumRepository.findById(albumId).isPresent()){
             Album album = albumRepository.findById(albumId).get();
-            albumCache.put(albumId, album);
-            albumCache.setValid(true);
+            albumCacheService.put(albumId, album);
+            albumCacheService.setValid(true);
             return album;
         } else{
             throw new ItemNotFoundException(String.format("Album with the id '%s' cannot be found", albumId)
@@ -70,7 +70,7 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public AlbumDTO updateAlbumById(Long albumId, AlbumDTO updatedAlbumDTO) {
         if (albumRepository.findById(albumId).isPresent()){
-            albumCache.setValid(false);
+            albumCacheService.setValid(false);
             Album selectedAlbum = albumRepository.findById(albumId).get();
 
             if (updatedAlbumDTO.getTitle() != null){
@@ -162,7 +162,7 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public String deleteAlbumById(Long albumId) {
         if (albumRepository.existsById(albumId)){
-            albumCache.remove(albumId); // remove id from the cache
+            albumCacheService.remove(albumId); // remove id from the cache
             albumRepository.deleteById(albumId);
             return String.format(
                     "Album of ID '%d' has been deleted",
@@ -206,9 +206,9 @@ public class AlbumServiceImpl implements AlbumService{
     @Scheduled(fixedRate = 20000)
     public void cleanUpCache(){
         System.out.println("Running Cache clean up task");
-        int initialSize = albumCache.getAlbumCache().size(); //gets the initial size of cache HashMap
-        albumCache.removeExpiredCacheObjects();
-        int finalSize = albumCache.getAlbumCache().size(); //gets the final size of cache HashMap
+        int initialSize = albumCacheService.getCache().size(); //gets the initial size of cache HashMap
+        albumCacheService.removeExpiredCacheObjects();
+        int finalSize = albumCacheService.getCache().size(); //gets the final size of cache HashMap
         System.out.printf("Cache cleanup.\nRemoved %d entries%n",(initialSize - finalSize));
     }
 }
