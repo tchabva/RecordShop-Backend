@@ -34,7 +34,8 @@ public class AlbumCache {
     }
 
     public Album get(Long albumId){
-        System.out.println("using cache");
+        System.out.printf("Retrieved ID: %d from cache", albumId);
+        albumCache.get(albumId).setLastAccessed(System.currentTimeMillis());
         return this.albumCache.get(albumId).getCachedAlbum();
     }
 
