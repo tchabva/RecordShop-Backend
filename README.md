@@ -5,7 +5,7 @@ The Record Shop API is a backend inventory management system designed to moderni
 record shop's stock, query this stock and update it accordingly.
 
 ## Assumptions 
-- That users will always check the database before adding an album, and thus just add to the stock if they album is already present in the databse.
+- That users will always check the database before adding an album, and thus just add to the stock if they album is already present in the database.
 - That an Album can only have one Artist
   - e.g. In the case of a joint album it would create a new single "Artist" with both their names (or the group name).
 - The genres are an Enum list that are only assigned to albums and not songs
@@ -17,7 +17,7 @@ record shop's stock, query this stock and update it accordingly.
 ## Project Setup
 ### Prerequisites
 - Java Development Kit 21
-- Integrated Development Enivorment (IDE)
+- Integrated Development Environment (IDE)
   - IntelliJ IDEA, Eclipse, Visual Studio Code etc.
   - Database: PostgreSQL
 ### Installation Steps
@@ -41,7 +41,8 @@ git clone https://github.com/tchabva/recordshopbackend
     "artist": "Artist Name",
     "genre": 1,
     "releaseDate": "YYYY-MM-DD",
-    "stock": 10
+    "stock": 10,
+    "price": 10
   }
   ```
 - `PUT /albums/{id}` - Update album details
@@ -51,7 +52,8 @@ git clone https://github.com/tchabva/recordshopbackend
     "artist": "Artist Name",
     "genre": 1,
     "releaseDate": "YYYY-MM-DD",
-    "stock": 10
+    "stock": 10,
+    "price": 11
   }
   ```
 - `DELETE /albums/{id}` - Delete album
@@ -62,6 +64,7 @@ git clone https://github.com/tchabva/recordshopbackend
 ## Architecture Considerations
 - Using the MVC architecture for a separation of concerns.
 - Using the Spring Boot library and framework for dependency injection.
+- Implemented caching, with a scheduled method that will automatically purge expired items.
 
 ## Future Improvements
 I am looking to continue iterating and adding to this project by providing the capability to:
