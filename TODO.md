@@ -1,6 +1,6 @@
 # TODO List
 ## MVP
-- [ ] UPDATE README
+- [x] UPDATE README
 - [x] List all albums in stock
 - [x] Get album by ID
 - [x] Add new albums into the database
@@ -42,4 +42,6 @@
 - [x] Migrate to JpaRepository
 - [ ] Data validation
 - [ ] Cascading
+- [ ] Generic caching
+- [ ] Table rows
 - [ ] Sprint extra tasks
