@@ -7,6 +7,7 @@ import com.northcoders.recordshopbackend.model.Stock;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
 import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -200,5 +201,14 @@ public class AlbumServiceImpl implements AlbumService{
         }else {
             throw new ItemNotFoundException(String.format("Album with the ID '%s' cannot be found", albumId));
         }
+    }
+
+    @Scheduled(fixedRate = 20000)
+    public void cleanUpCache(){
+        System.out.println("Running Cache clean up task");
+        int initialSize = albumCache.getAlbumCache().size(); //gets the initial size of cache HashMap
+        albumCache.removeExpiredCacheObjects();
+        int finalSize = albumCache.getAlbumCache().size(); //gets the final size of cache HashMap
+        System.out.printf("Cache cleanup.\nRemoved %d entries%n",(initialSize - finalSize));
     }
 }
