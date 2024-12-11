@@ -161,7 +161,7 @@ public class AlbumServiceImpl implements AlbumService{
     @Override
     public String deleteAlbumById(Long albumId) {
         if (albumRepository.existsById(albumId)){
-            albumCache.setValid(false);
+            albumCache.remove(albumId); // remove id from the cache
             albumRepository.deleteById(albumId);
             return String.format(
                     "Album of ID '%d' has been deleted",
