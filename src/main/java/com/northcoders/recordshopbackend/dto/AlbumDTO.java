@@ -1,7 +1,5 @@
 package com.northcoders.recordshopbackend.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.northcoders.recordshopbackend.model.enums.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +15,7 @@ public class AlbumDTO{
         private Long id;
         private String title;
         private String artist;
-        private Genre genre;
+        private String genre;
         private Date releaseDate;
         private Integer stock;
         private Double price;

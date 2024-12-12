@@ -5,23 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.util.Set;
 
-@Data
 @Entity
-@Table(name = "artists")
+@Table(name = "genres")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Artist {
+public class Genre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "artist_name")
-    private String artistName;
+    @Column(nullable = false)
+    private String genre;
 
-    @OneToMany(mappedBy = "artist")
+    @OneToMany(mappedBy = "genre")
     private Set<Album> albums;
 }
