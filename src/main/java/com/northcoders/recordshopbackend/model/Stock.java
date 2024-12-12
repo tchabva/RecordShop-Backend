@@ -20,6 +20,6 @@ public class Stock {
     @Column(name = "quantity_in_stock")
     private int quantityInStock;
 
-    @OneToOne
+    @OneToOne(mappedBy = "stock")
     private Album album;
 }
