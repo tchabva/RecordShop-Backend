@@ -8,7 +8,6 @@ record shop's stock, query this stock and update it accordingly.
 - That users will always check the database before adding an album, and thus just add to the stock if they album is already present in the database.
 - That an Album can only have one Artist
   - e.g. In the case of a joint album it would create a new single "Artist" with both their names (or the group name).
-- The genres are an Enum list that are only assigned to albums and not songs
 ## Technology Stack
 - Spring Boot
 - Java
