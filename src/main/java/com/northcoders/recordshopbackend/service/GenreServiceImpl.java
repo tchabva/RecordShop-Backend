@@ -32,7 +32,7 @@ public class GenreServiceImpl implements  GenreService{
     public Genre getOrCreateGenre(String genre) {
         List<Genre> genres = getAllGenres();
         for(Genre g : genres){
-            if(g.getGenre().equals(genre)){
+            if(g.getGenre().equalsIgnoreCase(genre)){
                 return g;
             }
         }
