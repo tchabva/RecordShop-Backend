@@ -27,6 +27,9 @@ public class AlbumServiceImpl implements AlbumService{
     private StockService stockService;
 
     @Autowired
+    private GenreService genreService;
+
+    @Autowired
     private CacheService<Album> albumCacheService;
 
     @Override
@@ -82,7 +85,7 @@ public class AlbumServiceImpl implements AlbumService{
             }
 
             if (updatedAlbumDTO.getGenre() != null){
-                selectedAlbum.setGenre(updatedAlbumDTO.getGenre());
+                selectedAlbum.setGenre(genreService.getOrCreateGenre(updatedAlbumDTO.getGenre()));
             }
 
             if (updatedAlbumDTO.getReleaseDate() != null){
@@ -123,7 +126,7 @@ public class AlbumServiceImpl implements AlbumService{
                 .id(album.getId())
                 .title(album.getTitle())
                 .artist(album.getArtist().getArtistName())
-                .genre(album.getGenre())
+                .genre(album.getGenre().getGenre())
                 .releaseDate(album.getReleaseDate())
                 .stock(album.getStock().getQuantityInStock())
                 .price(album.getPrice())
@@ -137,7 +140,7 @@ public class AlbumServiceImpl implements AlbumService{
         return albumRepository.save(Album.builder()
                 .title(albumDTO.getTitle())
                 .artist(artistService.getOrCreateAlbumArtist(albumDTO.getArtist()))
-                .genre(albumDTO.getGenre())
+                .genre(genreService.getOrCreateGenre(albumDTO.getGenre()))
                 .releaseDate(albumDTO.getReleaseDate())
                 .stock(stockService.addNewStock(albumDTO.getStock()))
                 .price(albumDTO.getPrice())
