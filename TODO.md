@@ -23,6 +23,7 @@
 - [ ] Stock Service
   - [x] Add stock method
   - [x] Get stock by ID
+- [x] Genre Service
 ### Controller Layer
 - [ ] GetMapping
   - [x] List all albums in stock
@@ -37,10 +38,11 @@
 - [ ] DeleteMapping
     - [ ] decrease album stock by one?
     - [x] remove album from the DB?
-- [ ] Health Endpoint
+- [x] Health Endpoint
 ## Misc
 - [x] Migrate to JpaRepository
 - [ ] Data validation
+- [x] Convert Genre from an enum to a data entity class
 - [ ] Cascading
 - [x] Generic caching
   - [ ] Implement generic caching across the other service layers
