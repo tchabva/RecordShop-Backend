@@ -1,6 +1,5 @@
 package com.northcoders.recordshopbackend.model;
 
-import com.northcoders.recordshopbackend.model.enums.Genre;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +9,7 @@ import java.sql.Date;
 import java.time.Instant;
 
 @Entity
+@Table(name = "albums")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,7 +28,8 @@ public class Album {
     @JoinColumn(name = "artist_id")
     private Artist artist;
 
-    @Column
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "genre_id")
     private Genre genre;
 
     @Column(name = "release_date")
