@@ -44,5 +44,5 @@
 - [ ] Cascading
 - [x] Generic caching
   - [ ] Implement generic caching across the other service layers
-- [ ] Table rows
+- [x] Table rows
 - [ ] Sprint extra tasks
