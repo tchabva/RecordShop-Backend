@@ -2,6 +2,7 @@ package com.northcoders.recordshopbackend.service;
 
 
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
+import com.northcoders.recordshopbackend.dto.NewAlbumDTO;
 import com.northcoders.recordshopbackend.dto.StockDTO;
 import com.northcoders.recordshopbackend.model.Album;
 
@@ -15,9 +16,9 @@ public interface AlbumService {
     AlbumDTO updateAlbumById(Long albumId, AlbumDTO updatedAlbumDTO);
     AlbumDTO returnAlbumDTOById(Long albumId);
     AlbumDTO createAlbumDTO (Album album);
-    Album addNewAlbum(AlbumDTO albumDTO);
+    Album addNewAlbum(NewAlbumDTO newAlbumDTO);
     Album updateAlbumStockById(Long albumId, StockDTO stockDTO);
     String deleteAlbumById(Long albumId);
     String decreaseStockByAlbumId(Long albumId);
-    AlbumDTO postNewAlbum(AlbumDTO albumDTO);
+    AlbumDTO postNewAlbum(NewAlbumDTO newAlbumDTO);
 }
