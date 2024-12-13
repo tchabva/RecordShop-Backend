@@ -5,7 +5,7 @@ import com.northcoders.recordshopbackend.dto.StockDTO;
 import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.model.Stock;
-import com.northcoders.recordshopbackend.model.enums.Genre;
+import com.northcoders.recordshopbackend.model.Genre;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
 import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import org.junit.jupiter.api.DisplayName;
@@ -15,10 +15,13 @@ import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @DataJpaTest
@@ -30,6 +33,12 @@ public class AlbumServiceTests {
     private ArtistService artistService;
     @Mock
     private StockService stockService;
+    @Mock
+    private CacheService<Album> albumCacheService;
+    @Mock
+    private GenreService genreService;
+    @Mock
+    private Instant instant;
 
     @InjectMocks
     private AlbumServiceImpl albumServiceImpl;
@@ -41,36 +50,33 @@ public class AlbumServiceTests {
         List<Album> albums = List.of(
                 Album.builder()
                         .title("Timeless")
-                        .artist(Artist.builder()
-                                .artistName("Davido")
-                                .build())
-                        .genre(Genre.AFROBEATS)
+                        .artist(Artist.builder().artistName("Davido").build())
+                        .genre(Genre.builder().genre( "Afrobeats").build())
                         .releaseDate(Date.valueOf("2023-01-12"))
-                        .stock(Stock.builder()
-                                .quantityInStock(4)
-                                .build())
+                        .stock(Stock.builder().quantityInStock(4).build())
+                        .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .price(9.99)
                         .build(),
                 Album.builder()
                         .title("A Good Time")
-                        .artist(Artist.builder()
-                                .artistName("Marie Dahlstrom")
-                                .build())
-                        .genre(Genre.RNB)
+                        .artist(Artist.builder().artistName("Marie Dahlstrom").build())
+                        .genre(Genre.builder().genre("R&B").build())
                         .releaseDate(Date.valueOf("2023-06-07"))
-                        .stock(Stock.builder()
-                                .quantityInStock(4)
-                                .build())
+                        .stock(Stock.builder().quantityInStock(4).build())
+                        .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .price(9.99)
                         .build(),
                 Album.builder()
                         .title("GNX")
-                        .artist(Artist.builder()
-                                .artistName("Kendrick Lamar")
-                                .build())
-                        .genre(Genre.RNB)
+                        .artist(Artist.builder().artistName("Kendrick Lamar").build())
+                        .genre(Genre.builder().genre("Rap").build())
                         .releaseDate(Date.valueOf("2024-11-22"))
-                        .stock(Stock.builder()
-                                .quantityInStock(4)
-                                .build())
+                        .stock(Stock.builder().quantityInStock(4).build())
+                        .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .price(9.99)
                         .build()
         );
 
@@ -90,14 +96,11 @@ public class AlbumServiceTests {
         // Arrange
         Album timeless = Album.builder()
                 .title("Timeless")
-                .artist(Artist.builder()
-                        .artistName("Davido")
-                        .build())
-                .genre(Genre.AFROBEATS)
+                .artist(Artist.builder().artistName("Davido").build())
+                .genre(Genre.builder().genre("Afrobeats").build())
                 .releaseDate(Date.valueOf("2023-01-12"))
-                .stock(Stock.builder()
-                        .quantityInStock(4)
-                        .build())
+                .price(9.99)
+                .stock(Stock.builder().quantityInStock(4).build())
                 .build();
 
         when(mockAlbumRepository.findById(2L)).thenReturn(Optional.of(timeless));
@@ -135,21 +138,21 @@ public class AlbumServiceTests {
         AlbumDTO goodTimeDTO = AlbumDTO.builder()
                 .title("A Good Time")
                 .artist("Marie Dahlstrom")
-                .genre(Genre.RNB)
+                .genre("R&B")
                 .releaseDate(Date.valueOf("2023-06-07"))
+                .price(9.99)
                 .stock(4)
                 .build();
 
         Album aGoodTime = Album.builder()
                 .title("A Good Time")
-                .artist(Artist.builder()
-                        .artistName("Marie Dahlstrom")
-                        .build())
-                .genre(Genre.RNB)
+                .artist(Artist.builder().artistName("Marie Dahlstrom").build())
+                .genre(Genre.builder().genre("R&B").build())
                 .releaseDate(Date.valueOf("2023-06-07"))
-                .stock(Stock.builder()
-                        .quantityInStock(4)
-                        .build())
+                .stock(Stock.builder().quantityInStock(4).build())
+                .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                .price(9.99)
                 .build();
 
         // Act
@@ -159,6 +162,7 @@ public class AlbumServiceTests {
         assertThat(actualResult).isInstanceOf(AlbumDTO.class);
         assertThat(actualResult.getArtist()).isEqualTo(goodTimeDTO.getArtist());
         assertThat(actualResult.getReleaseDate()).isEqualTo(goodTimeDTO.getReleaseDate());
+        assertThat(actualResult.getDateCreated()).isEqualTo("2024-12-13T12:00:00Z");
     }
 
     @Test
@@ -169,36 +173,33 @@ public class AlbumServiceTests {
         List<Album> albums = List.of(
                 Album.builder()
                         .title("Timeless")
-                        .artist(Artist.builder()
-                                .artistName("Davido")
-                                .build())
-                        .genre(Genre.AFROBEATS)
+                        .artist(Artist.builder().artistName("Davido").build())
+                        .genre(Genre.builder().genre( "Afrobeats").build())
                         .releaseDate(Date.valueOf("2023-01-12"))
-                        .stock(Stock.builder()
-                                .quantityInStock(4)
-                                .build())
+                        .stock(Stock.builder().quantityInStock(4).build())
+                        .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .price(9.99)
                         .build(),
                 Album.builder()
                         .title("A Good Time")
-                        .artist(Artist.builder()
-                                .artistName("Marie Dahlstrom")
-                                .build())
-                        .genre(Genre.RNB)
+                        .artist(Artist.builder().artistName("Marie Dahlstrom").build())
+                        .genre(Genre.builder().genre("R&B").build())
                         .releaseDate(Date.valueOf("2023-06-07"))
-                        .stock(Stock.builder()
-                                .quantityInStock(4)
-                                .build())
+                        .stock(Stock.builder().quantityInStock(4).build())
+                        .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .price(9.99)
                         .build(),
                 Album.builder()
                         .title("GNX")
-                        .artist(Artist.builder()
-                                .artistName("Kendrick Lamar")
-                                .build())
-                        .genre(Genre.RNB)
+                        .artist(Artist.builder().artistName("Kendrick Lamar").build())
+                        .genre(Genre.builder().genre("Rap").build())
                         .releaseDate(Date.valueOf("2024-11-22"))
-                        .stock(Stock.builder()
-                                .quantityInStock(4)
-                                .build())
+                        .stock(Stock.builder().quantityInStock(4).build())
+                        .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .price(9.99)
                         .build()
         );
 
@@ -220,36 +221,33 @@ public class AlbumServiceTests {
         List<Album> albums = List.of(
                 Album.builder()
                         .title("Timeless")
-                        .artist(Artist.builder()
-                                .artistName("Davido")
-                                .build())
-                        .genre(Genre.AFROBEATS)
+                        .artist(Artist.builder().artistName("Davido").build())
+                        .genre(Genre.builder().genre( "Afrobeats").build())
                         .releaseDate(Date.valueOf("2023-01-12"))
-                        .stock(Stock.builder()
-                                .quantityInStock(4)
-                                .build())
+                        .stock(Stock.builder().quantityInStock(4).build())
+                        .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .price(9.99)
                         .build(),
                 Album.builder()
                         .title("A Good Time")
-                        .artist(Artist.builder()
-                                .artistName("Marie Dahlstrom")
-                                .build())
-                        .genre(Genre.RNB)
+                        .artist(Artist.builder().artistName("Marie Dahlstrom").build())
+                        .genre(Genre.builder().genre("R&B").build())
                         .releaseDate(Date.valueOf("2023-06-07"))
-                        .stock(Stock.builder()
-                                .quantityInStock(0)
-                                .build())
+                        .stock(Stock.builder().quantityInStock(0).build())
+                        .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .price(9.99)
                         .build(),
                 Album.builder()
                         .title("GNX")
-                        .artist(Artist.builder()
-                                .artistName("Kendrick Lamar")
-                                .build())
-                        .genre(Genre.RNB)
+                        .artist(Artist.builder().artistName("Kendrick Lamar").build())
+                        .genre(Genre.builder().genre("Rap").build())
                         .releaseDate(Date.valueOf("2024-11-22"))
-                        .stock(Stock.builder()
-                                .quantityInStock(0)
-                                .build())
+                        .stock(Stock.builder().quantityInStock(0).build())
+                        .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                        .price(9.99)
                         .build()
         );
 
@@ -271,30 +269,33 @@ public class AlbumServiceTests {
         AlbumDTO timelessDTO = AlbumDTO.builder()
                 .title("Timeless")
                 .artist("Davido")
-                .genre(Genre.AFROBEATS)
+                .genre("Afrobeats")
                 .releaseDate(Date.valueOf("2023-01-12"))
+                .price(9.99)
                 .stock(4)
                 .build();
 
         Album timelessAlbum = Album.builder()
-                .title(timelessDTO.getTitle())
-                .artist(Artist.builder()
-                        .artistName(timelessDTO.getArtist())
-                        .build())
-                .genre(Genre.AFROBEATS)
-                .releaseDate(timelessDTO.getReleaseDate())
-                .stock(Stock.builder()
-                        .quantityInStock(timelessDTO.getStock())
-                        .build())
+                .title("Timeless")
+                .artist(Artist.builder().artistName("Davido").build())
+                .genre(Genre.builder().genre( "Afrobeats").build())
+                .releaseDate(Date.valueOf("2023-01-12"))
+                .stock(Stock.builder().quantityInStock(4).build())
+                .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                .price(9.99)
                 .build();
 
-        when(mockAlbumRepository.save(timelessAlbum)).thenReturn(timelessAlbum);
+        when(mockAlbumRepository.save(any(Album.class))).thenReturn(timelessAlbum);
 
         when(artistService.getOrCreateAlbumArtist(timelessDTO.getArtist()))
-                .thenReturn(Artist.builder().artistName(timelessDTO.getArtist()).build());
+                .thenReturn(timelessAlbum.getArtist());
+
+        when(genreService.getOrCreateGenre(timelessDTO.getGenre()))
+                .thenReturn(timelessAlbum.getGenre());
 
         when(stockService.addNewStock(timelessDTO.getStock()))
-                .thenReturn(Stock.builder().quantityInStock(timelessDTO.getStock()).build());
+                .thenReturn(timelessAlbum.getStock());
 
         // Act
         Album actualResult = albumServiceImpl.addNewAlbum(timelessDTO);
@@ -304,9 +305,11 @@ public class AlbumServiceTests {
         assertThat(actualResult.getArtist()).isEqualTo(timelessAlbum.getArtist());
         assertThat(actualResult.getReleaseDate()).isEqualTo(timelessAlbum.getReleaseDate());
         assertThat(actualResult.getStock()).isEqualTo(timelessAlbum.getStock());
+        assertThat(actualResult.getPrice()).isEqualTo(timelessAlbum.getPrice());
         assertThat(actualResult.getGenre()).isEqualTo(timelessAlbum.getGenre());
-    }
 
+        verify(mockAlbumRepository).save(any(Album.class));
+    }
 
     @Test
     @DisplayName("Returns can edit album ")
@@ -319,18 +322,19 @@ public class AlbumServiceTests {
         Album timelessAlbum = Album.builder()
                 .id(3L)
                 .title("Timeless")
-                .artist(Artist.builder()
-                        .artistName("Davido")
-                        .build())
-                .genre(Genre.AFROBEATS)
+                .artist(Artist.builder().artistName("Davido").build())
+                .genre(Genre.builder().genre( "Afrobeats").build())
                 .releaseDate(Date.valueOf("2023-01-12"))
-                .stock(Stock.builder()
-                        .id(2L)
-                        .quantityInStock(4)
-                        .build())
+                .stock(Stock.builder().id(3L).quantityInStock(4).build())
+                .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                .price(9.99)
                 .build();
 
-        Stock updatedStock = timelessAlbum.getStock();
+        Stock updatedStock = Stock.builder()
+                .id(3L)
+                .quantityInStock(6)
+                .build();
 
         when(mockAlbumRepository.findById(inputId)).thenReturn(Optional.of(timelessAlbum));
 
@@ -342,7 +346,7 @@ public class AlbumServiceTests {
         Album actualResult = albumServiceImpl.updateAlbumStockById(inputId, stockDTO);
 
         // Assert
-        assertThat(actualResult.getStock().getId()).isEqualTo(2L);
+        assertThat(actualResult.getStock().getId()).isEqualTo(3L);
         assertThat(actualResult.getStock().getQuantityInStock()).isEqualTo(6);
     }
 
@@ -356,14 +360,13 @@ public class AlbumServiceTests {
 
         Album timeless = Album.builder()
                 .title("Timeless")
-                .artist(Artist.builder()
-                        .artistName("Davido")
-                        .build())
-                .genre(Genre.AFROBEATS)
+                .artist(Artist.builder().artistName("Davido").build())
+                .genre(Genre.builder().genre( "Afrobeats").build())
                 .releaseDate(Date.valueOf("2023-01-12"))
-                .stock(Stock.builder()
-                        .quantityInStock(4)
-                        .build())
+                .stock(Stock.builder().quantityInStock(4).build())
+                .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
+                .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
+                .price(9.99)
                 .build();
 
         Stock updatedStock = timeless.getStock();
