@@ -1,6 +1,7 @@
 package com.northcoders.recordshopbackend.controllers;
 
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
+import com.northcoders.recordshopbackend.dto.NewAlbumDTO;
 import com.northcoders.recordshopbackend.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,8 @@ public class AlbumController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<AlbumDTO> postAddNewAlbum(@RequestBody AlbumDTO albumDTO){
-        return new ResponseEntity<>(albumService.postNewAlbum(albumDTO), HttpStatus.CREATED);
+    public ResponseEntity<AlbumDTO> postAddNewAlbum(@RequestBody NewAlbumDTO newAlbumDTO){
+        return new ResponseEntity<>(albumService.postNewAlbum(newAlbumDTO), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/{albumId}", produces = "application/json")
