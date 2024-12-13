@@ -1,6 +1,7 @@
 package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
+import com.northcoders.recordshopbackend.dto.NewAlbumDTO;
 import com.northcoders.recordshopbackend.dto.StockDTO;
 import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Artist;
@@ -266,7 +267,7 @@ public class AlbumServiceTests {
     @DisplayName("Returns album when an AlbumDTO is supplied and saved to the DB")
     void testAddAlbum(){
         // Arrange
-        AlbumDTO timelessDTO = AlbumDTO.builder()
+        NewAlbumDTO timelessDTO = NewAlbumDTO.builder()
                 .title("Timeless")
                 .artist("Davido")
                 .genre("Afrobeats")

@@ -42,6 +42,8 @@
 ## Misc
 - [x] Migrate to JpaRepository
 - [ ] Data validation
+  - [x] NewAlbumDTO
+  - [ ] UpdateAlbumDTO
 - [x] Convert Genre from an enum to a data entity class
   - [ ] Refactor Tests to account for this change
 - [ ] Cascading

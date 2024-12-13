@@ -39,6 +39,7 @@ public class Album {
     private Double price;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "stock_id", referencedColumnName = "id")
     private Stock stock;
 
     @Column(name = "date_created")

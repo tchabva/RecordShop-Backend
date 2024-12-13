@@ -2,6 +2,7 @@ package com.northcoders.recordshopbackend.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
+import com.northcoders.recordshopbackend.dto.NewAlbumDTO;
 import com.northcoders.recordshopbackend.service.AlbumService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -92,6 +93,14 @@ public class AlbumControllerTests {
     @DisplayName("POST add a new album")
     void postNewAlbum() throws Exception {
         // Arrange
+        NewAlbumDTO timelessNewDTO = NewAlbumDTO.builder()
+                .title("Timeless")
+                .artist("Davido")
+                .genre("Afrobeats")
+                .releaseDate(Date.valueOf("2023-01-12"))
+                .stock(4)
+                .build();
+
         AlbumDTO timelessDTO = AlbumDTO.builder()
                 .title("Timeless")
                 .artist("Davido")
@@ -100,16 +109,17 @@ public class AlbumControllerTests {
                 .stock(4)
                 .build();
 
-        when(mockAlbumService.postNewAlbum(timelessDTO)).thenReturn(timelessDTO);
+
+        when(mockAlbumService.postNewAlbum(timelessNewDTO)).thenReturn(timelessDTO);
 
         // Act & Assert
         this.mockMvcController.perform(
                         MockMvcRequestBuilders.post("/api/v1/albums/add")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(mapper.writeValueAsString(timelessDTO)))
+                                .content(mapper.writeValueAsString(timelessNewDTO)))
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
-        verify(mockAlbumService, times(1)).postNewAlbum(timelessDTO);
+        verify(mockAlbumService, times(1)).postNewAlbum(timelessNewDTO);
     }
 
     @Test
