@@ -1,6 +1,7 @@
 package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
+import com.northcoders.recordshopbackend.dto.NewAlbumDTO;
 import com.northcoders.recordshopbackend.dto.StockDTO;
 import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Stock;
@@ -114,8 +115,8 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
-    public AlbumDTO postNewAlbum(AlbumDTO albumDTO) {
-        return createAlbumDTO(addNewAlbum(albumDTO));
+    public AlbumDTO postNewAlbum(NewAlbumDTO newAlbumDTO) {
+        return createAlbumDTO(addNewAlbum(newAlbumDTO));
     }
 
     // Album to DTO mapper
@@ -136,14 +137,14 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
-    public Album addNewAlbum(AlbumDTO albumDTO) {
+    public Album addNewAlbum(NewAlbumDTO NewAlbumDTO) {
         return albumRepository.save(Album.builder()
-                .title(albumDTO.getTitle())
-                .artist(artistService.getOrCreateAlbumArtist(albumDTO.getArtist()))
-                .genre(genreService.getOrCreateGenre(albumDTO.getGenre()))
-                .releaseDate(albumDTO.getReleaseDate())
-                .stock(stockService.addNewStock(albumDTO.getStock()))
-                .price(albumDTO.getPrice())
+                .title(NewAlbumDTO.getTitle())
+                .artist(artistService.getOrCreateAlbumArtist(NewAlbumDTO.getArtist()))
+                .genre(genreService.getOrCreateGenre(NewAlbumDTO.getGenre()))
+                .releaseDate(NewAlbumDTO.getReleaseDate())
+                .stock(stockService.addNewStock(NewAlbumDTO.getStock()))
+                .price(NewAlbumDTO.getPrice())
                 .dateCreated(Instant.now())
                 .dateModified((Instant.now()))
                 .build());
@@ -206,7 +207,7 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
-    @Scheduled(fixedRate = 20000)
+    @Scheduled(fixedRate = 60000)
     public void cleanUpCache(){
         System.out.println("Running Cache clean up task");
         int initialSize = albumCacheService.getCache().size(); //gets the initial size of cache HashMap
