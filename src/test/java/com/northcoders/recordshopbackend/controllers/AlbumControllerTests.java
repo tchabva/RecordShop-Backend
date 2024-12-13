@@ -2,10 +2,6 @@ package com.northcoders.recordshopbackend.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
-import com.northcoders.recordshopbackend.model.Album;
-import com.northcoders.recordshopbackend.model.Artist;
-import com.northcoders.recordshopbackend.model.Stock;
-import com.northcoders.recordshopbackend.model.enums.Genre;
 import com.northcoders.recordshopbackend.service.AlbumService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -57,7 +53,7 @@ public class AlbumControllerTests {
                         .id(1L)
                         .title("Timeless")
                         .artist("Davido")
-                        .genre(Genre.AFROBEATS)
+                        .genre("Afrobeats")
                         .releaseDate(Date.valueOf("2023-01-12"))
                         .stock(4)
                         .build(),
@@ -65,7 +61,7 @@ public class AlbumControllerTests {
                         .id(2L)
                         .title("A Good Time")
                         .artist("Marie Dahlstrom")
-                        .genre(Genre.RNB)
+                        .genre("R&B")
                         .releaseDate(Date.valueOf("2023-06-07"))
                         .stock(3)
                         .build(),
@@ -73,7 +69,7 @@ public class AlbumControllerTests {
                         .id(3L)
                         .title("GNX")
                         .artist("Kendrick Lamar")
-                        .genre(Genre.RNB)
+                        .genre("Rap")
                         .releaseDate(Date.valueOf("2024-11-22"))
                         .stock(2)
                         .build()
@@ -99,7 +95,7 @@ public class AlbumControllerTests {
         AlbumDTO timelessDTO = AlbumDTO.builder()
                 .title("Timeless")
                 .artist("Davido")
-                .genre(Genre.AFROBEATS)
+                .genre("Afrobeats")
                 .releaseDate(Date.valueOf("2023-01-12"))
                 .stock(4)
                 .build();
@@ -126,7 +122,7 @@ public class AlbumControllerTests {
                 .id(id)
                 .title("Timeless")
                 .artist("Davido")
-                .genre(Genre.AFROBEATS)
+                .genre("Afrobeats")
                 .releaseDate(Date.valueOf("2023-01-12"))
                 .stock(4)
                 .build();
@@ -139,7 +135,7 @@ public class AlbumControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.artist").value("Davido"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.genre").value("AFROBEATS"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.genre").value("Afrobeats"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.stock").value(4));
     }
 
