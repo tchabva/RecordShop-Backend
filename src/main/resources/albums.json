@@ -1,122 +1,162 @@
-[{
-    "title": "Timeless",
-    "artist": "Davido",
-    "genre": "AMAPIANO",
-    "releaseDate": "2023-02-22",
-    "stock": 100,
-    "price": 10.99
-},
-{
-    "title": "Future Nostalgia",
-    "artist": "Dua Lipa",
-    "genre": "Pop",
-    "releaseDate": "2020-03-27",
-    "stock": 150,
-    "price": 14.99
-},
-{
-    "title": "Fine Line",
-    "artist": "Harry Styles",
-    "genre": "Pop Rock",
-    "releaseDate": "2019-12-13",
-    "stock": 120,
-    "price": 15.99
-},
-{
-    "title": "The Slow Rush",
-    "artist": "Tame Impala",
-    "genre": "Psychedelic Pop",
-    "releaseDate": "2020-02-14",
-    "stock": 180,
-    "price": 13.99
-},
-{
-    "title": "When We All Fall Asleep, Where Do We Go?",
-    "artist": "Billie Eilish",
-    "genre": "Alternative/Indie",
-    "releaseDate": "2019-03-29",
-    "stock": 200,
-    "price": 11.99
-},
-{
-    "title": "After Hours",
-    "artist": "The Weeknd",
-    "genre": "R&B",
-    "releaseDate": "2020-03-20",
-    "stock": 100,
-    "price": 16.99
-},
-{
-    "title": "Made in Lagos",
-    "artist": "Wizkid",
-    "genre": "Afrobeats",
-    "releaseDate": "2020-10-30",
-    "stock": 200,
-    "price": 12.99
-},
-{
-    "title": "Love, Damini",
-    "artist": "Burna Boy",
-    "genre": "Afrofusion",
-    "releaseDate": "2022-07-08",
-    "stock": 150,
-    "price": 14.49
-},
-{
-    "title": "Scorpion Kings Live",
-    "artist": "Kabza De Small & DJ Maphorisa",
-    "genre": "Amapiano",
-    "releaseDate": "2020-02-28",
-    "stock": 180,
-    "price": 11.99
-},
-{
-    "title": "African Giant",
-    "artist": "Burna Boy",
-    "genre": "Afrobeats",
-    "releaseDate": "2019-07-26",
-    "stock": 120,
-    "price": 13.99
-},
-{
-    "title": "Rave & Roses",
-    "artist": "Rema",
-    "genre": "Afropop",
-    "releaseDate": "2022-03-25",
-    "stock": 90,
-    "price": 10.49
-},
-
-{
-    "title": "Renaissance", 
-    "artist": "Beyoncé", 
-    "genre": "DANCE POP", 
-    "releaseDate": "2022-07-29", 
-    "stock": 250, 
-    "price": 14.99
-},
-{
-    "title": "Renaissance", 
-    "artist": "Beyoncé", 
-    "genre": "DANCE POP", 
-    "releaseDate": "2022-07-29", 
-    "stock": 250, 
-    "price": 14.99
-},
-{
-    "title": "Midnights", 
-    "artist": "Taylor Swift", 
-    "genre": "POP", 
-    "releaseDate": "2022-10-21", 
-    "stock": 175, 
-    "price": 12.49
-},
-{
-    "title": "30", 
-    "artist": "Adele", 
-    "genre": "POP", 
-    "releaseDate": "2021-11-19", 
-    "stock": 200, 
-    "price": 13.50
-}
+[
+    {
+        "title": "Timeless",
+        "artist": "Davido",
+        "genre": "Amapiano",
+        "releaseDate": "2023-02-22",
+        "stock": 100,
+        "price": 10.99
+    },
+    {
+        "title": "A Good Time",
+        "artist": "Davido",
+        "genre": "Afrobeats",
+        "releaseDate": "2019-11-22",
+        "stock": 130,
+        "price": 11.99
+    },
+    {
+        "title": "Son of Mercy",
+        "artist": "Davido",
+        "genre": "Afrobeats",
+        "releaseDate": "2016-10-14",
+        "stock": 120,
+        "price": 9.99
+    },
+    {
+        "title": "Future Nostalgia",
+        "artist": "Dua Lipa",
+        "genre": "Pop",
+        "releaseDate": "2020-03-27",
+        "stock": 150,
+        "price": 14.99
+    },
+    {
+        "title": "Fine Line",
+        "artist": "Harry Styles",
+        "genre": "Pop Rock",
+        "releaseDate": "2019-12-13",
+        "stock": 120,
+        "price": 15.99
+    },
+    {
+        "title": "The Slow Rush",
+        "artist": "Tame Impala",
+        "genre": "Psychedelic Pop",
+        "releaseDate": "2020-02-14",
+        "stock": 180,
+        "price": 13.99
+    },
+    {
+        "title": "When We All Fall Asleep, Where Do We Go?",
+        "artist": "Billie Eilish",
+        "genre": "Alternative/Indie",
+        "releaseDate": "2019-03-29",
+        "stock": 200,
+        "price": 11.99
+    },
+    {
+        "title": "After Hours",
+        "artist": "The Weeknd",
+        "genre": "R&B",
+        "releaseDate": "2020-03-20",
+        "stock": 100,
+        "price": 16.99
+    },
+    {
+        "title": "Made in Lagos",
+        "artist": "Wizkid",
+        "genre": "Afrobeats",
+        "releaseDate": "2020-10-30",
+        "stock": 200,
+        "price": 12.99
+    },
+    {
+        "title": "Love, Damini",
+        "artist": "Burna Boy",
+        "genre": "Afrofusion",
+        "releaseDate": "2022-07-08",
+        "stock": 150,
+        "price": 14.49
+    },
+    {
+        "title": "Scorpion Kings Live",
+        "artist": "Kabza De Small & DJ Maphorisa",
+        "genre": "Amapiano",
+        "releaseDate": "2020-02-28",
+        "stock": 180,
+        "price": 11.99
+    },
+    {
+        "title": "African Giant",
+        "artist": "Burna Boy",
+        "genre": "Afrobeats",
+        "releaseDate": "2019-07-26",
+        "stock": 120,
+        "price": 13.99
+    },
+    {
+        "title": "Rave & Roses",
+        "artist": "Rema",
+        "genre": "Afropop",
+        "releaseDate": "2022-03-25",
+        "stock": 90,
+        "price": 10.49
+    },
+    {
+        "title": "Renaissance",
+        "artist": "Beyoncé",
+        "genre": "Dance Pop",
+        "releaseDate": "2022-07-29",
+        "stock": 250,
+        "price": 14.99
+    },
+    {
+        "title": "The Lion King: The Gift",
+        "artist": "Beyoncé",
+        "genre": "Afropop",
+        "releaseDate": "2019-07-19",
+        "stock": 150,
+        "price": 13.99
+    },
+    {
+        "title": "Lemonade",
+        "artist": "Beyoncé",
+        "genre": "R&B",
+        "releaseDate": "2016-04-23",
+        "stock": 300,
+        "price": 14.99
+    },
+    {
+        "title": "Midnights",
+        "artist": "Taylor Swift",
+        "genre": "Pop",
+        "releaseDate": "2022-10-21",
+        "stock": 175,
+        "price": 12.49
+    },
+    {
+        "title": "Lover",
+        "artist": "Taylor Swift",
+        "genre": "Pop",
+        "releaseDate": "2019-08-23",
+        "stock": 200,
+        "price": 15.49
+    },
+    {
+        "title": "Reputation",
+        "artist": "Taylor Swift",
+        "genre": "Pop",
+        "releaseDate": "2017-11-10",
+        "stock": 150,
+        "price": 13.99
+    },
+    {
+        "title": "30",
+        "artist": "Adele",
+        "genre": "Pop",
+        "releaseDate": "2021-11-19",
+        "stock": 200,
+        "price": 13.50
+    }
 ]
