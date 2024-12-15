@@ -2,6 +2,7 @@ package com.northcoders.recordshopbackend.controllers;
 
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
 import com.northcoders.recordshopbackend.dto.NewAlbumDTO;
+import com.northcoders.recordshopbackend.dto.UpdateAlbumDTO;
 import com.northcoders.recordshopbackend.service.AlbumService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class AlbumController {
     }
 
     @PostMapping("/add-albums")
-    private ResponseEntity<List<AlbumDTO>> addAlbums(@RequestBody List<NewAlbumDTO> newAlbumDTOS){
+    private ResponseEntity<List<AlbumDTO>> addAlbums(@Valid @RequestBody List<NewAlbumDTO> newAlbumDTOS){
         newAlbumDTOS.forEach(newAlbumDTO -> albumService.postNewAlbum(newAlbumDTO));
         return new ResponseEntity<>(albumService.getAllInStockAlbumDTOs(), HttpStatus.CREATED);
     }
@@ -49,7 +50,10 @@ public class AlbumController {
     }
 
     @PutMapping(path = "/{albumId}")
-    public ResponseEntity<AlbumDTO> updateAlbumById(@PathVariable("albumId") Long albumId, @RequestBody AlbumDTO albumDTO){
-        return new ResponseEntity<>(albumService.updateAlbumById(albumId, albumDTO), HttpStatus.CREATED);
+    public ResponseEntity<AlbumDTO> updateAlbumById(
+            @PathVariable("albumId") Long albumId,
+            @Valid @RequestBody UpdateAlbumDTO updateAlbumDTO
+    ){
+        return new ResponseEntity<>(albumService.updateAlbumById(albumId, updateAlbumDTO), HttpStatus.CREATED);
     }
 }
