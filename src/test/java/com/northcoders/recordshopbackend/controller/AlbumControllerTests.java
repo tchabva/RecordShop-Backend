@@ -1,6 +1,7 @@
 package com.northcoders.recordshopbackend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.northcoders.recordshopbackend.controllers.AlbumController;
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
 import com.northcoders.recordshopbackend.dto.NewAlbumDTO;
 import com.northcoders.recordshopbackend.service.AlbumService;
