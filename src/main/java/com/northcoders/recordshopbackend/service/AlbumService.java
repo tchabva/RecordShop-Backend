@@ -4,6 +4,7 @@ package com.northcoders.recordshopbackend.service;
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
 import com.northcoders.recordshopbackend.dto.NewAlbumDTO;
 import com.northcoders.recordshopbackend.dto.StockDTO;
+import com.northcoders.recordshopbackend.dto.UpdateAlbumDTO;
 import com.northcoders.recordshopbackend.model.Album;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface AlbumService {
     List<AlbumDTO> createListOfAlbumDTOs(List<Album> albums);
     List<AlbumDTO> getAllInStockAlbumDTOs();
     Album getAlbumById(Long albumId);
-    AlbumDTO updateAlbumById(Long albumId, AlbumDTO updatedAlbumDTO);
+    AlbumDTO updateAlbumById(Long albumId, UpdateAlbumDTO updateAlbumDTO);
     AlbumDTO returnAlbumDTOById(Long albumId);
     AlbumDTO createAlbumDTO (Album album);
     Album addNewAlbum(NewAlbumDTO newAlbumDTO);
