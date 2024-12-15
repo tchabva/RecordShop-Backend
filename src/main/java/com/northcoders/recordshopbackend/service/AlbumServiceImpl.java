@@ -119,6 +119,12 @@ public class AlbumServiceImpl implements AlbumService{
         return createAlbumDTO(addNewAlbum(newAlbumDTO));
     }
 
+    @Override
+    public List<AlbumDTO> getArtistAlbumsById(Long artistId) {
+        List<Album> albums = albumRepository.findByArtistId(artistId);
+        return albums.stream().map(this::createAlbumDTO).toList();
+    }
+
     // Album to DTO mapper
     @Override
     public AlbumDTO createAlbumDTO(Album album) {
