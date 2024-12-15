@@ -44,6 +44,12 @@ public class AlbumController {
     public ResponseEntity<List<AlbumDTO>> getAllAlbumsByArtistID(@PathVariable("artistId") Long artistId){
         return new ResponseEntity<>(albumService.getArtistAlbumsById(artistId), HttpStatus.OK);
     }
+
+    @GetMapping("/artist")
+    public ResponseEntity<List<AlbumDTO>> getAllAlbumsByArtistName(@RequestParam("name") String artistName){
+        return new ResponseEntity<>(albumService.getArtistAlbumsByName(artistName), HttpStatus.OK);
+    }
+
     @DeleteMapping(path = "/{albumId}")
     public ResponseEntity<String> deleteAlbumById(@PathVariable("albumId") Long albumId){
         return new ResponseEntity<>(albumService.deleteAlbumById(albumId), HttpStatus.OK);
