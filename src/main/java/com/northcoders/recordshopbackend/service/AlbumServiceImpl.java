@@ -121,8 +121,12 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public List<AlbumDTO> getArtistAlbumsById(Long artistId) {
-        List<Album> albums = albumRepository.findByArtistId(artistId);
-        return albums.stream().map(this::createAlbumDTO).toList();
+        if(artistService.isArtistPresent(artistId)){
+            List<Album> albums = albumRepository.findByArtistId(artistId);
+            return albums.stream().map(this::createAlbumDTO).toList();
+        }else {
+            throw  new ItemNotFoundException(String.format("Artist with the ID '%d' cannot be found", artistId));
+        }
     }
 
     // Album to DTO mapper
