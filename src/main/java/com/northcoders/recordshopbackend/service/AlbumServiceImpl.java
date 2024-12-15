@@ -1,10 +1,8 @@
 package com.northcoders.recordshopbackend.service;
 
-import com.northcoders.recordshopbackend.dto.AlbumDTO;
-import com.northcoders.recordshopbackend.dto.NewAlbumDTO;
-import com.northcoders.recordshopbackend.dto.StockDTO;
-import com.northcoders.recordshopbackend.dto.UpdateAlbumDTO;
+import com.northcoders.recordshopbackend.dto.*;
 import com.northcoders.recordshopbackend.model.Album;
+import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.model.Stock;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
 import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
@@ -145,6 +143,17 @@ public class AlbumServiceImpl implements AlbumService{
         }else {
             throw  new ItemNotFoundException(String.format("Artist with the ID '%d' cannot be found", artistId));
         }
+    }
+
+    @Override
+    public List<AlbumDTO> getArtistAlbumsByName(String artistName) {
+        ArtistDTO artistDTO = artistService.getArtistByName(artistName);
+
+        return albumRepository
+                .findByArtistId(artistDTO.getId())
+                .stream()
+                .map(this::createAlbumDTO)
+                .toList();
     }
 
     // Album to DTO mapper
