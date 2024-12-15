@@ -23,4 +23,5 @@ public interface AlbumService {
     String decreaseStockByAlbumId(Long albumId);
     AlbumDTO postNewAlbum(NewAlbumDTO newAlbumDTO);
     List<AlbumDTO> getArtistAlbumsById(Long artistId);
+    List<AlbumDTO> getArtistAlbumsByName(String artistName);
 }
