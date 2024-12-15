@@ -2,17 +2,13 @@ package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.ArtistDTO;
 import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
-import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.repository.ArtistRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class ArtistServiceImpl implements ArtistService{
@@ -56,6 +52,16 @@ public class ArtistServiceImpl implements ArtistService{
     @Override
     public Boolean isArtistPresent(Long artistId) {
         return artistRepository.existsById(artistId);
+    }
+
+    @Override
+    public ArtistDTO getArtistByName(String artistName) {
+        Artist artist = artistRepository.findByArtistName(artistName);
+        if(artist != null){
+            return createArtistDTO(artist);
+        }else {
+            throw new ItemNotFoundException(String.format("Artist with the name '%s' cannot be found", artistName));
+        }
     }
 
     @Override
