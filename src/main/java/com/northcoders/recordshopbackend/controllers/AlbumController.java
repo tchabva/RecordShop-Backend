@@ -30,9 +30,7 @@ public class AlbumController {
 
     @PostMapping("/add-albums")
     private ResponseEntity<List<AlbumDTO>> addAlbums(@RequestBody List<NewAlbumDTO> newAlbumDTOS){
-
         newAlbumDTOS.forEach(newAlbumDTO -> albumService.postNewAlbum(newAlbumDTO));
-
         return new ResponseEntity<>(albumService.getAllInStockAlbumDTOs(), HttpStatus.CREATED);
     }
 
