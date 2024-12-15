@@ -50,5 +50,11 @@
 - [x] Generic caching
   - [ ] Implement generic caching across the other service layers
 - [x] Table rows
+- [ ] List all albums by a given artist
+  - [x] By ID
+  - [ ] By Name
+- [ ] List all albums in a given year
+- [ ] List all albums by a given genre
+- [ ] Get All Album Information by Album Name
 - [ ] Swagger UI
 - [ ] Sprint extra tasks

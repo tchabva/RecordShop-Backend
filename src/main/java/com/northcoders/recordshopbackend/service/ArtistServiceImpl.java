@@ -54,6 +54,11 @@ public class ArtistServiceImpl implements ArtistService{
     }
 
     @Override
+    public Boolean isArtistPresent(Long artistId) {
+        return artistRepository.existsById(artistId);
+    }
+
+    @Override
     public List<ArtistDTO> getAllArtistsDTO() {
         List<Artist> artists = getAllArtists();
         return artists.stream().map(this::createArtistDTO).toList();

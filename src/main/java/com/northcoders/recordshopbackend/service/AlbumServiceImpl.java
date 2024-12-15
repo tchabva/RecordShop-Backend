@@ -3,6 +3,7 @@ package com.northcoders.recordshopbackend.service;
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
 import com.northcoders.recordshopbackend.dto.NewAlbumDTO;
 import com.northcoders.recordshopbackend.dto.StockDTO;
+import com.northcoders.recordshopbackend.dto.UpdateAlbumDTO;
 import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Stock;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
@@ -72,33 +73,50 @@ public class AlbumServiceImpl implements AlbumService{
     }
 
     @Override
-    public AlbumDTO updateAlbumById(Long albumId, AlbumDTO updatedAlbumDTO) {
+    public AlbumDTO updateAlbumById(Long albumId, UpdateAlbumDTO updateAlbumDTO) {
         if (albumRepository.findById(albumId).isPresent()){
             albumCacheService.setValid(false);
             Album selectedAlbum = albumRepository.findById(albumId).get();
 
-            if (updatedAlbumDTO.getTitle() != null){
-                selectedAlbum.setTitle(updatedAlbumDTO.getTitle());
+            // Updates the album title if the JSON input for "title" is not null
+            if (updateAlbumDTO.getTitle() != null){
+                // Will not update the album title if the input is blank or just whitespace
+                if(!updateAlbumDTO.getTitle().isEmpty() && !updateAlbumDTO.getTitle().matches("(\\s+)")){
+                    // Trims all the whitespace before and after the title.
+                    String updatedAlbumTitle = updateAlbumDTO.getTitle().trim();
+                    selectedAlbum.setTitle(updatedAlbumTitle);
+                }
             }
 
-            if (updatedAlbumDTO.getArtist() != null){
-                selectedAlbum.setArtist(artistService.getOrCreateAlbumArtist(updatedAlbumDTO.getArtist()));
+            // Update the artist name if the JSON input for "artist" is not null
+            if (updateAlbumDTO.getArtist() != null ){
+                // Will not update the album title if the input is blank or just whitespace
+                if (!updateAlbumDTO.getArtist().isEmpty() && !updateAlbumDTO.getArtist().matches("(\\s+)")){
+                    // Trims all the whitespace before and after the artist's name.
+                    String updatedArtistName = updateAlbumDTO.getArtist().trim();
+                    selectedAlbum.setArtist(artistService.getOrCreateAlbumArtist(updatedArtistName));
+                }
             }
 
-            if (updatedAlbumDTO.getGenre() != null){
-                selectedAlbum.setGenre(genreService.getOrCreateGenre(updatedAlbumDTO.getGenre()));
+            // Update the album genre if the JSON input for "genre" is not null
+            if (updateAlbumDTO.getGenre() != null){
+                // Will not update the album genre if the input is blank or just whitespace
+                if (!updateAlbumDTO.getGenre().isEmpty() && !updateAlbumDTO.getGenre().matches("(\\s+)")){
+                    String updateGenre = updateAlbumDTO.getGenre().trim();
+                    selectedAlbum.setGenre(genreService.getOrCreateGenre(updateGenre));
+                }
             }
 
-            if (updatedAlbumDTO.getReleaseDate() != null){
-                selectedAlbum.setReleaseDate(updatedAlbumDTO.getReleaseDate());
+            if (updateAlbumDTO.getReleaseDate() != null){
+                selectedAlbum.setReleaseDate(updateAlbumDTO.getReleaseDate());
             }
 
-            if (updatedAlbumDTO.getStock() != null){
-                selectedAlbum.getStock().setQuantityInStock(updatedAlbumDTO.getStock());
+            if (updateAlbumDTO.getStock() != null){
+                selectedAlbum.getStock().setQuantityInStock(updateAlbumDTO.getStock());
             }
 
-            if(updatedAlbumDTO.getPrice() != null){
-                selectedAlbum.setPrice(updatedAlbumDTO.getPrice());
+            if(updateAlbumDTO.getPrice() != null){
+                selectedAlbum.setPrice(updateAlbumDTO.getPrice());
             }
 
             selectedAlbum.setDateModified(Instant.now());
@@ -121,8 +139,12 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public List<AlbumDTO> getArtistAlbumsById(Long artistId) {
-        List<Album> albums = albumRepository.findByArtistId(artistId);
-        return albums.stream().map(this::createAlbumDTO).toList();
+        if(artistService.isArtistPresent(artistId)){
+            List<Album> albums = albumRepository.findByArtistId(artistId);
+            return albums.stream().map(this::createAlbumDTO).toList();
+        }else {
+            throw  new ItemNotFoundException(String.format("Artist with the ID '%d' cannot be found", artistId));
+        }
     }
 
     // Album to DTO mapper
