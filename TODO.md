@@ -52,7 +52,7 @@
 - [x] Table rows
 - [ ] List all albums by a given artist
   - [x] By ID
-  - [ ] By Name
+  - [x] By Name
 - [ ] List all albums in a given year
 - [ ] List all albums by a given genre
 - [ ] Get All Album Information by Album Name
