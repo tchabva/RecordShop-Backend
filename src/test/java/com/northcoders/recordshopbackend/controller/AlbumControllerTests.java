@@ -1,4 +1,4 @@
-package com.northcoders.recordshopbackend.controllers;
+package com.northcoders.recordshopbackend.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
