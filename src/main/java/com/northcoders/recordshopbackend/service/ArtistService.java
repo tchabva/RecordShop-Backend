@@ -1,11 +1,9 @@
 package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.ArtistDTO;
-import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Artist;
 
 import java.util.List;
-import java.util.Set;
 
 public interface ArtistService {
     List<Artist> getAllArtists();
@@ -14,4 +12,5 @@ public interface ArtistService {
     ArtistDTO createArtistDTO(Artist artist);
     List<ArtistDTO> getAllArtistsDTO();
     Boolean isArtistPresent(Long artistId);
+    ArtistDTO getArtistByName(String artistName);
 }
