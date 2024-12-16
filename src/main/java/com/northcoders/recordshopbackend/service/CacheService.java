@@ -9,7 +9,7 @@ import java.util.HashMap;
 @Data
 public class CacheService<T> {
     private final HashMap<Long, CacheObject<T>> cache = new HashMap<>();
-    private final long TIME_TO_LIVE = 20000;
+    private final long TIME_TO_LIVE = 300000;
     private boolean isValid;
 
     @Data

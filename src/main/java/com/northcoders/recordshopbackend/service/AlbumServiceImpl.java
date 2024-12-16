@@ -244,7 +244,7 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 300000)
     public void cleanUpCache(){
         System.out.println("Running Cache clean up task");
         int initialSize = albumCacheService.getCache().size(); //gets the initial size of cache HashMap
