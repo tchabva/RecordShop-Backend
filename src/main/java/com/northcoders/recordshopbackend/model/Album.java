@@ -42,6 +42,9 @@ public class Album {
     @JoinColumn(name = "stock_id", referencedColumnName = "id")
     private Stock stock;
 
+    @Column(name = "artwork_url")
+    private String artworkUrl;
+
     @Column(name = "date_created")
     private Instant dateCreated;
 
