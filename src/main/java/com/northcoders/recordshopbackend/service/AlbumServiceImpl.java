@@ -2,7 +2,6 @@ package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.*;
 import com.northcoders.recordshopbackend.model.Album;
-import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.model.Stock;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
 import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
@@ -165,7 +164,7 @@ public class AlbumServiceImpl implements AlbumService{
                 .title(album.getTitle())
                 .artist(album.getArtist().getArtistName())
                 .genre(album.getGenre().getGenre())
-                .releaseDate(album.getReleaseDate())
+                .releaseDate(String.valueOf(album.getReleaseDate()))
                 .stock(album.getStock().getQuantityInStock())
                 .price(album.getPrice())
                 .dateCreated(album.getDateCreated().toString())
@@ -244,7 +243,7 @@ public class AlbumServiceImpl implements AlbumService{
         }
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 300000)
     public void cleanUpCache(){
         System.out.println("Running Cache clean up task");
         int initialSize = albumCacheService.getCache().size(); //gets the initial size of cache HashMap
