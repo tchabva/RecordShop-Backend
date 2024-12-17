@@ -82,6 +82,7 @@ public class AlbumServiceImpl implements AlbumService{
                     // Trims all the whitespace before and after the title.
                     String updatedAlbumTitle = updateAlbumDTO.getTitle().trim();
                     selectedAlbum.setTitle(updatedAlbumTitle);
+                    selectedAlbum.setDateModified(Instant.now());
                 }
             }
 
@@ -92,6 +93,7 @@ public class AlbumServiceImpl implements AlbumService{
                     // Trims all the whitespace before and after the artist's name.
                     String updatedArtistName = updateAlbumDTO.getArtist().trim();
                     selectedAlbum.setArtist(artistService.getOrCreateAlbumArtist(updatedArtistName));
+                    selectedAlbum.setDateModified(Instant.now());
                 }
             }
 
@@ -102,21 +104,29 @@ public class AlbumServiceImpl implements AlbumService{
                     String updateGenre = updateAlbumDTO.getGenre().trim();
                     selectedAlbum.setGenre(genreService.getOrCreateGenre(updateGenre));
                 }
+                selectedAlbum.setDateModified(Instant.now());
             }
 
             if (updateAlbumDTO.getReleaseDate() != null){
                 selectedAlbum.setReleaseDate(updateAlbumDTO.getReleaseDate());
+                selectedAlbum.setDateModified(Instant.now());
             }
 
             if (updateAlbumDTO.getStock() != null){
                 selectedAlbum.getStock().setQuantityInStock(updateAlbumDTO.getStock());
+                selectedAlbum.setDateModified(Instant.now());
             }
 
             if(updateAlbumDTO.getPrice() != null){
                 selectedAlbum.setPrice(updateAlbumDTO.getPrice());
+                selectedAlbum.setDateModified(Instant.now());
             }
 
-            selectedAlbum.setDateModified(Instant.now());
+            if (updateAlbumDTO.getArtworkUrl() != null){
+                selectedAlbum.setArtworkUrl(updateAlbumDTO.getArtworkUrl());
+                selectedAlbum.setDateModified(Instant.now());
+            }
+
             return createAlbumDTO(albumRepository.save(selectedAlbum));
         }else{
             throw new ItemNotFoundException(String.format("Album with the id '%s' cannot be found", albumId)
@@ -167,6 +177,7 @@ public class AlbumServiceImpl implements AlbumService{
                 .releaseDate(String.valueOf(album.getReleaseDate()))
                 .stock(album.getStock().getQuantityInStock())
                 .price(album.getPrice())
+                .artworkUrl(album.getArtworkUrl())
                 .dateCreated(album.getDateCreated().toString())
                 .dateModified(album.getDateModified().toString())
                 .build();
@@ -181,6 +192,7 @@ public class AlbumServiceImpl implements AlbumService{
                 .releaseDate(NewAlbumDTO.getReleaseDate())
                 .stock(stockService.addNewStock(NewAlbumDTO.getStock()))
                 .price(NewAlbumDTO.getPrice())
+                .artworkUrl(NewAlbumDTO.getArtworkUrl())
                 .dateCreated(Instant.now())
                 .dateModified((Instant.now()))
                 .build());
