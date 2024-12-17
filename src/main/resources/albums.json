@@ -177,7 +177,7 @@
         "releaseDate": "2021-11-19",
         "stock": 200,
         "price": 13.50,
-        "artworkUrl":
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/73/6d/7c/736d7cfb-c79d-c9a9-4170-5e71d008dea1/886449666430.jpg/600x600bb.jpg"
     },
     {
         "title": "A Good Life",
@@ -205,6 +205,6 @@
         "releaseDate": "2016-11-25",
         "stock": 1,
         "price": 10.99,
-        "artworkUrl": "https://error.jpg"
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/e2/61/f8/e261f8c1-73db-9a7a-c89e-1068f19970e0/16UMGIM67863.rgb.jpg/600x600bb.jpg"
     }
 ]
