@@ -5,7 +5,8 @@
         "genre": "Amapiano",
         "releaseDate": "2023-02-22",
         "stock": 100,
-        "price": 10.99
+        "price": 10.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/40/12/87/4012878d-d267-09b8-7fe0-8c3fd8fdf169/886449553617.jpg/600x600bb.jpg"
     },
     {
         "title": "A Good Time",
@@ -13,7 +14,8 @@
         "genre": "Afrobeats",
         "releaseDate": "2019-11-22",
         "stock": 130,
-        "price": 11.99
+        "price": 11.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/51/ca/d9/51cad909-e31b-160a-126d-28e69ac89405/886448091097.jpg/600x600bb.jpg"
     },
     {
         "title": "Son of Mercy",
@@ -21,7 +23,8 @@
         "genre": "Afrobeats",
         "releaseDate": "2016-10-14",
         "stock": 120,
-        "price": 9.99
+        "price": 9.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music22/v4/ac/09/30/ac0930f8-3889-4e31-b08f-0c441395255a/886446139593.jpg/600x600bb.jpg"
     },
     {
         "title": "Future Nostalgia",
@@ -29,7 +32,8 @@
         "genre": "Pop",
         "releaseDate": "2020-03-27",
         "stock": 150,
-        "price": 14.99
+        "price": 14.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/6c/11/d6/6c11d681-aa3a-d59e-4c2e-f77e181026ab/190295092665.jpg/600x600bb.jpg"
     },
     {
         "title": "Fine Line",
@@ -37,7 +41,8 @@
         "genre": "Pop Rock",
         "releaseDate": "2019-12-13",
         "stock": 120,
-        "price": 15.99
+        "price": 15.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/2b/c4/c9/2bc4c9d4-3bc6-ab13-3f71-df0b89b173de/886448022213.jpg/600x600bb.jpg"
     },
     {
         "title": "The Slow Rush",
@@ -45,7 +50,8 @@
         "genre": "Psychedelic Pop",
         "releaseDate": "2020-02-14",
         "stock": 180,
-        "price": 13.99
+        "price": 13.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/65/e3/e7/65e3e740-b69f-f5cb-f2e6-7dedb5265ac9/19UMGIM96748.rgb.jpg/600x600bb.jpg"
     },
     {
         "title": "When We All Fall Asleep, Where Do We Go?",
@@ -53,7 +59,8 @@
         "genre": "Alternative/Indie",
         "releaseDate": "2019-03-29",
         "stock": 200,
-        "price": 11.99
+        "price": 11.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/1a/37/d1/1a37d1b1-8508-54f2-f541-bf4e437dda76/19UMGIM05028.rgb.jpg/600x600bb.jpg"
     },
     {
         "title": "After Hours",
@@ -61,7 +68,8 @@
         "genre": "R&B",
         "releaseDate": "2020-03-20",
         "stock": 100,
-        "price": 16.99
+        "price": 16.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/6f/bc/e6/6fbce6c4-c38c-72d8-4fd0-66cfff32f679/20UMGIM12176.rgb.jpg/600x600bb.jpg"
     },
     {
         "title": "Made in Lagos",
@@ -69,7 +77,8 @@
         "genre": "Afrobeats",
         "releaseDate": "2020-10-30",
         "stock": 200,
-        "price": 12.99
+        "price": 12.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music115/v4/b0/09/8e/b0098ed0-ef53-f2b5-386a-c8e6181f3c8a/886448775256.jpg/600x600bb.jpg"
     },
     {
         "title": "Love, Damini",
@@ -77,7 +86,8 @@
         "genre": "Afrofusion",
         "releaseDate": "2022-07-08",
         "stock": 150,
-        "price": 14.49
+        "price": 14.49,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/34/42/db/3442dbd6-644f-a111-8344-0151ffb93313/075679745156.jpg/600x600bb.jpg"
     },
     {
         "title": "Scorpion Kings Live",
@@ -85,7 +95,8 @@
         "genre": "Amapiano",
         "releaseDate": "2020-02-28",
         "stock": 180,
-        "price": 11.99
+        "price": 11.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/f7/45/15/f74515e0-1540-f78e-b3dc-982f543ebb31/6009710462492.jpg/600x600bb.jpg"
     },
     {
         "title": "African Giant",
@@ -93,7 +104,8 @@
         "genre": "Afrobeats",
         "releaseDate": "2019-07-26",
         "stock": 120,
-        "price": 13.99
+        "price": 13.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/ac/4c/e3/ac4ce34b-c2cd-a057-e049-b0914c51be1a/075679849304.jpg/600x600bb.jpg"
     },
     {
         "title": "Rave & Roses",
@@ -101,7 +113,8 @@
         "genre": "Afropop",
         "releaseDate": "2022-03-25",
         "stock": 90,
-        "price": 10.49
+        "price": 10.49,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/b2/b4/7c/b2b47cf9-d8e2-53f6-5c62-c974d665c95b/22UMGIM08994.rgb.jpg/600x600bb.jpg"
     },
     {
         "title": "Renaissance",
@@ -109,7 +122,8 @@
         "genre": "Dance Pop",
         "releaseDate": "2022-07-29",
         "stock": 250,
-        "price": 14.99
+        "price": 14.99,
+        "artworkUrl": null
     },
     {
         "title": "The Lion King: The Gift",
@@ -117,7 +131,8 @@
         "genre": "Afropop",
         "releaseDate": "2019-07-19",
         "stock": 150,
-        "price": 13.99
+        "price": 13.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/aa/20/73/aa207387-444f-b04d-9b7e-7ea6c687c15e/886447863329.jpg/600x600bb.jpg"
     },
     {
         "title": "Lemonade",
@@ -125,7 +140,8 @@
         "genre": "R&B",
         "releaseDate": "2016-04-23",
         "stock": 300,
-        "price": 14.99
+        "price": 14.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/1d/1f/f1/1d1ff1ea-1720-ae29-9886-0ea89720615c/886447691144.jpg/600x600bb.jpg"
     },
     {
         "title": "Midnights",
@@ -133,7 +149,8 @@
         "genre": "Pop",
         "releaseDate": "2022-10-21",
         "stock": 175,
-        "price": 12.49
+        "price": 12.49,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music112/v4/3d/01/f2/3d01f2e5-5a08-835f-3d30-d031720b2b80/22UM1IM07364.rgb.jpg/600x600bb.jpg"
     },
     {
         "title": "Lover",
@@ -141,7 +158,8 @@
         "genre": "Pop",
         "releaseDate": "2019-08-23",
         "stock": 200,
-        "price": 15.49
+        "price": 15.49,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/49/3d/ab/493dab54-f920-9043-6181-80993b8116c9/19UMGIM53909.rgb.jpg/600x600bb.jpg"
     },
     {
         "title": "Reputation",
@@ -149,7 +167,8 @@
         "genre": "Pop",
         "releaseDate": "2017-11-10",
         "stock": 150,
-        "price": 13.99
+        "price": 13.99,
+        "artworkUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music125/v4/ba/16/42/ba1642a8-0c75-a83d-3b9c-8c2eba140dc5/00843930033133.rgb.jpg/600x600bb.jpg"
     },
     {
         "title": "30",
@@ -157,6 +176,35 @@
         "genre": "Pop",
         "releaseDate": "2021-11-19",
         "stock": 200,
-        "price": 13.50
+        "price": 13.50,
+        "artworkUrl":
+    },
+    {
+        "title": "A Good Life",
+        "artist": "Marie Dahlstrom",
+        "genre": "R&B",
+        "releaseDate": "2023-06-07",
+        "stock": 14,
+        "price": 7.00,
+        "artworkUrl": "https://f4.bcbits.com/img/a1298126789_10.jpg"
+    },
+    {
+        "title": "Ephemeral Emotions - EP",
+        "artist": "TC-EP",
+        "genre": "R&B/Soul",
+        "releaseDate": "2022-09-30",
+        "stock": 30,
+        "price": 14.00,
+        "artworkUrl": "https://a5.mzstatic.com/us/r1000/0/Music122/v4/31/2e/37/312e373c-7e7a-91bb-3df0-311b0c6a86ab/artwork.jpg"
+    },
+
+    {
+        "title": "Starboy",
+        "artist": "The Weeknd",
+        "genre": "R&B",
+        "releaseDate": "2016-11-25",
+        "stock": 1,
+        "price": 10.99,
+        "artworkUrl": "https://error.jpg"
     }
 ]

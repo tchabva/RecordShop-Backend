@@ -34,6 +34,8 @@ public class NewAlbumDTO {
     @PositiveOrZero(message = "A stock quantity is mandatory")
     private Integer stock;
 
+    private String artworkUrl;
+
     @NotNull(message = "A price is mandatory")
     @PositiveOrZero(message = "A stock quantity is mandatory")
     private Double price;

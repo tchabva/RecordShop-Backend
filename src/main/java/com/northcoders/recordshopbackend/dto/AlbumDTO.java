@@ -19,6 +19,7 @@ public class AlbumDTO{
         private String releaseDate;
         private Integer stock;
         private Double price;
+        private String artworkUrl;
         private String dateCreated;
         private String dateModified;
 }

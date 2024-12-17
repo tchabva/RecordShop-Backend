@@ -57,4 +57,7 @@
 - [ ] List all albums by a given genre
 - [ ] Get All Album Information by Album Name
 - [ ] Swagger UI
+- [ ] Artwork
+  - [ ] Add artwork String attribute
+  - [ ] Validation?
 - [ ] Sprint extra tasks

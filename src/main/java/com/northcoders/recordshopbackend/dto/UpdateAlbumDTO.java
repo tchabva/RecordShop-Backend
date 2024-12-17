@@ -27,5 +27,7 @@ public class UpdateAlbumDTO {
 
     @PositiveOrZero(message = "A price cannot be negative")
     private Double price;
+
+    private String artworkUrl;
 }
 
