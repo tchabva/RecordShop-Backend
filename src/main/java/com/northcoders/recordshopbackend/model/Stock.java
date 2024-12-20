@@ -18,7 +18,7 @@ public class Stock {
     private Long id;
 
     @Column(name = "quantity_in_stock")
-    private int quantityInStock;
+    private Integer quantityInStock;
 
     @OneToOne(mappedBy = "stock")
     private Album album;

@@ -71,6 +71,7 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public AlbumDTO updateAlbumById(Long albumId, UpdateAlbumDTO updateAlbumDTO) {
+
         if (albumRepository.findById(albumId).isPresent()){
             albumCacheService.setValid(false);
             Album selectedAlbum = albumRepository.findById(albumId).get();
@@ -81,8 +82,11 @@ public class AlbumServiceImpl implements AlbumService{
                 if(!updateAlbumDTO.getTitle().isEmpty() && !updateAlbumDTO.getTitle().matches("(\\s+)")){
                     // Trims all the whitespace before and after the title.
                     String updatedAlbumTitle = updateAlbumDTO.getTitle().trim();
-                    selectedAlbum.setTitle(updatedAlbumTitle);
-                    selectedAlbum.setDateModified(Instant.now());
+                    // Will only update the title if it is different
+                    if (!updatedAlbumTitle.equals(selectedAlbum.getTitle())){
+                        selectedAlbum.setTitle(updatedAlbumTitle);
+                        selectedAlbum.setDateModified(Instant.now());
+                    }
                 }
             }
 
@@ -92,8 +96,11 @@ public class AlbumServiceImpl implements AlbumService{
                 if (!updateAlbumDTO.getArtist().isEmpty() && !updateAlbumDTO.getArtist().matches("(\\s+)")){
                     // Trims all the whitespace before and after the artist's name.
                     String updatedArtistName = updateAlbumDTO.getArtist().trim();
-                    selectedAlbum.setArtist(artistService.getOrCreateAlbumArtist(updatedArtistName));
-                    selectedAlbum.setDateModified(Instant.now());
+                    // Will only update the Artist name if it is different
+                    if (!updatedArtistName.equals(selectedAlbum.getArtist().getArtistName())){
+                        selectedAlbum.setArtist(artistService.getOrCreateAlbumArtist(updatedArtistName));
+                        selectedAlbum.setDateModified(Instant.now());
+                    }
                 }
             }
 
@@ -102,29 +109,44 @@ public class AlbumServiceImpl implements AlbumService{
                 // Will not update the album genre if the input is blank or just whitespace
                 if (!updateAlbumDTO.getGenre().isEmpty() && !updateAlbumDTO.getGenre().matches("(\\s+)")){
                     String updateGenre = updateAlbumDTO.getGenre().trim();
-                    selectedAlbum.setGenre(genreService.getOrCreateGenre(updateGenre));
+                    // Will only update the Genre if it is different
+                    if (!updateGenre.equals(selectedAlbum.getGenre().getGenre())){
+                        selectedAlbum.setGenre(genreService.getOrCreateGenre(updateGenre));
+                        selectedAlbum.setDateModified(Instant.now());
+                    }
                 }
-                selectedAlbum.setDateModified(Instant.now());
             }
 
             if (updateAlbumDTO.getReleaseDate() != null){
-                selectedAlbum.setReleaseDate(updateAlbumDTO.getReleaseDate());
-                selectedAlbum.setDateModified(Instant.now());
+                // Will not update the Release Date unless it has been changed
+                if (!updateAlbumDTO.getReleaseDate().toString().equals(selectedAlbum.getReleaseDate().toString())){
+                    selectedAlbum.setReleaseDate(updateAlbumDTO.getReleaseDate());
+                    selectedAlbum.setDateModified(Instant.now());
+                }
             }
 
             if (updateAlbumDTO.getStock() != null){
-                selectedAlbum.getStock().setQuantityInStock(updateAlbumDTO.getStock());
-                selectedAlbum.setDateModified(Instant.now());
+                // Won't update the stock unless it has been changed
+                if(!updateAlbumDTO.getStock().equals(selectedAlbum.getStock().getQuantityInStock())){
+                    selectedAlbum.getStock().setQuantityInStock(updateAlbumDTO.getStock());
+                    selectedAlbum.setDateModified(Instant.now());
+                }
             }
 
             if(updateAlbumDTO.getPrice() != null){
-                selectedAlbum.setPrice(updateAlbumDTO.getPrice());
-                selectedAlbum.setDateModified(Instant.now());
+                // Won't update the price unless it has been changed
+                if(!updateAlbumDTO.getPrice().equals(selectedAlbum.getPrice())){
+                    selectedAlbum.setPrice(updateAlbumDTO.getPrice());
+                    selectedAlbum.setDateModified(Instant.now());
+                }
             }
 
             if (updateAlbumDTO.getArtworkUrl() != null){
-                selectedAlbum.setArtworkUrl(updateAlbumDTO.getArtworkUrl());
-                selectedAlbum.setDateModified(Instant.now());
+                // Won't update the artwork URL unless it has been changed
+                if(!updateAlbumDTO.getArtworkUrl().equals(selectedAlbum.getArtworkUrl())){
+                    selectedAlbum.setArtworkUrl(updateAlbumDTO.getArtworkUrl());
+                    selectedAlbum.setDateModified(Instant.now());
+                }
             }
 
             return createAlbumDTO(albumRepository.save(selectedAlbum));

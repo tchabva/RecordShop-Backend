@@ -8,6 +8,6 @@ import lombok.Data;
 @AllArgsConstructor
 @Builder
 public class ArtistDTO {
-    private long id;
+    private Long id;
     private String artistName;
 }
