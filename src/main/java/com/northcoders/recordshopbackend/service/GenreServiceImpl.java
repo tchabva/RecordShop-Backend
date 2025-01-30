@@ -49,4 +49,13 @@ public class GenreServiceImpl implements GenreService, DTOMapper{
             throw new ItemNotFoundException(String.format("Genre with the id '%d' cannot be found", genreId));
         }
     }
+
+    @Override
+    public GenreWithAlbumsDTO getGenreByNameWithAlbums(String genre) {
+        if(genreRepository.findByGenre(genre).isPresent()){
+            return createGenreWithDTO(genreRepository.findByGenre(genre).get());
+        }else {
+            throw new ItemNotFoundException(String.format("No Genre '%s' cannot be found", genre));
+        }
+    }
 }

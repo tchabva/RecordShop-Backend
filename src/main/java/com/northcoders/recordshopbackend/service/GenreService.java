@@ -11,4 +11,5 @@ public interface GenreService {
     Genre addNewGenre(String genre);
     Genre getOrCreateGenre(String genre);
     GenreWithAlbumsDTO getGenreByIdWithAlbums(Long genreId);
+    GenreWithAlbumsDTO getGenreByNameWithAlbums(String genre);
 }
