@@ -140,7 +140,7 @@ public class AlbumServiceTests {
                 .title("A Good Time")
                 .artist("Marie Dahlstrom")
                 .genre("R&B")
-                .releaseDate(Date.valueOf("2023-06-07"))
+                .releaseDate("2023-06-07")
                 .price(9.99)
                 .stock(4)
                 .build();

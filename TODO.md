@@ -20,6 +20,7 @@
   - [x] Add Artist method
   - [x] Get All Artists
   - [x] Get or create AlbumArtist
+  - [ ] Add more tests
 - [ ] Stock Service
   - [x] Add stock method
   - [x] Get stock by ID

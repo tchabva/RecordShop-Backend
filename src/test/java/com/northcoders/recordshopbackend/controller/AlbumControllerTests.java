@@ -56,7 +56,7 @@ public class AlbumControllerTests {
                         .title("Timeless")
                         .artist("Davido")
                         .genre("Afrobeats")
-                        .releaseDate(Date.valueOf("2023-01-12"))
+                        .releaseDate("2023-01-12")
                         .stock(4)
                         .build(),
                 AlbumDTO.builder()
@@ -64,7 +64,7 @@ public class AlbumControllerTests {
                         .title("A Good Time")
                         .artist("Marie Dahlstrom")
                         .genre("R&B")
-                        .releaseDate(Date.valueOf("2023-06-07"))
+                        .releaseDate("2023-06-07")
                         .stock(3)
                         .build(),
                 AlbumDTO.builder()
@@ -72,7 +72,7 @@ public class AlbumControllerTests {
                         .title("GNX")
                         .artist("Kendrick Lamar")
                         .genre("Rap")
-                        .releaseDate(Date.valueOf("2024-11-22"))
+                        .releaseDate("2024-11-22")
                         .stock(2)
                         .build()
         );
@@ -100,16 +100,16 @@ public class AlbumControllerTests {
                 .genre("Afrobeats")
                 .releaseDate(Date.valueOf("2023-01-12"))
                 .stock(4)
+                .price(10.99)
                 .build();
 
         AlbumDTO timelessDTO = AlbumDTO.builder()
                 .title("Timeless")
                 .artist("Davido")
                 .genre("Afrobeats")
-                .releaseDate(Date.valueOf("2023-01-12"))
+                .releaseDate("2023-01-12")
                 .stock(4)
                 .build();
-
 
         when(mockAlbumService.postNewAlbum(timelessNewDTO)).thenReturn(timelessDTO);
 
@@ -134,7 +134,7 @@ public class AlbumControllerTests {
                 .title("Timeless")
                 .artist("Davido")
                 .genre("Afrobeats")
-                .releaseDate(Date.valueOf("2023-01-12"))
+                .releaseDate("2023-01-12")
                 .stock(4)
                 .build();
 
@@ -152,7 +152,7 @@ public class AlbumControllerTests {
 
     @Test
     @DisplayName("DELETE /{albumId}")
-    void testDeleteByJokeId() throws Exception {
+    void testDeleteByAlbumId() throws Exception {
         // Arrange
         Long id = 1L;
 
@@ -161,14 +161,14 @@ public class AlbumControllerTests {
         // Act & Assert
         this.mockMvcController.perform(
                 MockMvcRequestBuilders.delete("/api/v1/albums/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
 
         verify(mockAlbumService, times(1)).deleteAlbumById(id);
     }
 
     @Test
     @DisplayName("DELETE /{albumId} when Album does not exist")
-    void testDeleteByJokeIdForMissingAlbum() throws Exception {
+    void testDeleteByAlbumIdForMissingAlbum() throws Exception {
         // Arrange
         Long id = 2L;
 

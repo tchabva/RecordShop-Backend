@@ -178,13 +178,9 @@ public class AlbumServiceImpl implements AlbumService{
 
     @Override
     public List<AlbumDTO> getArtistAlbumsByName(String artistName) {
-        ArtistDTO artistDTO = artistService.getArtistByName(artistName);
-
-        return albumRepository
-                .findByArtistId(artistDTO.getId())
-                .stream()
-                .map(this::createAlbumDTO)
-                .toList();
+        // Note: Might not need this method anymore!
+        ArtistWithAlbumsDTO artistWithAlbumsDTO = artistService.getArtistByNameWithAlbums(artistName);
+        return artistWithAlbumsDTO.getAlbums();
     }
 
     // Album to DTO mapper

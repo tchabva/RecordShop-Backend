@@ -11,13 +11,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @DataJpaTest
 public class ArtistServiceTests {
 
     @Mock
-    private ArtistRepository artistRepository;
+    private ArtistRepository mockArtistRepository;
 
     @InjectMocks
     private ArtistServiceImpl artistServiceImpl;
@@ -37,7 +38,7 @@ public class ArtistServiceTests {
                         .artistName("Kendrick Lamar")
                         .build()
                 );
-        when(artistRepository.findAll()).thenReturn(artists);
+        when(mockArtistRepository.findAll()).thenReturn(artists);
 
         // Act
         List<Artist> actualResult = artistServiceImpl.getAllArtists();
@@ -52,15 +53,19 @@ public class ArtistServiceTests {
     void testAddArtist(){
         // Arrange
         Artist exectedArtist =Artist.builder()
+                .id(1L)
                 .artistName("Davido")
                 .build();
 
-        when(artistRepository.save(exectedArtist)).thenReturn(exectedArtist);
+        when(mockArtistRepository.save(any(Artist.class))).thenReturn(exectedArtist);
 
         // Act
-        Artist result = artistServiceImpl.addNewArtist(exectedArtist.getArtistName());
+        Artist result = artistServiceImpl.addNewArtist("Davido");
 
         // Assert
         assertThat(result.getArtistName()).isEqualTo(exectedArtist.getArtistName());
     }
+
+
+    // TODO add more tests
 }
