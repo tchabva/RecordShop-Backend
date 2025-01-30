@@ -1,7 +1,10 @@
 package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.AlbumDTO;
+import com.northcoders.recordshopbackend.dto.ArtistDTO;
+import com.northcoders.recordshopbackend.dto.ArtistWithAlbumsDTO;
 import com.northcoders.recordshopbackend.model.Album;
+import com.northcoders.recordshopbackend.model.Artist;
 import org.jetbrains.annotations.NotNull;
 
 // DTOMapper Interface
@@ -18,6 +21,21 @@ public interface DTOMapper {
                 .artworkUrl(album.getArtworkUrl())
                 .dateCreated(album.getDateCreated().toString())
                 .dateModified(album.getDateModified().toString())
+                .build();
+    }
+
+    default ArtistWithAlbumsDTO createArtistWithAlbumsDTO(@NotNull Artist artist) {
+        return ArtistWithAlbumsDTO.builder()
+                .id(artist.getId())
+                .artistName(artist.getArtistName())
+                .albums(artist.getAlbums().stream().map(this::createAlbumDTO).toList())
+                .build();
+    }
+
+    default ArtistDTO createArtistDTO(@NotNull Artist artist) {
+        return ArtistDTO.builder()
+                .id(artist.getId())
+                .artistName(artist.getArtistName())
                 .build();
     }
 }
