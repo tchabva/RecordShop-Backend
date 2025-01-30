@@ -159,23 +159,6 @@ public class AlbumServiceImpl implements AlbumService, DTOMapper{
     }
 
     @Override
-    public List<AlbumDTO> getArtistAlbumsById(Long artistId) {
-        if(artistService.isArtistPresent(artistId)){
-            List<Album> albums = albumRepository.findByArtistId(artistId);
-            return albums.stream().map(this::createAlbumDTO).toList();
-        }else {
-            throw  new ItemNotFoundException(String.format("Artist with the ID '%d' cannot be found", artistId));
-        }
-    }
-
-    @Override
-    public List<AlbumDTO> getArtistAlbumsByName(String artistName) {
-        // Note: Might not need this method anymore!
-        ArtistWithAlbumsDTO artistWithAlbumsDTO = artistService.getArtistByNameWithAlbums(artistName);
-        return artistWithAlbumsDTO.getAlbums();
-    }
-
-    @Override
     public Album addNewAlbum(NewAlbumDTO NewAlbumDTO) {
         return albumRepository.save(Album.builder()
                 .title(NewAlbumDTO.getTitle())
