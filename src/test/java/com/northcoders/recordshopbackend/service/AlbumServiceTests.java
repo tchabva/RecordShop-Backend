@@ -296,7 +296,7 @@ public class AlbumServiceTests {
                         .build()
         );
 
-        when(mockAlbumRepository.findAll()).thenReturn(albums);
+        when(mockAlbumRepository.findAll(Sort.by(Sort.Direction.ASC,"id"))).thenReturn(albums);
 
         // Act
         List<AlbumDTO> inStockAlbumDTOs = albumServiceImpl.getAllInStockAlbumDTOs();
