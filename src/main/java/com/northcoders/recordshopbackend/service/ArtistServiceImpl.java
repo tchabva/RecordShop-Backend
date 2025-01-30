@@ -1,9 +1,7 @@
 package com.northcoders.recordshopbackend.service;
 
-import com.northcoders.recordshopbackend.dto.AlbumDTO;
 import com.northcoders.recordshopbackend.dto.ArtistDTO;
 import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
-import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ArtistServiceImpl implements ArtistService{
+public class ArtistServiceImpl implements ArtistService, DTOMapper{
 
     @Autowired
     private ArtistRepository artistRepository;
@@ -80,21 +78,5 @@ public class ArtistServiceImpl implements ArtistService{
         }else {
             throw new ItemNotFoundException(String.format("Artist with the id '%d' cannot be found", artistId));
         }
-    }
-
-    public AlbumDTO createAlbumDTO(Album album) {
-
-        return AlbumDTO.builder()
-                .id(album.getId())
-                .title(album.getTitle())
-                .artist(album.getArtist().getArtistName())
-                .genre(album.getGenre().getGenre())
-                .releaseDate(String.valueOf(album.getReleaseDate()))
-                .stock(album.getStock().getQuantityInStock())
-                .price(album.getPrice())
-                .artworkUrl(album.getArtworkUrl())
-                .dateCreated(album.getDateCreated().toString())
-                .dateModified(album.getDateModified().toString())
-                .build();
     }
 }
