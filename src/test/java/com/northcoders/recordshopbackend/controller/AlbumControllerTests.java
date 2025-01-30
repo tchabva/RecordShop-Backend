@@ -56,7 +56,7 @@ public class AlbumControllerTests {
                         .title("Timeless")
                         .artist("Davido")
                         .genre("Afrobeats")
-                        .releaseDate(Date.valueOf("2023-01-12"))
+                        .releaseDate("2023-01-12")
                         .stock(4)
                         .build(),
                 AlbumDTO.builder()
@@ -64,7 +64,7 @@ public class AlbumControllerTests {
                         .title("A Good Time")
                         .artist("Marie Dahlstrom")
                         .genre("R&B")
-                        .releaseDate(Date.valueOf("2023-06-07"))
+                        .releaseDate("2023-06-07")
                         .stock(3)
                         .build(),
                 AlbumDTO.builder()
@@ -72,7 +72,7 @@ public class AlbumControllerTests {
                         .title("GNX")
                         .artist("Kendrick Lamar")
                         .genre("Rap")
-                        .releaseDate(Date.valueOf("2024-11-22"))
+                        .releaseDate("2024-11-22")
                         .stock(2)
                         .build()
         );
@@ -106,7 +106,7 @@ public class AlbumControllerTests {
                 .title("Timeless")
                 .artist("Davido")
                 .genre("Afrobeats")
-                .releaseDate(Date.valueOf("2023-01-12"))
+                .releaseDate("2023-01-12")
                 .stock(4)
                 .build();
 
@@ -134,7 +134,7 @@ public class AlbumControllerTests {
                 .title("Timeless")
                 .artist("Davido")
                 .genre("Afrobeats")
-                .releaseDate(Date.valueOf("2023-01-12"))
+                .releaseDate("2023-01-12")
                 .stock(4)
                 .build();
 
