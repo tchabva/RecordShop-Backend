@@ -65,4 +65,7 @@ public class ArtistServiceTests {
         // Assert
         assertThat(result.getArtistName()).isEqualTo(exectedArtist.getArtistName());
     }
+
+
+    // TODO add more tests
 }
