@@ -152,7 +152,7 @@ public class AlbumControllerTests {
 
     @Test
     @DisplayName("DELETE /{albumId}")
-    void testDeleteByJokeId() throws Exception {
+    void testDeleteByAlbumId() throws Exception {
         // Arrange
         Long id = 1L;
 
@@ -161,14 +161,14 @@ public class AlbumControllerTests {
         // Act & Assert
         this.mockMvcController.perform(
                 MockMvcRequestBuilders.delete("/api/v1/albums/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
 
         verify(mockAlbumService, times(1)).deleteAlbumById(id);
     }
 
     @Test
     @DisplayName("DELETE /{albumId} when Album does not exist")
-    void testDeleteByJokeIdForMissingAlbum() throws Exception {
+    void testDeleteByAlbumIdForMissingAlbum() throws Exception {
         // Arrange
         Long id = 2L;
 
