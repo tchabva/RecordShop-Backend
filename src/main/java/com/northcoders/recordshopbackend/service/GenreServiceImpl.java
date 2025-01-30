@@ -1,22 +1,22 @@
 package com.northcoders.recordshopbackend.service;
 
+import com.northcoders.recordshopbackend.dto.GenreDTO;
 import com.northcoders.recordshopbackend.model.Genre;
 import com.northcoders.recordshopbackend.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class GenreServiceImpl implements  GenreService{
+public class GenreServiceImpl implements GenreService, DTOMapper{
 
     @Autowired
     private GenreRepository genreRepository;
 
     @Override
-    public List<Genre> getAllGenres() {
-        return new ArrayList<>(genreRepository.findAll());
+    public List<GenreDTO> getAllGenres() {
+        return genreRepository.findAll().stream().map(this::createGenreDTO).toList();
     }
 
     @Override
@@ -30,7 +30,7 @@ public class GenreServiceImpl implements  GenreService{
 
     @Override
     public Genre getOrCreateGenre(String genre) {
-        List<Genre> genres = getAllGenres();
+        List<Genre> genres = genreRepository.findAll();
         for(Genre g : genres){
             if(g.getGenre().equalsIgnoreCase(genre)){
                 return g;
