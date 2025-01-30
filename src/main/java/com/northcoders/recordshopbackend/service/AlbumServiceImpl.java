@@ -1,16 +1,16 @@
 package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.*;
+import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Stock;
 import com.northcoders.recordshopbackend.repository.AlbumRepository;
-import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,13 +32,13 @@ public class AlbumServiceImpl implements AlbumService, DTOMapper{
     private CacheService<Album> albumCacheService;
 
     @Override
-    public List<Album> getAllAlbums() {
-        return new ArrayList<>(albumRepository.findAll());
+    public List<AlbumDTO> getAllAlbums() {
+        return albumRepository.findAll(Sort.by(Sort.Direction.ASC,"id")).stream().map(this::createAlbumDTO).toList();
     }
 
     @Override
     public List<AlbumDTO> getAllInStockAlbumDTOs() {
-        return createListOfAlbumDTOs(getAllAlbums())
+        return getAllAlbums()
                 .stream()
                 .filter(albumDTO -> albumDTO.getStock() > 0)
                 .toList();

@@ -20,6 +20,11 @@ public class AlbumController {
     private AlbumService albumService;
 
     @GetMapping
+    public ResponseEntity<List<AlbumDTO>> getAllAlbums(){
+        return new ResponseEntity<>(albumService.getAllInStockAlbumDTOs(), HttpStatus.OK);
+    }
+
+    @GetMapping("/in-stock")
     public ResponseEntity<List<AlbumDTO>> getAllInStockAlbums(){
         return new ResponseEntity<>(albumService.getAllInStockAlbumDTOs(), HttpStatus.OK);
     }
