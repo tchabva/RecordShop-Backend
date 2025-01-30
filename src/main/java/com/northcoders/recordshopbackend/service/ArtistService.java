@@ -13,4 +13,5 @@ public interface ArtistService {
     List<ArtistDTO> getAllArtistsDTO();
     Boolean isArtistPresent(Long artistId);
     ArtistDTO getArtistByName(String artistName);
+    ArtistDTO getArtistByIdWithAlbums(Long artistId);
 }

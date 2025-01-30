@@ -1,7 +1,9 @@
 package com.northcoders.recordshopbackend.service;
 
+import com.northcoders.recordshopbackend.dto.AlbumDTO;
 import com.northcoders.recordshopbackend.dto.ArtistDTO;
 import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
+import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.repository.ArtistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,7 @@ public class ArtistServiceImpl implements ArtistService{
         return ArtistDTO.builder()
                 .id(artist.getId())
                 .artistName(artist.getArtistName())
+                .albums(artist.getAlbums().stream().map(this::createAlbumDTO).toList())
                 .build();
     }
 
@@ -67,5 +70,31 @@ public class ArtistServiceImpl implements ArtistService{
     public List<ArtistDTO> getAllArtistsDTO() {
         List<Artist> artists = getAllArtists();
         return artists.stream().map(this::createArtistDTO).toList();
+    }
+
+    @Override
+    public ArtistDTO getArtistByIdWithAlbums(Long artistId) {
+
+        if(artistRepository.findByIdWithAlbums(artistId).isPresent()){
+            return createArtistDTO(artistRepository.findByIdWithAlbums(artistId).get());
+        }else {
+            throw new ItemNotFoundException(String.format("Artist with the id '%d' cannot be found", artistId));
+        }
+    }
+
+    public AlbumDTO createAlbumDTO(Album album) {
+
+        return AlbumDTO.builder()
+                .id(album.getId())
+                .title(album.getTitle())
+                .artist(album.getArtist().getArtistName())
+                .genre(album.getGenre().getGenre())
+                .releaseDate(String.valueOf(album.getReleaseDate()))
+                .stock(album.getStock().getQuantityInStock())
+                .price(album.getPrice())
+                .artworkUrl(album.getArtworkUrl())
+                .dateCreated(album.getDateCreated().toString())
+                .dateModified(album.getDateModified().toString())
+                .build();
     }
 }
