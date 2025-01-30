@@ -7,6 +7,8 @@ import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Artist;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 // DTOMapper Interface
 public interface DTOMapper {
      default AlbumDTO createAlbumDTO(@NotNull Album album) {
@@ -22,6 +24,13 @@ public interface DTOMapper {
                 .dateCreated(album.getDateCreated().toString())
                 .dateModified(album.getDateModified().toString())
                 .build();
+    }
+
+    default List<AlbumDTO> createListOfAlbumDTOs(List<Album> albums) {
+        return albums
+                .stream()
+                .map(this::createAlbumDTO)
+                .toList();
     }
 
     default ArtistWithAlbumsDTO createArtistWithAlbumsDTO(@NotNull Artist artist) {
