@@ -7,21 +7,18 @@
 - [x] Update album details
 - [x] Delete albums from the database
 ### Model Layer
-- [ ] Add songs a class to the model layer
-  - [ ] Relationships between songs and albums
-  - [ ] Relationships between songs and artists
-- [ ] ArtistDTO
+- [x] ArtistDTO
 ### Service Layer
-- [ ] Album Service
+- Album Service
   - [x] Add New Album
   - [x] Update album stock by id
   - [x] Delete album by ID
-- [ ] Artist Service
+- Artist Service
   - [x] Add Artist method
   - [x] Get All Artists
   - [x] Get or create AlbumArtist
   - [ ] Add more tests
-- [ ] Stock Service
+- Stock Service
   - [x] Add stock method
   - [x] Get stock by ID
 - [x] Genre Service
@@ -49,9 +46,9 @@
   - [ ] Refactor Tests to account for this change
 - [ ] Cascading
 - [x] Generic caching
-  - [ ] Implement generic caching across the other service layers
+  - [ ] Using a caching dependency
 - [x] Table rows
-- [ ] List all albums by a given artist
+- [x] List all albums by a given artist
   - [x] By ID
   - [x] By Name
 - [ ] List all albums in a given year
@@ -59,6 +56,6 @@
 - [ ] Get All Album Information by Album Name
 - [ ] Swagger UI
 - [ ] Artwork
-  - [ ] Add artwork String attribute
+  - [x] Add artwork String attribute
   - [ ] Validation?
 - [ ] Sprint extra tasks
