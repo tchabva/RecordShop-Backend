@@ -1,10 +1,9 @@
 package com.northcoders.recordshopbackend.service;
 
-import com.northcoders.recordshopbackend.dto.AlbumDTO;
-import com.northcoders.recordshopbackend.dto.ArtistDTO;
-import com.northcoders.recordshopbackend.dto.ArtistWithAlbumsDTO;
+import com.northcoders.recordshopbackend.dto.*;
 import com.northcoders.recordshopbackend.model.Album;
 import com.northcoders.recordshopbackend.model.Artist;
+import com.northcoders.recordshopbackend.model.Genre;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -45,6 +44,21 @@ public interface DTOMapper {
         return ArtistDTO.builder()
                 .id(artist.getId())
                 .artistName(artist.getArtistName())
+                .build();
+    }
+
+    default GenreDTO createGenreDTO(Genre genre){
+         return GenreDTO.builder()
+                 .id(genre.getId())
+                 .genre(genre.getGenre())
+                 .build();
+    }
+
+    default GenreWithAlbumsDTO createGenreWithDTO(Genre genre){
+        return GenreWithAlbumsDTO.builder()
+                .id(genre.getId())
+                .genre(genre.getGenre())
+                .albumDTOS(genre.getAlbums().stream().map(this::createAlbumDTO).toList())
                 .build();
     }
 }
