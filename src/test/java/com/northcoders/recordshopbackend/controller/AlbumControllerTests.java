@@ -100,6 +100,7 @@ public class AlbumControllerTests {
                 .genre("Afrobeats")
                 .releaseDate(Date.valueOf("2023-01-12"))
                 .stock(4)
+                .price(10.99)
                 .build();
 
         AlbumDTO timelessDTO = AlbumDTO.builder()
@@ -109,7 +110,6 @@ public class AlbumControllerTests {
                 .releaseDate("2023-01-12")
                 .stock(4)
                 .build();
-
 
         when(mockAlbumService.postNewAlbum(timelessNewDTO)).thenReturn(timelessDTO);
 
