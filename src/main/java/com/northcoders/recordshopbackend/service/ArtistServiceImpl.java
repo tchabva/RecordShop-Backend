@@ -56,9 +56,8 @@ public class ArtistServiceImpl implements ArtistService{
 
     @Override
     public ArtistDTO getArtistByName(String artistName) {
-        Artist artist = artistRepository.findByArtistName(artistName);
-        if(artist != null){
-            return createArtistDTO(artist);
+        if(artistRepository.findByArtistName(artistName).isPresent()){
+            return createArtistDTO(artistRepository.findByArtistName(artistName).get());
         }else {
             throw new ItemNotFoundException(String.format("Artist with the name '%s' cannot be found", artistName));
         }
