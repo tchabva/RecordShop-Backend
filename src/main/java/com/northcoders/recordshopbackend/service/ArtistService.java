@@ -11,7 +11,6 @@ public interface ArtistService {
     Artist addNewArtist(String artistName);
     Artist getOrCreateAlbumArtist(String artistName);
     List<ArtistDTO> getAllArtistsDTO();
-    Boolean isArtistPresent(Long artistId);
     ArtistWithAlbumsDTO getArtistByNameWithAlbums(String artistName);
     ArtistWithAlbumsDTO getArtistByIdWithAlbums(Long artistId);
 }

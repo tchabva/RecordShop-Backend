@@ -20,6 +20,11 @@ public class AlbumController {
     private AlbumService albumService;
 
     @GetMapping
+    public ResponseEntity<List<AlbumDTO>> getAllAlbums(){
+        return new ResponseEntity<>(albumService.getAllInStockAlbumDTOs(), HttpStatus.OK);
+    }
+
+    @GetMapping("/in-stock")
     public ResponseEntity<List<AlbumDTO>> getAllInStockAlbums(){
         return new ResponseEntity<>(albumService.getAllInStockAlbumDTOs(), HttpStatus.OK);
     }
@@ -38,16 +43,6 @@ public class AlbumController {
     @GetMapping(path = "/{albumId}", produces = "application/json")
     public ResponseEntity<AlbumDTO> getByAlbumId(@PathVariable("albumId") Long albumId){
         return new ResponseEntity<>(albumService.returnAlbumDTOById(albumId), HttpStatus.OK);
-    }
-
-    @GetMapping(path = "/artist/{artistId}")
-    public ResponseEntity<List<AlbumDTO>> getAllAlbumsByArtistID(@PathVariable("artistId") Long artistId){
-        return new ResponseEntity<>(albumService.getArtistAlbumsById(artistId), HttpStatus.OK);
-    }
-
-    @GetMapping("/artist")
-    public ResponseEntity<List<AlbumDTO>> getAllAlbumsByArtistName(@RequestParam("name") String artistName){
-        return new ResponseEntity<>(albumService.getArtistAlbumsByName(artistName), HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/{albumId}")

@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Sort;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -50,6 +52,7 @@ public class AlbumServiceTests {
         // Arrange
         List<Album> albums = List.of(
                 Album.builder()
+                        .id(1L)
                         .title("Timeless")
                         .artist(Artist.builder().artistName("Davido").build())
                         .genre(Genre.builder().genre( "Afrobeats").build())
@@ -60,35 +63,76 @@ public class AlbumServiceTests {
                         .price(9.99)
                         .build(),
                 Album.builder()
+                        .id(2L)
                         .title("A Good Time")
                         .artist(Artist.builder().artistName("Marie Dahlstrom").build())
                         .genre(Genre.builder().genre("R&B").build())
                         .releaseDate(Date.valueOf("2023-06-07"))
-                        .stock(Stock.builder().quantityInStock(4).build())
+                        .stock(Stock.builder().quantityInStock(6).build())
                         .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
                         .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
                         .price(9.99)
                         .build(),
                 Album.builder()
+                        .id(3L)
                         .title("GNX")
                         .artist(Artist.builder().artistName("Kendrick Lamar").build())
                         .genre(Genre.builder().genre("Rap").build())
                         .releaseDate(Date.valueOf("2024-11-22"))
-                        .stock(Stock.builder().quantityInStock(4).build())
+                        .stock(Stock.builder().quantityInStock(5).build())
                         .dateCreated(Instant.parse("2024-12-13T12:00:00.00Z"))
                         .dateModified(Instant.parse("2024-12-13T12:00:00.00Z"))
                         .price(9.99)
                         .build()
         );
 
-        when(mockAlbumRepository.findAll()).thenReturn(albums);
+        // Arrange
+        List<AlbumDTO> albumsDTO = List.of(
+                AlbumDTO.builder()
+                        .id(1L)
+                        .title("Timeless")
+                        .artist("Davido")
+                        .genre("Afrobeats")
+                        .releaseDate("2023-01-12")
+                        .stock(4)
+                        .dateCreated(String.valueOf(Instant.parse("2024-12-13T12:00:00.00Z")))
+                        .dateModified(String.valueOf(Instant.parse("2024-12-13T12:00:00.00Z")))
+                        .price(9.99)
+                        .build(),
+                AlbumDTO.builder()
+                        .id(2L)
+                        .title("A Good Time")
+                        .artist("Marie Dahlstrom")
+                        .genre("R&B")
+                        .releaseDate("2023-06-07")
+                        .stock(6)
+                        .dateCreated(String.valueOf(Instant.parse("2024-12-13T12:00:00.00Z")))
+                        .dateModified(String.valueOf(Instant.parse("2024-12-13T12:00:00.00Z")))
+                        .price(9.99)
+                        .build(),
+                AlbumDTO.builder()
+                        .id(3L)
+                        .title("GNX")
+                        .artist("Kendrick Lamar")
+                        .genre("Rap")
+                        .releaseDate("2024-11-22")
+                        .stock(5)
+                        .dateCreated(String.valueOf(Instant.parse("2024-12-13T12:00:00.00Z")))
+                        .dateModified(String.valueOf(Instant.parse("2024-12-13T12:00:00.00Z")))
+                        .price(9.99)
+                        .build()
+        );
+
+        when(mockAlbumRepository.findAll(Sort.by(Sort.Direction.ASC,"id"))).thenReturn(albums);
 
         // Act
-        List<Album> actualResult = albumServiceImpl.getAllAlbums();
+        List<AlbumDTO> actualResult = albumServiceImpl.getAllAlbums();
 
         // Assert
-        assertThat(actualResult).hasSize(3);
-        assertThat(actualResult).isEqualTo(albums);
+        assertAll("getAllAlbums returns all the albums in the Database",
+                () -> assertThat(actualResult).hasSize(3),
+                () -> assertThat(actualResult).isEqualTo(albumsDTO)
+        );
     }
 
     @Test
@@ -252,7 +296,7 @@ public class AlbumServiceTests {
                         .build()
         );
 
-        when(mockAlbumRepository.findAll()).thenReturn(albums);
+        when(mockAlbumRepository.findAll(Sort.by(Sort.Direction.ASC,"id"))).thenReturn(albums);
 
         // Act
         List<AlbumDTO> inStockAlbumDTOs = albumServiceImpl.getAllInStockAlbumDTOs();

@@ -10,7 +10,7 @@ import com.northcoders.recordshopbackend.model.Album;
 import java.util.List;
 
 public interface AlbumService {
-    List<Album> getAllAlbums();
+    List<AlbumDTO> getAllAlbums();
     List<AlbumDTO> getAllInStockAlbumDTOs();
     Album getAlbumById(Long albumId);
     AlbumDTO updateAlbumById(Long albumId, UpdateAlbumDTO updateAlbumDTO);
@@ -20,6 +20,4 @@ public interface AlbumService {
     String deleteAlbumById(Long albumId);
     String decreaseStockByAlbumId(Long albumId);
     AlbumDTO postNewAlbum(NewAlbumDTO newAlbumDTO);
-    List<AlbumDTO> getArtistAlbumsById(Long artistId);
-    List<AlbumDTO> getArtistAlbumsByName(String artistName);
 }
