@@ -1,6 +1,7 @@
 package com.northcoders.recordshopbackend.controllers;
 
 import com.northcoders.recordshopbackend.dto.ArtistDTO;
+import com.northcoders.recordshopbackend.dto.ArtistWithAlbumsDTO;
 import com.northcoders.recordshopbackend.service.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,12 +23,12 @@ public class ArtistController {
     }
 
     @GetMapping()
-    public ResponseEntity<ArtistDTO> getArtistByName(@RequestParam(value = "name") String name){
+    public ResponseEntity<ArtistWithAlbumsDTO> getArtistByName(@RequestParam(value = "name") String name){
         return new ResponseEntity<>(artistService.getArtistByName(name), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{artistId}")
-    public ResponseEntity<ArtistDTO> getArtistByIdWithAlbums(@PathVariable("artistId") Long artistId){
+    public ResponseEntity<ArtistWithAlbumsDTO> getArtistByIdWithAlbums(@PathVariable("artistId") Long artistId){
         return new ResponseEntity<>(artistService.getArtistByIdWithAlbums(artistId), HttpStatus.OK);
     }
 }
