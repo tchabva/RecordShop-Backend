@@ -1,6 +1,8 @@
 package com.northcoders.recordshopbackend.service;
 
 import com.northcoders.recordshopbackend.dto.GenreDTO;
+import com.northcoders.recordshopbackend.dto.GenreWithAlbumsDTO;
+import com.northcoders.recordshopbackend.exception.ItemNotFoundException;
 import com.northcoders.recordshopbackend.model.Genre;
 import com.northcoders.recordshopbackend.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +39,14 @@ public class GenreServiceImpl implements GenreService, DTOMapper{
             }
         }
         return addNewGenre(genre);
+    }
+
+    @Override
+    public GenreWithAlbumsDTO getGenreByIdWithAlbums(Long genreId) {
+        if(genreRepository.findById(genreId).isPresent()){
+            return createGenreWithDTO(genreRepository.findById(genreId).get());
+        }else {
+            throw new ItemNotFoundException(String.format("Genre with the id '%d' cannot be found", genreId));
+        }
     }
 }
