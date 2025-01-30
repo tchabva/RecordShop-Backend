@@ -24,7 +24,7 @@ public class ArtistController {
 
     @GetMapping()
     public ResponseEntity<ArtistWithAlbumsDTO> getArtistByName(@RequestParam(value = "name") String name){
-        return new ResponseEntity<>(artistService.getArtistByName(name), HttpStatus.OK);
+        return new ResponseEntity<>(artistService.getArtistByNameWithAlbums(name), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{artistId}")
