@@ -43,11 +43,6 @@ public class ArtistServiceImpl implements ArtistService, DTOMapper{
     }
 
     @Override
-    public Boolean isArtistPresent(Long artistId) {
-        return artistRepository.existsById(artistId);
-    }
-
-    @Override
     public ArtistWithAlbumsDTO getArtistByNameWithAlbums(String artistName) {
         if(artistRepository.findByArtistName(artistName).isPresent()){
             return createArtistWithAlbumsDTO(artistRepository.findByArtistName(artistName).get());
