@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AlbumServiceImpl implements AlbumService{
+public class AlbumServiceImpl implements AlbumService, DTOMapper{
 
     @Autowired
     private AlbumRepository albumRepository;
@@ -181,24 +181,6 @@ public class AlbumServiceImpl implements AlbumService{
         // Note: Might not need this method anymore!
         ArtistWithAlbumsDTO artistWithAlbumsDTO = artistService.getArtistByNameWithAlbums(artistName);
         return artistWithAlbumsDTO.getAlbums();
-    }
-
-    // Album to DTO mapper
-    @Override
-    public AlbumDTO createAlbumDTO(Album album) {
-
-        return AlbumDTO.builder()
-                .id(album.getId())
-                .title(album.getTitle())
-                .artist(album.getArtist().getArtistName())
-                .genre(album.getGenre().getGenre())
-                .releaseDate(String.valueOf(album.getReleaseDate()))
-                .stock(album.getStock().getQuantityInStock())
-                .price(album.getPrice())
-                .artworkUrl(album.getArtworkUrl())
-                .dateCreated(album.getDateCreated().toString())
-                .dateModified(album.getDateModified().toString())
-                .build();
     }
 
     @Override
