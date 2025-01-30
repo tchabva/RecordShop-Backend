@@ -37,14 +37,6 @@ public class AlbumServiceImpl implements AlbumService, DTOMapper{
     }
 
     @Override
-    public List<AlbumDTO> createListOfAlbumDTOs(List<Album> albums) {
-        return albums
-                .stream()
-                .map(this::createAlbumDTO)
-                .toList();
-    }
-
-    @Override
     public List<AlbumDTO> getAllInStockAlbumDTOs() {
         return createListOfAlbumDTOs(getAllAlbums())
                 .stream()

@@ -11,12 +11,10 @@ import java.util.List;
 
 public interface AlbumService {
     List<Album> getAllAlbums();
-    List<AlbumDTO> createListOfAlbumDTOs(List<Album> albums);
     List<AlbumDTO> getAllInStockAlbumDTOs();
     Album getAlbumById(Long albumId);
     AlbumDTO updateAlbumById(Long albumId, UpdateAlbumDTO updateAlbumDTO);
     AlbumDTO returnAlbumDTOById(Long albumId);
-//    AlbumDTO createAlbumDTO (Album album);
     Album addNewAlbum(NewAlbumDTO newAlbumDTO);
     Album updateAlbumStockById(Long albumId, StockDTO stockDTO);
     String deleteAlbumById(Long albumId);
