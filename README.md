@@ -3,6 +3,9 @@
 ## Project Overview
 The Record Shop API is a backend inventory management system designed to modernise the 
 record shop's stock, query this stock and update it accordingly.
+It is the backend for these repositories:
+  - [Record Shop App - Kotlin & Compose](https://github.com/tchabva/Recordshop-Frontend-Compose)
+  - [Record Shop App - Java & Views](https://github.com/tchabva/recordshop-frontend)
 
 ## Assumptions 
 - That users will always check the database before adding an album, and thus just add to the stock if they album is already present in the database.
