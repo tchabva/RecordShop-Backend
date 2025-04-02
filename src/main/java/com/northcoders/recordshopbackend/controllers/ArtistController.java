@@ -17,12 +17,12 @@ public class ArtistController {
     @Autowired
     private ArtistService artistService;
 
-    @GetMapping("/all")
+    @GetMapping()
     public ResponseEntity<List<ArtistDTO>> getAllArtists(){
         return new ResponseEntity<>(artistService.getAllArtistsDTO(), HttpStatus.OK);
     }
 
-    @GetMapping()
+    @GetMapping("/search")
     public ResponseEntity<ArtistWithAlbumsDTO> getArtistByName(@RequestParam(value = "name") String name){
         return new ResponseEntity<>(artistService.getArtistByNameWithAlbums(name), HttpStatus.OK);
     }
