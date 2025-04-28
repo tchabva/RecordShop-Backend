@@ -58,7 +58,9 @@ public class ArtistServiceImpl implements ArtistService, DTOMapper {
     @Override
     public List<ArtistDTO> getAllArtistsDTO() {
         List<Artist> artists = getAllArtists();
-        return artists.stream().map(this::createArtistDTO).toList();
+        return artists.stream()
+                .filter(artist -> !artist.getAlbums().isEmpty())
+                .map(this::createArtistDTO).toList();
     }
 
     @Override
