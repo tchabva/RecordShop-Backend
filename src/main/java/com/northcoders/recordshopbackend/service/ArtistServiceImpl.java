@@ -9,17 +9,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class ArtistServiceImpl implements ArtistService, DTOMapper{
+public class ArtistServiceImpl implements ArtistService, DTOMapper {
 
     @Autowired
     private ArtistRepository artistRepository;
 
     @Override
     public List<Artist> getAllArtists() {
-        return new ArrayList<>(artistRepository.findAll());
+        List<Artist> artists = new ArrayList<>(artistRepository.findAll());
+        return artists.stream()
+                .sorted(Comparator.comparing(artist -> artist.getArtistName().toLowerCase()))
+                .toList();
     }
 
     @Override
@@ -34,8 +38,8 @@ public class ArtistServiceImpl implements ArtistService, DTOMapper{
     @Override
     public Artist getOrCreateAlbumArtist(String artistName) {
         List<Artist> artists = getAllArtists();
-        for (Artist artist : artists){
-            if (artist.getArtistName().equals(artistName)){
+        for (Artist artist : artists) {
+            if (artist.getArtistName().equals(artistName)) {
                 return artist;
             }
         }
@@ -44,9 +48,9 @@ public class ArtistServiceImpl implements ArtistService, DTOMapper{
 
     @Override
     public ArtistWithAlbumsDTO getArtistByNameWithAlbums(String artistName) {
-        if(artistRepository.findByArtistName(artistName).isPresent()){
+        if (artistRepository.findByArtistName(artistName).isPresent()) {
             return createArtistWithAlbumsDTO(artistRepository.findByArtistName(artistName).get());
-        }else {
+        } else {
             throw new ItemNotFoundException(String.format("Artist with the name '%s' cannot be found", artistName));
         }
     }
@@ -60,9 +64,9 @@ public class ArtistServiceImpl implements ArtistService, DTOMapper{
     @Override
     public ArtistWithAlbumsDTO getArtistByIdWithAlbums(Long artistId) {
 
-        if(artistRepository.findById(artistId).isPresent()){
+        if (artistRepository.findById(artistId).isPresent()) {
             return createArtistWithAlbumsDTO(artistRepository.findById(artistId).get());
-        }else {
+        } else {
             throw new ItemNotFoundException(String.format("Artist with the id '%d' cannot be found", artistId));
         }
     }
