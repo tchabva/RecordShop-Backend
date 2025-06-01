@@ -35,6 +35,7 @@ public class ArtistServiceImpl implements ArtistService, DTOMapper {
         );
     }
 
+    // TODO CREATE JPA METHOD
     @Override
     public Artist getOrCreateAlbumArtist(String artistName) {
         List<Artist> artists = getAllArtists();
