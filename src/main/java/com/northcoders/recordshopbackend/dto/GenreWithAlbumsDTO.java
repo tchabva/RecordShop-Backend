@@ -12,5 +12,5 @@ import java.util.List;
 public class GenreWithAlbumsDTO {
     private Long id;
     private String genre;
-    private List<AlbumDTO> albumDTOS;
+    private List<AlbumDTO> albums;
 }
