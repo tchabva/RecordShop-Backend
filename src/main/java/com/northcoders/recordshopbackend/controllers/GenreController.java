@@ -19,7 +19,7 @@ public class GenreController {
 
     @GetMapping()
     public ResponseEntity<List<GenreDTO>> getAllGenres(){
-        return new ResponseEntity<>(genreService.getAllGenres(), HttpStatus.OK);
+        return new ResponseEntity<>(genreService.getAllGenresDTO(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{genreId}")

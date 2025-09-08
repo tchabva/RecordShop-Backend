@@ -8,17 +8,31 @@ import com.northcoders.recordshopbackend.repository.GenreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
-public class GenreServiceImpl implements GenreService, DTOMapper{
+public class GenreServiceImpl implements GenreService, DTOMapper {
 
     @Autowired
     private GenreRepository genreRepository;
 
     @Override
-    public List<GenreDTO> getAllGenres() {
-        return genreRepository.findAll().stream().map(this::createGenreDTO).toList();
+    public List<Genre> getAllGenres() {
+        List<Genre> genres = new ArrayList<>(genreRepository.findAll());
+        return genres.stream()
+                .sorted(Comparator.comparing(Genre::getGenre))
+                .toList();
+    }
+
+    @Override
+    public List<GenreDTO> getAllGenresDTO() {
+        List<Genre> genres = getAllGenres();
+        return genres.stream()
+                .filter(genre -> !genre.getGenre().isEmpty())
+                .map(this::createGenreDTO)
+                .toList();
     }
 
     @Override
@@ -33,8 +47,8 @@ public class GenreServiceImpl implements GenreService, DTOMapper{
     @Override
     public Genre getOrCreateGenre(String genre) {
         List<Genre> genres = genreRepository.findAll();
-        for(Genre g : genres){
-            if(g.getGenre().equalsIgnoreCase(genre)){
+        for (Genre g : genres) {
+            if (g.getGenre().equalsIgnoreCase(genre)) {
                 return g;
             }
         }
@@ -43,18 +57,18 @@ public class GenreServiceImpl implements GenreService, DTOMapper{
 
     @Override
     public GenreWithAlbumsDTO getGenreByIdWithAlbums(Long genreId) {
-        if(genreRepository.findById(genreId).isPresent()){
+        if (genreRepository.findById(genreId).isPresent()) {
             return createGenreWithDTO(genreRepository.findById(genreId).get());
-        }else {
+        } else {
             throw new ItemNotFoundException(String.format("Genre with the id '%d' cannot be found", genreId));
         }
     }
 
     @Override
     public GenreWithAlbumsDTO getGenreByNameWithAlbums(String genre) {
-        if(genreRepository.findByGenre(genre).isPresent()){
+        if (genreRepository.findByGenre(genre).isPresent()) {
             return createGenreWithDTO(genreRepository.findByGenre(genre).get());
-        }else {
+        } else {
             throw new ItemNotFoundException(String.format("No Genre '%s' cannot be found", genre));
         }
     }
