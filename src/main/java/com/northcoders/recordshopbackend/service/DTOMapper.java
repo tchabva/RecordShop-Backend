@@ -11,7 +11,7 @@ import java.util.List;
 
 // DTOMapper Interface
 public interface DTOMapper {
-     default AlbumDTO createAlbumDTO(@NotNull Album album) {
+    default AlbumDTO createAlbumDTO(@NotNull Album album) {
         return AlbumDTO.builder()
                 .id(album.getId())
                 .title(album.getTitle())
@@ -52,14 +52,14 @@ public interface DTOMapper {
                 .build();
     }
 
-    default GenreDTO createGenreDTO(Genre genre){
-         return GenreDTO.builder()
-                 .id(genre.getId())
-                 .genre(genre.getGenre())
-                 .build();
+    default GenreDTO createGenreDTO(Genre genre) {
+        return GenreDTO.builder()
+                .id(genre.getId())
+                .genre(genre.getGenre())
+                .build();
     }
 
-    default GenreWithAlbumsDTO createGenreWithDTO(Genre genre){
+    default GenreWithAlbumsDTO createGenreWithDTO(Genre genre) {
         return GenreWithAlbumsDTO.builder()
                 .id(genre.getId())
                 .genre(genre.getGenre())
