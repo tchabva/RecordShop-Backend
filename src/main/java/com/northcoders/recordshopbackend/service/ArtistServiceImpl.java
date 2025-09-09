@@ -44,8 +44,9 @@ public class ArtistServiceImpl implements ArtistService, DTOMapper {
 
     @Override
     public ArtistWithAlbumsDTO getArtistByNameWithAlbums(String artistName) {
-        if (artistRepository.findByArtistName(artistName).isPresent()) {
-            return createArtistWithAlbumsDTO(artistRepository.findByArtistName(artistName).get());
+        Optional<Artist> optionalArtist = artistRepository.findByArtistName(artistName);
+        if (optionalArtist.isPresent()) {
+            return createArtistWithAlbumsDTO(optionalArtist.get());
         } else {
             throw new ItemNotFoundException(String.format("Artist with the name '%s' cannot be found", artistName));
         }
