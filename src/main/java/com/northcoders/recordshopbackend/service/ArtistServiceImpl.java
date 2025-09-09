@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ArtistServiceImpl implements ArtistService, DTOMapper {
@@ -35,22 +36,17 @@ public class ArtistServiceImpl implements ArtistService, DTOMapper {
         );
     }
 
-    // TODO CREATE JPA METHOD
     @Override
     public Artist getOrCreateAlbumArtist(String artistName) {
-        List<Artist> artists = getAllArtists();
-        for (Artist artist : artists) {
-            if (artist.getArtistName().equals(artistName)) {
-                return artist;
-            }
-        }
-        return addNewArtist(artistName);
+        Optional<Artist> artistOptional = artistRepository.findByArtistName(artistName);
+        return artistOptional.orElseGet(() -> addNewArtist(artistName));
     }
 
     @Override
     public ArtistWithAlbumsDTO getArtistByNameWithAlbums(String artistName) {
-        if (artistRepository.findByArtistName(artistName).isPresent()) {
-            return createArtistWithAlbumsDTO(artistRepository.findByArtistName(artistName).get());
+        Optional<Artist> optionalArtist = artistRepository.findByArtistName(artistName);
+        if (optionalArtist.isPresent()) {
+            return createArtistWithAlbumsDTO(optionalArtist.get());
         } else {
             throw new ItemNotFoundException(String.format("Artist with the name '%s' cannot be found", artistName));
         }

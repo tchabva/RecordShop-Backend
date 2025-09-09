@@ -6,11 +6,12 @@ import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.model.Genre;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 // DTOMapper Interface
 public interface DTOMapper {
-     default AlbumDTO createAlbumDTO(@NotNull Album album) {
+    default AlbumDTO createAlbumDTO(@NotNull Album album) {
         return AlbumDTO.builder()
                 .id(album.getId())
                 .title(album.getTitle())
@@ -36,7 +37,11 @@ public interface DTOMapper {
         return ArtistWithAlbumsDTO.builder()
                 .id(artist.getId())
                 .artistName(artist.getArtistName())
-                .albums(artist.getAlbums().stream().map(this::createAlbumDTO).toList())
+                .albums(
+                        artist.getAlbums().stream()
+                                .sorted(Comparator.comparing(Album::getTitle))
+                                .map(this::createAlbumDTO).toList()
+                )
                 .build();
     }
 
@@ -47,18 +52,22 @@ public interface DTOMapper {
                 .build();
     }
 
-    default GenreDTO createGenreDTO(Genre genre){
-         return GenreDTO.builder()
-                 .id(genre.getId())
-                 .genre(genre.getGenre())
-                 .build();
+    default GenreDTO createGenreDTO(Genre genre) {
+        return GenreDTO.builder()
+                .id(genre.getId())
+                .genre(genre.getGenre())
+                .build();
     }
 
-    default GenreWithAlbumsDTO createGenreWithDTO(Genre genre){
+    default GenreWithAlbumsDTO createGenreWithDTO(Genre genre) {
         return GenreWithAlbumsDTO.builder()
                 .id(genre.getId())
                 .genre(genre.getGenre())
-                .albums(genre.getAlbums().stream().map(this::createAlbumDTO).toList())
+                .albums(
+                        genre.getAlbums().stream()
+                                .sorted(Comparator.comparing(Album::getTitle))
+                                .map(this::createAlbumDTO).toList()
+                )
                 .build();
     }
 }
