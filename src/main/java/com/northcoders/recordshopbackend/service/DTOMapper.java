@@ -63,7 +63,11 @@ public interface DTOMapper {
         return GenreWithAlbumsDTO.builder()
                 .id(genre.getId())
                 .genre(genre.getGenre())
-                .albums(genre.getAlbums().stream().map(this::createAlbumDTO).toList())
+                .albums(
+                        genre.getAlbums().stream()
+                                .sorted(Comparator.comparing(Album::getTitle))
+                                .map(this::createAlbumDTO).toList()
+                )
                 .build();
     }
 }
