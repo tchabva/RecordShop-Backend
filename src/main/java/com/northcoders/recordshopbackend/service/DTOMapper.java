@@ -6,6 +6,7 @@ import com.northcoders.recordshopbackend.model.Artist;
 import com.northcoders.recordshopbackend.model.Genre;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Comparator;
 import java.util.List;
 
 // DTOMapper Interface
@@ -36,7 +37,11 @@ public interface DTOMapper {
         return ArtistWithAlbumsDTO.builder()
                 .id(artist.getId())
                 .artistName(artist.getArtistName())
-                .albums(artist.getAlbums().stream().map(this::createAlbumDTO).toList())
+                .albums(
+                        artist.getAlbums().stream()
+                                .sorted(Comparator.comparing(Album::getTitle))
+                                .map(this::createAlbumDTO).toList()
+                )
                 .build();
     }
 
